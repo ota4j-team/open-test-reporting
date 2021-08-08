@@ -20,7 +20,8 @@ repositories {
 
 dependencies {
     implementation("info.picocli:picocli:4.6.1")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.2")
+    testImplementation("com.tngtech.archunit:archunit-junit5:0.20.1")
 }
 
 tasks {
