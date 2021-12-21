@@ -11,7 +11,7 @@ dependencies {
     implementation(projects.events)
     implementation(libs.picocli)
     implementation(libs.slf4j.api)
-    runtimeOnly(libs.slf4j.simple)
+    runtimeOnly(libs.log4j.slf4j.impl)
 }
 
 tasks {
