@@ -18,9 +18,4 @@ tasks {
     compileJava {
         options.release.set(11)
     }
-    jar {
-        manifest {
-            attributes("Automatic-Module-Name" to "org.opentest4j.reporting.cli")
-        }
-    }
 }
