@@ -9,6 +9,7 @@ application {
 
 dependencies {
     implementation(projects.events)
+    implementation(projects.tooling)
     implementation(libs.picocli)
     implementation(libs.slf4j.api)
     runtimeOnly(libs.log4j.slf4j.impl)
