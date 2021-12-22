@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
+    api(projects.schema)
     testImplementation(libs.archunit)
 }
 
