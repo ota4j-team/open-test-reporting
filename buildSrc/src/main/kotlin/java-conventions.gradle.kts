@@ -32,6 +32,12 @@ tasks {
             attributes("Automatic-Module-Name" to "org.opentest4j.reporting.${project.name}")
         }
     }
+    tasks.withType<Jar>().configureEach {
+        from(rootDir) {
+            include("LICENSE.md")
+            into("META-INF")
+        }
+    }
     test {
         useJUnitPlatform()
     }
