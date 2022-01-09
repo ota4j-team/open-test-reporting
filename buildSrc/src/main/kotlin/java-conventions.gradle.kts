@@ -1,9 +1,23 @@
 plugins {
     `java-library`
+    id("com.diffplug.spotless")
 }
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+}
+
+spotless {
+    val spotlessDir = rootProject.file("gradle/spotless")
+    val licenseHeaderFile = File(spotlessDir, "apache-license-2.0.java")
+    val javaFormatterConfigFile = File(spotlessDir, "eclipse-formatter-settings.xml")
+
+    java {
+        licenseHeaderFile(licenseHeaderFile, "(package|import|open|module) ")
+        eclipse().configFile(javaFormatterConfigFile)
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
 }
 
 tasks {

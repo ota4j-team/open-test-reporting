@@ -13,18 +13,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.opentest4j.reporting.events.api;
-
-import java.util.function.Consumer;
-
-public interface Appendable<T extends Element<T>> {
-
-	default <C extends ChildElement<T, ? super C>> Appendable<T> append(Factory<C> creator) {
-		return append(creator, __ -> {
-		});
-	}
-
-	<C extends ChildElement<T, ? super C>> Appendable<T> append(Factory<C> creator, Consumer<? super C> configurer);
-
-}
