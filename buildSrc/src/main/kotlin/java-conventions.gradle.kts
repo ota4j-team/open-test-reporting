@@ -1,10 +1,17 @@
 plugins {
     `java-library`
     id("com.diffplug.spotless")
+    id("publishing-conventions")
+}
+
+base {
+    archivesName.set("open-test-reporting-${project.name}")
 }
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    withSourcesJar()
+    withJavadocJar()
 }
 
 spotless {
@@ -40,5 +47,14 @@ tasks {
     }
     test {
         useJUnitPlatform()
+    }
+}
+
+configure<PublishingExtension> {
+    publications {
+        named<MavenPublication>("maven") {
+            from(components["java"])
+            artifactId = base.archivesName.get()
+        }
     }
 }
