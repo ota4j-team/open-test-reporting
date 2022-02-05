@@ -4,6 +4,7 @@ plugins {
 }
 
 application {
+    applicationName = "open-test-reporting"
     mainClass.set("org.opentest4j.reporting.cli.ReportingCli")
 }
 
