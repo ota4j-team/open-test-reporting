@@ -73,7 +73,23 @@ The following example shows the result of a test run with a single top-level "co
 
 [source,xml]
 ----
-include::schema/src/docs/asciidoc/includes/events.xml[]
+<?xml version="1.0" ?>
+<e:events
+        xmlns="https://schemas.opentest4j.org/reporting/core/0.1.0"
+        xmlns:e="https://schemas.opentest4j.org/reporting/events/0.1.0">
+    <infrastructure> <!--1-->
+        <hostName>wonderland</hostName>
+        <userName>alice</userName>
+    </infrastructure>
+    <e:started id="1" name="container" time="2022-02-05T16:30:39.129888Z"/> <!--2-->
+    <e:started id="2" name="test" parentId="1" time="2022-02-05T16:30:39.137022Z"/> <!--3-->
+    <e:finished id="2" time="2022-02-05T16:30:39.143013Z"> <!--4-->
+        <result status="SUCCESSFUL"/>
+    </e:finished>
+    <e:finished id="1" time="2022-02-05T16:30:39.143292Z"> <!--5-->
+        <result status="SUCCESSFUL"/>
+    </e:finished>
+</e:events>
 ----
 <1> attributes of the infrastructure the tests were run on
 <2> start event of "container" with timestamp
@@ -93,7 +109,20 @@ The following example shows the result of converting the above event-based repor
 
 [source,xml]
 ----
-include::schema/src/docs/asciidoc/includes/hierarchy.xml[]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<h:execution xmlns:h="https://schemas.opentest4j.org/reporting/hierarchy/0.1.0"
+             xmlns="https://schemas.opentest4j.org/reporting/core/0.1.0">
+    <infrastructure> <!--1-->
+        <hostName>wonderland</hostName>
+        <userName>alice</userName>
+    </infrastructure>
+    <h:root duration="PT0.013404S" name="container" start="2022-02-05T16:30:39.129888Z"> <!--2-->
+        <result status="SUCCESSFUL"/>
+        <h:child duration="PT0.005991S" name="test" start="2022-02-05T16:30:39.137022Z"> <!--3-->
+            <result status="SUCCESSFUL"/>
+        </h:child>
+    </h:root>
+</h:execution>
 ----
 <1> attributes of the infrastructure the tests were run on (same as in the event-based format)
 <2> root node of "container" with timestamp, duration, and result status
@@ -127,7 +156,40 @@ Testing frameworks that run on the JVM can use the API provided by the _events_ 
 
 [source,java]
 ----
-include::events/src/test/java/DocumentWriterSample.java[]
+import org.opentest4j.reporting.events.api.DocumentWriter;
+import org.opentest4j.reporting.events.api.NamespaceRegistry;
+import org.opentest4j.reporting.events.core.CoreFactory;
+import org.opentest4j.reporting.events.root.Events;
+import org.opentest4j.reporting.schema.Namespace;
+
+import java.nio.file.Paths;
+import java.time.Instant;
+
+import static org.opentest4j.reporting.events.core.CoreFactory.*;
+import static org.opentest4j.reporting.events.core.Result.Status.SUCCESSFUL;
+import static org.opentest4j.reporting.events.root.RootFactory.finished;
+import static org.opentest4j.reporting.events.root.RootFactory.started;
+
+public class DocumentWriterSample {
+
+    public static void main(String[] args) throws Exception {
+
+        NamespaceRegistry namespaceRegistry = NamespaceRegistry.builder(Namespace.REPORTING_CORE) // <1>
+                .add("e", Namespace.REPORTING_EVENTS) //
+                .add("java", Namespace.REPORTING_JAVA) //
+                .build();
+
+        try (DocumentWriter<Events> writer = Events.createDocumentWriter(namespaceRegistry, Paths.get("events.xml"))) {
+            writer.append(infrastructure(), infrastructure -> infrastructure // <2>
+                    .append(userName("alice")) //
+                    .append(hostName("wonderland")));
+            writer.append(started("1", Instant.now(), "container")); // <3>
+            writer.append(started("2", Instant.now(), "test"), started -> started.withParentId("1")); // <4>
+            writer.append(finished("2", Instant.now()), finished -> finished.append(CoreFactory.result(SUCCESSFUL))); // <5>
+            writer.append(finished("1", Instant.now()), finished -> finished.append(CoreFactory.result(SUCCESSFUL))); // <6>
+        }
+    }
+}
 ----
 <1> create a registry of all namespaces used in the document along with their prefixes
 <2> report infrastructure attributes
