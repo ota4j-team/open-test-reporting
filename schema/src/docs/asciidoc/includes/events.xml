@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<e:events
+        xmlns="https://schemas.opentest4j.org/reporting/core/0.1.0"
+        xmlns:e="https://schemas.opentest4j.org/reporting/events/0.1.0">
+    <infrastructure> <!--1-->
+        <hostName>wonderland</hostName>
+        <userName>alice</userName>
+    </infrastructure>
+    <e:started id="1" name="container" time="2022-02-05T16:30:39.129888Z"/> <!--2-->
+    <e:started id="2" name="test" parentId="1" time="2022-02-05T16:30:39.137022Z"/> <!--3-->
+    <e:finished id="2" time="2022-02-05T16:30:39.143013Z"> <!--4-->
+        <result status="SUCCESSFUL"/>
+    </e:finished>
+    <e:finished id="1" time="2022-02-05T16:30:39.143292Z"> <!--5-->
+        <result status="SUCCESSFUL"/>
+    </e:finished>
+</e:events>

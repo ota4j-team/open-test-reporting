@@ -1,0 +1,149 @@
+= Open Test Reporting
+
+New test reporting formats that are agnostic of testing framework and programming language.
+
+== Introduction
+
+This repository contains the definition of and tooling for two new XML-based test reporting formats that are agnostic of any testing framework and programming language yet concrete enough to be consumable by a wide range of downstream tools such as IDEs, build tools, and report generators.
+
+The first format is _event-based_ and besides writing it to a file also suitable for streaming over a local socket or network connection.
+Instead of having to collect all data for a test only to write it to the report after it finished, testing frameworks can emit events as they occur, for example when a test is started or finished.
+
+The second format is meant to be closer to existing _hierarchical_ representations of test results that users are familiar with.
+For example, when executing tests in IDEs, one is usually presented with a tree of tests and their results.
+This same structure can be found in files that use this format.
+Thus, instead of requiring humans or processing tools to piece together all relevant events for a test from the event-based format, this hierarchical format collects all relevant information in a single place for each test.
+Besides being human-readable, this format is easier to transform into a HTML report by a downstream reporting tool or CI server.
+
+The two formats are designed to complement each other such that the event-based format can be mechanically converted into the hierarchical one.
+This repository contains a reference implementation of such a converter as an executable and library.
+This way, testing frameworks can focus on writing the event-based format, build tools may use the converter to write the hierarchical format, and reporting tools can consume whichever format they prefer.
+
+== Prior art
+
+In the Java ecosystem, Ant originally defined an XML-based reporting format for tests.
+Other build tools like Maven and Gradle have adopted the format and, in the case of Maven Surefire, later made changes to add additional data.
+Many build servers know how to parse the XML-based format and even non-Java tools sometimes support it.
+However, it’s based on the concept of test classes and methods so using it for frameworks and tools where those terms are not present is awkward at best.
+Moreover, it does not support nested structures beyond a simple parent-child relationship.
+Finally, it is not extensible, i.e. no additional attributes can be added without risking to break existing tools.
+
+For those reasons, many testing frameworks such as TestNG and Spock have defined their own reporting formats.
+This gave them the flexibility they needed but the number of tools that could parse, display or transform their format was very limited.
+
+To overcome the limitations described above, this document defines a new format for test reporting.
+Its goal is to be platform-agnostic so as many testing frameworks as possible can benefit from it.
+Moreover, it is designed to be extensible so new data can be added as needed, without breaking consumers.
+However, all well-known attributes are properly defined so it’s consumable by downstream reporting tools.
+
+== Design goals
+
+human-readable::
+The new format needs to be readable for human-readable so it can be inspected without requiring another tool.
+A format that represents the test tree via nesting is easier to understand than a flat list of events that reference their parent via IDs.
+
+streamable::
+Writing files in the format during test execution should not require keeping state about currently running tests etc. in memory.
+Instead, the new format should allow to write events to a file as they occur.
+
+machine-readable::
+At the same time, the format must be machine-readable so it can be easily parsed and transformed on a variety of platforms.
+
+schema-aware::
+Implementors and tools should be able to validate a given document against a well-known schema.
+
+extensible::
+Adding additional, language- or framework-specific attributes to nodes must be possible without breaking backwards compatibility.
+
+=== XML vs. JSON
+
+JSON is less verbose than XML but the latter provides more expressive ways to define schemas.
+Moreover, XML has typed extensions built-in via the use of multiple schemas.
+Thus, the new formats use XML with accompanying XML schemas.
+
+== Format specification
+
+Both formats share a set of core elements that is defined in link:schema/src/main/resources/org/opentest4j/reporting/schema/core.xsd[core.xsd].
+
+=== Event-based format
+
+The event-based format is defined in link:schema/src/main/resources/org/opentest4j/reporting/schema/events.xsd[events.xsd].
+
+The following example shows the result of a test run with a single top-level "container" and a "test" child.
+
+[source,xml]
+----
+include::schema/src/docs/asciidoc/includes/events.xml[]
+----
+<1> attributes of the infrastructure the tests were run on
+<2> start event of "container" with timestamp
+<3> start event of "test" with timestamp and reference to its parent "container"
+<4> finished event of "test" with timestamp and result status
+<5> finished event of "container" with timestamp and result status
+
+This file contains 4 events: 2 started and 2 finished ones.
+The test framework reporting these events was able to write them as they occurred.
+In particular, it did not have to wait for all children of "container" to be finished.
+
+=== Hierarchical format
+
+The event-based format is defined in link:schema/src/main/resources/org/opentest4j/reporting/schema/hierarchy.xsd[hierarchy.xsd].
+
+The following example shows the result of converting the above event-based report into the hierarchical format.
+
+[source,xml]
+----
+include::schema/src/docs/asciidoc/includes/hierarchy.xml[]
+----
+<1> attributes of the infrastructure the tests were run on (same as in the event-based format)
+<2> root node of "container" with timestamp, duration, and result status
+<3> child node of "test" with timestamp, duration, and result status
+
+=== Java extensions
+
+All schema definitions mentioned so far are language-agnostic.
+In order to report Java-specific attributes, e.g. the class or method name of a test, an extension schema is defined in link:schema/src/main/resources/org/opentest4j/reporting/schema/java.xsd[java.xsd].
+
+NOTE: Test frameworks are encouraged to define their own similar framework-specific extensions if they want to report additional information that is not suitable to be added to the core namespace.
+
+== Reference implementation
+
+While the reporting formats are language-agnostic, the reference implementation is written in Java due to being the language its authors are most familiar with.
+
+This repository contains the following subprojects:
+
+schema::
+    XML schema definitions of both formats
+events::
+    Java API for writing the event-based format without having to deal with Java's XML APIs
+cli::
+    Command-line interface for validating both fomats and converting from the event-based to the hierarchical format
+tooling::
+    Java API for validating both formats and converting from the event-based to the hierarchical format (suitable for inclusion in build tools and reporting tools)
+
+=== API for writing event-based format
+
+Testing frameworks that run on the JVM can use the API provided by the _events_ subprojects as follows.
+
+[source,java]
+----
+include::events/src/test/java/DocumentWriterSample.java[]
+----
+<1> create a registry of all namespaces used in the document along with their prefixes
+<2> report infrastructure attributes
+<3> start event of "container" with timestamp
+<4> start event of "test" with timestamp and reference to its parent "container"
+<5> finished event of "test" with timestamp and result status
+<6> finished event of "container" with timestamp and result status
+
+=== CLI tool for validation and format conversion
+
+The CLI tool provided by the _cli_ subprojects provides subcommands for validating both formats and converting from the event-based to the hierarchical format.
+
+[source,console]
+----
+$ ./open-test-reporting convert events.xml
+ℹ️ Converted events.xml to hierarchy.xml
+----
+
+NOTE: Please refer to the CLI tool's `--help` option for more information.
