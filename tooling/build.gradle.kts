@@ -16,12 +16,3 @@ tasks {
         options.release.set(11)
     }
 }
-
-tasks {
-    javadoc {
-        (options as StandardJavadocDocletOptions).apply {
-            addBooleanOption("Werror", true)
-            addBooleanOption("Xdoclint:all", true)
-        }
-    }
-}

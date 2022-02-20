@@ -39,6 +39,12 @@ tasks {
             attributes("Automatic-Module-Name" to "org.opentest4j.reporting.${project.name}")
         }
     }
+    javadoc {
+        (options as StandardJavadocDocletOptions).apply {
+            addBooleanOption("Werror", true)
+            addBooleanOption("Xdoclint:all", true)
+        }
+    }
     tasks.withType<Jar>().configureEach {
         from(rootDir) {
             include("LICENSE.md")
