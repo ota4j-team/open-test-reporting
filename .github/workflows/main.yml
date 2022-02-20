@@ -64,6 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.repository == 'ota4j-team/open-test-reporting' && github.ref == 'refs/heads/main'
     permissions:
+      contents: write
       pages: write
     steps:
       - name: Check out repository
