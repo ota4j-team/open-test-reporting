@@ -7,6 +7,7 @@ dependencyResolutionManagement {
 }
 
 include("cli")
+include("documentation")
 include("events")
 include("schema")
 include("tooling")
