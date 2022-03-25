@@ -2,6 +2,22 @@ import org.gradle.api.publish.maven.MavenPublication
 
 plugins {
     `maven-publish`
+    signing
+}
+
+val isSnapshot = project.version.toString().contains("SNAPSHOT")
+val isContinuousIntegrationEnvironment = System.getenv("CI")?.toBoolean() ?: false
+
+signing {
+    useGpgCmd()
+    sign(publishing.publications)
+    isRequired = !(isSnapshot || isContinuousIntegrationEnvironment)
+}
+
+tasks.withType<Sign>().configureEach {
+    onlyIf {
+        !isSnapshot // Gradle Module Metadata currently does not support signing snapshots
+    }
 }
 
 publishing {
