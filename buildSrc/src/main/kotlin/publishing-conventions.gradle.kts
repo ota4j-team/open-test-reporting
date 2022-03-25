@@ -8,6 +8,8 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             pom {
+                name.set(provider { artifactId })
+                description.set(provider { "Module \"${project.name}\" of open-test-reporting" })
                 url.set("https://github.com/ota4j-team/open-test-reporting")
                 scm {
                     connection.set("scm:git:git://github.com/ota4j-team/open-test-reporting.git")
