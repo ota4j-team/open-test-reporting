@@ -21,3 +21,8 @@ runs:
           -Porg.gradle.java.installations.auto-download=false
           javaToolchains
           ${{ inputs.arguments }}
+    - uses: actions/upload-artifact@v3
+      if: ${{ always() }}
+      with:
+        name: Open Test Reports (${{ github.job }})
+        path: '**/build/test-results/*/junit-platform-events-*.xml'
