@@ -39,8 +39,8 @@ public class DocumentWriterSample {
 
 		try (DocumentWriter<Events> writer = Events.createDocumentWriter(namespaceRegistry, Paths.get("events.xml"))) {
 			writer.append(infrastructure(), infrastructure -> infrastructure // <2>
-					.append(userName("alice")) //
-					.append(hostName("wonderland")));
+					.append(hostName("wonderland")) //
+					.append(userName("alice")));
 			writer.append(started("1", Instant.now(), "container")); // <3>
 			writer.append(started("2", Instant.now(), "test"), started -> started.withParentId("1")); // <4>
 			writer.append(finished("2", Instant.now()), finished -> finished.append(CoreFactory.result(SUCCESSFUL))); // <5>
