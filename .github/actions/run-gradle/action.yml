@@ -25,4 +25,6 @@ runs:
       if: ${{ always() }}
       with:
         name: Open Test Reports (${{ github.job }})
-        path: '**/build/test-results/*/junit-platform-events-*.xml'
+        path: |
+          **/build/test-results/*/junit-platform-events-*.xml
+          **/build/test-results/*/hierarchy.xml
