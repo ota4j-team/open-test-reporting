@@ -6,10 +6,10 @@ New test reporting formats that are agnostic of testing framework and programmin
 
 This repository contains the definition of and tooling for two new XML-based test reporting formats that are agnostic of any testing framework and programming language yet concrete enough to be consumable by a wide range of downstream tools such as IDEs, build tools, and report generators.
 
-The link:schema/src/main/resources/org/opentest4j/reporting/schema/events.xsd[first format] is _event-based_ which is not only suitable for writing events to a file but also for streaming events over a local socket or network connection.
+The link:#event-based-format[first format] is _event-based_ which is not only suitable for writing events to a file but also for streaming events over a local socket or network connection.
 Instead of having to collect all data for a test only to write it to the report after the test has completed, testing frameworks can emit events as they occur, for example when a test is started or finished.
 
-The link:schema/src/main/resources/org/opentest4j/reporting/schema/hierarchy.xsd[second format] is meant to be closer to existing _hierarchical_ representations of test results that users are familiar with.
+The link:#hierarchical-format[second format] is meant to be closer to existing _hierarchical_ representations of test results that users are familiar with.
 For example, when executing tests in IDEs, one is usually presented with a tree of tests and their results.
 This same structure can be found in files that use this format.
 Thus, instead of requiring humans or processing tools to piece together all relevant events for a test from the event-based format, this hierarchical format collects all relevant information in a single place for each test.
