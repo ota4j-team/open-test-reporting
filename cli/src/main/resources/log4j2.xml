@@ -2,7 +2,7 @@
 <Configuration strict="true" xmlns="http://logging.apache.org/log4j/2.0/config">
     <Appenders>
         <Appender type="Console" name="STDOUT">
-            <Layout type="PatternLayout" pattern="%level{WARN=⚠️, DEBUG=🪲, ERROR=❌, TRACE=🔎, INFO=ℹ️} %m%n"/>
+            <Layout type="PatternLayout" pattern="%level{WARN=⚠️, DEBUG=🪲, ERROR=❌, TRACE=🔎, INFO=ℹ️}  %m%n"/>
         </Appender>
     </Appenders>
     <Loggers>
