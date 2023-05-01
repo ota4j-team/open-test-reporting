@@ -12,5 +12,4 @@ include("events")
 include("schema")
 include("tooling")
 
-enableFeaturePreview("VERSION_CATALOGS")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
