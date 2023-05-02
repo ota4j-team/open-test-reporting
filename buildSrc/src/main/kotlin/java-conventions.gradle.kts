@@ -1,3 +1,7 @@
+import org.gradle.api.tasks.PathSensitivity.NONE
+import java.nio.file.Files
+import java.util.Collections.singletonList
+
 plugins {
     `java-library`
     id("com.diffplug.spotless")
@@ -51,8 +55,39 @@ tasks {
             into("META-INF")
         }
     }
+
+    val eventXmlFiles =
+        files(test.map { it.reports.junitXml.outputLocation.get().asFileTree.matching { include("junit-platform-events-*.xml") } })
+
+    val convertTestResultXmlToHierarchicalFormat by registering(JavaExec::class) {
+        dependsOn(test)
+        mainClass.set("org.opentest4j.reporting.cli.ReportingCli")
+        args("convert")
+        classpath(project(":cli").sourceSets["main"].runtimeClasspath)
+        inputs.files(eventXmlFiles).withPathSensitivity(NONE).skipWhenEmpty()
+        argumentProviders += CommandLineArgumentProvider {
+            listOf(eventXmlFiles.singleFile.absolutePath)
+        }
+    }
+
     test {
         useJUnitPlatform()
+
+        jvmArgumentProviders += CommandLineArgumentProvider {
+            listOf(
+                "-Djunit.platform.reporting.open.xml.enabled=true",
+                "-Djunit.platform.reporting.output.dir=${reports.junitXml.outputLocation.get().asFile.absolutePath}"
+            )
+        }
+
+        doFirst {
+            // Delete existing event-based report files
+            eventXmlFiles.files.forEach {
+                Files.delete(it.toPath())
+            }
+        }
+
+        finalizedBy(convertTestResultXmlToHierarchicalFormat)
     }
 }
 
