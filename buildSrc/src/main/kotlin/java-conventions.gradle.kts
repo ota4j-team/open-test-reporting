@@ -1,6 +1,5 @@
 import org.gradle.api.tasks.PathSensitivity.NONE
 import java.nio.file.Files
-import java.util.Collections.singletonList
 
 plugins {
     `java-library`
@@ -29,6 +28,16 @@ spotless {
         trimTrailingWhitespace()
         endWithNewline()
     }
+}
+
+val cli by configurations.creating {
+    isCanBeResolved = true
+    isCanBeConsumed = false
+    isVisible = false
+}
+
+dependencies {
+    cli(project(":cli"))
 }
 
 tasks {
@@ -63,7 +72,7 @@ tasks {
         dependsOn(test)
         mainClass.set("org.opentest4j.reporting.cli.ReportingCli")
         args("convert")
-        classpath(project(":cli").sourceSets["main"].runtimeClasspath)
+        classpath(cli)
         inputs.files(eventXmlFiles).withPathSensitivity(NONE).skipWhenEmpty()
         argumentProviders += CommandLineArgumentProvider {
             listOf(eventXmlFiles.singleFile.absolutePath)
