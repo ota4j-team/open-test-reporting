@@ -3,7 +3,7 @@ archunit = { module = "com.tngtech.archunit:archunit-junit5", version = "1.1.0" 
 assertj-core = { module = "org.assertj:assertj-core", version = "3.24.2" }
 jetbrains-annotations = { module = "org.jetbrains:annotations", version = "24.0.1" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version = "5.10.0" }
-junit-platform-reporting = { module = "org.junit.platform:junit-platform-reporting", version = "1.10.0" }
+junit-platform-reporting = { module = "org.junit.platform:junit-platform-reporting", version = "1.10.1" }
 log4j-slf4j-impl = { module = "org.apache.logging.log4j:log4j-slf4j-impl", version = "2.21.1" }
 picocli = { module = "info.picocli:picocli", version = "4.7.5" }
 slf4j-api = { module = "org.slf4j:slf4j-api", version = "2.0.9" }
