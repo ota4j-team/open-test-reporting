@@ -13,8 +13,9 @@ dependencies {
 
 tasks {
     compileKotlin {
-        kotlinOptions {
-            jvmTarget = "17"
-        }
+        kotlinOptions.jvmTarget = "17"
+    }
+    compileJava {
+        options.release.convention(17)
     }
 }
