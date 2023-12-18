@@ -15,4 +15,9 @@ tasks {
     compileJava {
         options.release.set(11)
     }
+    test {
+        javaLauncher = project.javaToolchains.launcherFor {
+            languageVersion = JavaLanguageVersion.of(22)
+        }
+    }
 }
