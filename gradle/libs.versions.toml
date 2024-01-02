@@ -4,7 +4,7 @@ assertj-core = { module = "org.assertj:assertj-core", version = "3.24.2" }
 jetbrains-annotations = { module = "org.jetbrains:annotations", version = "24.1.0" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version = "5.10.1" }
 junit-platform-reporting = { module = "org.junit.platform:junit-platform-reporting", version = "1.10.1" }
-log4j-slf4j-impl = { module = "org.apache.logging.log4j:log4j-slf4j-impl", version = "2.22.0" }
+log4j-slf4j-impl = { module = "org.apache.logging.log4j:log4j-slf4j-impl", version = "2.22.1" }
 picocli = { module = "info.picocli:picocli", version = "4.7.5" }
 slf4j-api = { module = "org.slf4j:slf4j-api", version = "2.0.10" }
 xmlunit-assertj = { module = "org.xmlunit:xmlunit-assertj3", version = "2.9.1" }
