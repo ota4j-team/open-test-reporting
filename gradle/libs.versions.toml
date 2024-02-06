@@ -1,6 +1,6 @@
 [libraries]
 archunit = { module = "com.tngtech.archunit:archunit-junit5", version = "1.2.1" }
-assertj-core = { module = "org.assertj:assertj-core", version = "3.25.2" }
+assertj-core = { module = "org.assertj:assertj-core", version = "3.25.3" }
 jetbrains-annotations = { module = "org.jetbrains:annotations", version = "24.1.0" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version = "5.10.1" }
 junit-platform-reporting = { module = "org.junit.platform:junit-platform-reporting", version = "1.10.2" }
