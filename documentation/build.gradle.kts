@@ -1,5 +1,5 @@
 plugins {
-    id("org.ajoberstar.git-publish") version "4.2.1"
+    id("org.ajoberstar.git-publish") version "4.2.2"
 }
 
 val schemas by configurations.creating {
