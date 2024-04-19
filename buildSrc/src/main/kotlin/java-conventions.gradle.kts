@@ -79,9 +79,11 @@ tasks {
         }
     }
 
-    test {
+    withType<Test>().configureEach {
         useJUnitPlatform()
+    }
 
+    test {
         jvmArgumentProviders += CommandLineArgumentProvider {
             listOf(
                 "-Djunit.platform.reporting.open.xml.enabled=true",
