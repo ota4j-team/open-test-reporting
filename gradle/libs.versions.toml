@@ -8,7 +8,7 @@ log4j-slf4j-impl = { module = "org.apache.logging.log4j:log4j-slf4j-impl", versi
 picocli = { module = "info.picocli:picocli", version = "4.7.6" }
 slf4j-api = { module = "org.slf4j:slf4j-api", version = "2.0.13" }
 xmlunit-assertj = { module = "org.xmlunit:xmlunit-assertj3", version = "2.10.0" }
-woodstox-core = { module = "com.fasterxml.woodstox:woodstox-core", version = "6.6.2" }
+woodstox-core = { module = "com.fasterxml.woodstox:woodstox-core", version = "7.0.0" }
 
 [bundles]
 junit = ["junit-jupiter", "junit-platform-reporting"]
