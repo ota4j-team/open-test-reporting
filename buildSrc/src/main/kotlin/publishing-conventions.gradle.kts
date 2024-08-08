@@ -22,7 +22,8 @@ tasks.withType<Sign>().configureEach {
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        register<MavenPublication>("maven")
+        withType<MavenPublication>().configureEach {
             pom {
                 name = provider { artifactId }
                 description = provider { "Module \"${project.name}\" of open-test-reporting" }
