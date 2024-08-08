@@ -8,7 +8,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.diffplug.spotless:spotless-plugin-gradle:6.25.0")
+    implementation(libs.plugins.spotless.markerCoordinates)
 }
 
 tasks {
@@ -19,3 +19,7 @@ tasks {
         options.release.convention(17)
     }
 }
+
+// see https://docs.gradle.org/current/userguide/plugins.html#sec:plugin_markers
+val Provider<PluginDependency>.markerCoordinates: Provider<String>
+    get() = map { "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version}" }

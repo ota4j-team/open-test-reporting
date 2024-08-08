@@ -24,11 +24,19 @@ spotless {
 
     java {
         licenseHeaderFile(licenseHeaderFile, "(package|import|open|module) ")
-        eclipse().configFile(javaFormatterConfigFile)
+        val fullVersion = requiredVersionFromLibs("eclipse")
+        val majorMinorVersion = "([0-9]+\\.[0-9]+).*".toRegex().matchEntire(fullVersion)!!.let { it.groups[1]!!.value }
+        eclipse(majorMinorVersion).configFile(javaFormatterConfigFile)
         trimTrailingWhitespace()
         endWithNewline()
     }
 }
+
+fun Project.requiredVersionFromLibs(name: String) =
+    libsVersionCatalog.findVersion(name).get().requiredVersion
+
+private val Project.libsVersionCatalog: VersionCatalog
+    get() = the<VersionCatalogsExtension>().named("libs")
 
 val cli by configurations.creating {
     isCanBeResolved = true
