@@ -8,7 +8,7 @@ plugins {
 }
 
 base {
-    archivesName.set("open-test-reporting-${project.name}")
+    archivesName = "open-test-reporting-${project.name}"
 }
 
 java {

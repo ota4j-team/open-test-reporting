@@ -5,7 +5,7 @@ plugins {
 
 application {
     applicationName = "open-test-reporting"
-    mainClass.set("org.opentest4j.reporting.cli.ReportingCli")
+    mainClass = "org.opentest4j.reporting.cli.ReportingCli"
 }
 
 dependencies {
@@ -18,6 +18,6 @@ dependencies {
 
 tasks {
     compileJava {
-        options.release.set(11)
+        options.release = 11
     }
 }
