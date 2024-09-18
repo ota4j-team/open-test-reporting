@@ -20,5 +20,5 @@ eclipse-platform = { module = "org.eclipse.platform:org.eclipse.platform", versi
 junit = ["junit-jupiter", "junit-platform-reporting"]
 
 [plugins]
-shadow = { id = "com.gradleup.shadow", version = "8.3.1" }
+shadow = { id = "com.gradleup.shadow", version = "8.3.2" }
 spotless = { id = "com.diffplug.spotless", version = "7.0.0.BETA2" }
