@@ -1,0 +1,1 @@
+globalThis.initialCount = 42;
