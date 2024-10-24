@@ -6,7 +6,7 @@ defineProps<{ roots: Array<TestNode> }>()
 
 <template>
   <ul v-if="roots.length" class="list-disc list-inside">
-    <li v-for="root in roots">
+    <li v-for="root in roots" class="pt-1">
       <TestNode :node="root"/>
     </li>
   </ul>
