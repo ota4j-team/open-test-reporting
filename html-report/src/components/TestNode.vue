@@ -10,7 +10,7 @@ function toggleChildren() {
 
 <template>
   <span @click="toggleChildren">{{ node.name }}</span>
-  <ul v-if="node.child && showChildren">
+  <ul v-if="node.child && showChildren" class="list-disc list-inside pl-4">
     <li v-for="c in node.child">
       <TestNode :node="c"/>
     </li>
