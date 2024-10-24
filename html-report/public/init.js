@@ -1,1 +1,1 @@
-globalThis.initialCount = 42;
+globalThis.data = { "testCount": 42 };
