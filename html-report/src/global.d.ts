@@ -1,5 +1,7 @@
 export declare global {
     declare module globalThis {
-        var initialCount: number;
+        var data: {
+            testCount: number
+        };
     }
 }

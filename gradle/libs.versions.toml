@@ -4,7 +4,9 @@ eclipse = "4.32.0"
 [libraries]
 archunit = { module = "com.tngtech.archunit:archunit-junit5", version = "1.3.0" }
 assertj-core = { module = "org.assertj:assertj-core", version = "3.26.3" }
+jackson-dataformat-xml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-xml", version = "2.18.0" }
 jetbrains-annotations = { module = "org.jetbrains:annotations", version = "26.0.1" }
+jsonSanitizer = { module = "com.mikesamuel:json-sanitizer", version = "1.2.2" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version = "5.11.3" }
 junit-platform-reporting = { module = "org.junit.platform:junit-platform-reporting", version = "1.11.3" }
 log4j-slf4j2-impl = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version = "2.24.1" }

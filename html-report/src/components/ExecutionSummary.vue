@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import ExecutionSummary from './components/ExecutionSummary.vue'
 
 defineProps<{ testCount: number }>()
 </script>
 
 <template>
-  <ExecutionSummary :testCount="testCount" />
+  <h1>{{ $t('executionSummary.testCount', { count: testCount }, testCount) }}.</h1>
 </template>
 
 <style scoped>
