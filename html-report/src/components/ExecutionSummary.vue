@@ -4,9 +4,9 @@ defineProps<{ testCount: number }>()
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold mb-4">
+  <span>
     {{ $t('executionSummary.testCount', { count: testCount }, testCount) }}.
-  </h1>
+  </span>
 </template>
 
 <style scoped>
