@@ -4,7 +4,10 @@ import { createI18n } from 'vue-i18n'
 import './style.css'
 import App from './App.vue'
 
-const rootProps = { testCount: globalThis.data.testCount };
+const rootProps = {
+    testCount: globalThis.data.testCount,
+    roots: [globalThis.data.root]
+};
 
 const app = createApp(App, rootProps);
 
