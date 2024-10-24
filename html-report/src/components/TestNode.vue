@@ -1,10 +1,16 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 defineProps<{ node: TestNode }>()
+const showChildren = ref(true)
+function toggleChildren() {
+  showChildren.value = !showChildren.value
+}
 </script>
 
 <template>
-  <span>{{ node.name }}</span>
-  <ul v-if="node.child">
+  <span @click="toggleChildren">{{ node.name }}</span>
+  <ul v-if="node.child && showChildren">
     <li v-for="c in node.child">
       <TestNode :node="c"/>
     </li>
