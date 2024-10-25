@@ -15,7 +15,7 @@ const selectedNode = ref(undefined as TestNode | undefined)
     </div>
     <div class="flex grow">
       <div class="bg-gray-50 w-1/4 min-w-80 p-4 overflow-y-auto text-sm">
-        <TestTree :roots="roots" v-model:selectedNode="selectedNode" class="-ml-6"/>
+        <TestTree :roots="roots" v-model:selectedNode="selectedNode" class="-ml-3"/>
       </div>
       <div class="grow overflow-scroll p-4">
         <NodeDetails :node="selectedNode" v-if="selectedNode"/>
