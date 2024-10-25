@@ -1,6 +1,9 @@
 export declare global {
     interface TestNode {
         name: string,
+        result: {
+            status: string
+        }
         child: Array<TestNode>,
     }
     declare module globalThis {

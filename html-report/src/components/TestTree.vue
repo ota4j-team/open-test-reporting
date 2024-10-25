@@ -12,6 +12,3 @@ defineProps<{ roots: Array<TestNode> }>()
     </li>
   </ul>
 </template>
-
-<style scoped>
-</style>
