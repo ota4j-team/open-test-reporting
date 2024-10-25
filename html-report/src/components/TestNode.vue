@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import {  ChevronDown, ChevronRight } from 'lucide-vue-next';
+import TestResultStatusIcon from './TestResultStatusIcon.vue';
 import TestTree from './TestTree.vue';
-import { Check, ChevronDown, ChevronRight } from 'lucide-vue-next';
 
 const selectedNode = defineModel('selectedNode')
 const props = defineProps<{ node: TestNode }>()
@@ -23,12 +24,9 @@ const isSelected = computed(() => selectedNode.value !== undefined && (selectedN
       <ChevronRight :size="16" v-else />
     </div>
     <div class="cursor-pointer rounded p-px px-1 inline-flex" :class="{ 'bg-gray-200 font-bold': isSelected }" @click="selectNodeAndShowChildren()">
-      <Check :size="16" :strokeWidth="3" class="self-center bg-green-600 rounded-full text-white border-2 border-green-700" />
+      <TestResultStatusIcon :status="node.result.status" />
       <span class="ml-1">{{ node.name }}</span>
     </div>
   </div>
   <TestTree :roots="node.child" v-model:selectedNode="selectedNode" v-if="node.child" :class="{ hidden: !showChildren }"/>
 </template>
-
-<style scoped>
-</style>
