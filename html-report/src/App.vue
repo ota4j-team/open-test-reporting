@@ -10,19 +10,15 @@ const selectedNode = ref(undefined as TestNode | undefined)
 
 <template>
   <main class="flex flex-col h-screen">
-    <div class="flex bg-green-600 h-10 p-2 border-b-4 border-green-700 text-white">
+    <div class="bg-green-600 h-10 p-2 border-b-4 border-green-700 text-white">
       <ExecutionSummary :testCount="testCount" />
     </div>
-    <div class="flex flex-1">
-      <div class="flex bg-gray-50 w-1/4 min-w-80 p-4 overflow-y-auto text-sm">
+    <div class="flex grow">
+      <div class="bg-gray-50 w-1/4 min-w-80 p-4 overflow-y-auto text-sm">
         <TestTree :roots="roots" v-model:selectedNode="selectedNode" class="-ml-6"/>
       </div>
-      <div class="flex flex-1 flex-col">
-        <div class="flex flex-1 overflow-y-auto p-4">
-          <div>
-            <NodeDetails :node="selectedNode" v-if="selectedNode"/>
-          </div>
-        </div>
+      <div class="grow overflow-scroll p-4">
+        <NodeDetails :node="selectedNode" v-if="selectedNode"/>
       </div>
     </div>
   </main>
