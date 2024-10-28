@@ -3,17 +3,19 @@ import ExecutionSummary from './components/ExecutionSummary.vue'
 import NodeDetails from './components/NodeDetails.vue';
 import TestTree from './components/TestTree.vue';
 import { ref } from 'vue';
+import TestNodeTree from './TestNodeTree';
 
-defineProps<{ testCount: number, roots: Array<TestNode> }>()
-const selectedNode = ref(undefined as TestNode | undefined)
+const props = defineProps<{ tree: TestNodeTree }>()
+console.log(props.tree);
+const selectedNode = ref()
 </script>
 
 <template>
   <main class="flex flex-col h-screen">
-    <ExecutionSummary :testCount="testCount" :status="'SUCCESSFUL'" />
+    <ExecutionSummary :testCount="tree.size()" :status="'SUCCESSFUL'" />
     <div class="flex grow">
       <div class="bg-gray-50 w-1/4 min-w-80 px-2 py-4 overflow-y-auto text-sm">
-        <TestTree :roots="roots" v-model:selectedNode="selectedNode" class="-ml-3"/>
+        <TestTree :tree="tree" :roots="tree.roots()" v-model:selectedNode="selectedNode" class="-ml-3"/>
       </div>
       <div class="grow overflow-scroll p-4">
         <NodeDetails :node="selectedNode" v-if="selectedNode"/>

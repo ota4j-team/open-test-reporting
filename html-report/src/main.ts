@@ -3,11 +3,17 @@ import { createI18n } from 'vue-i18n'
 
 import './style.css'
 import App from './App.vue'
+import TestNodeTree from './TestNodeTree'
 
 const rootProps = {
-    testCount: globalThis.data.testCount,
-    roots: [globalThis.data.root]
+    tree: new TestNodeTree(
+        globalThis.roots,
+        new Map(Object.entries(globalThis.children)),
+        globalThis.testNodes,
+    ),
 };
+
+console.log(rootProps);
 
 const app = createApp(App, rootProps);
 
