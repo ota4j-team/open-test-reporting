@@ -7,6 +7,7 @@ dependencies {
     implementation(projects.events)
     implementation(libs.jackson.dataformat.xml)
     implementation(libs.jsonSanitizer)
+    implementation(libs.joox)
     testImplementation(libs.assertj.core)
     testImplementation(libs.bundles.junit)
     testImplementation(libs.xmlunit.assertj)
