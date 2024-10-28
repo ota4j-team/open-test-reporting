@@ -1,15 +1,12 @@
 export declare global {
     interface TestNode {
+        id: string,
         name: string,
-        result: {
-            status: string
-        }
-        child: Array<TestNode>,
+        status: string,
     }
     declare module globalThis {
-        var data: {
-            testCount: number,
-            root: TestNode, // TODO Array<TestNode>
-        };
+        var roots: string[];
+        var children: { [id: string]: string[] };
+        var testNodes: TestNode[];
     }
 }
