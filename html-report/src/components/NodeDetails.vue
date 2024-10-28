@@ -12,5 +12,9 @@ const color = computed(() => props.node.status === 'SUCCESSFUL' ? 'green' : 'red
     <TestResultStatusIcon :status="node.status" class="text-white" />
     <span class="ml-1 tracking-wide text-xs text-white font-bold">{{ node.status }}</span>
   </div>
-  <pre class="text-xs rounded-lg shadow-inner p-4 h-1/2 max-h-96 border w-full overflow-scroll">{{ node }}</pre>
+  <div v-for="section in node.sections">
+    <h3 class="text-lg font-bold mt-2 mb-1">{{ section.title }}</h3>
+    <p v-if="section.type === 'empty'" class="text-sm text-gray-500">{{ section.content }}</p>
+    <pre v-else class="text-xs rounded-lg shadow-inner p-4 h-1/2 max-h-96 border w-full overflow-scroll">{{ section.content }}</pre>
+  </div>
 </template>
