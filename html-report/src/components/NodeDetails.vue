@@ -12,11 +12,11 @@ const color = computed(() => props.node.status === 'SUCCESSFUL' ? 'green' : 'red
   <h2 class="text-xl mb-4">{{ node.name }}</h2>
   <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 mr-2" :class="[`border-${color}-600`, `bg-${color}-500`]">
     <TestResultStatusIcon :status="node.status" class="text-white" />
-    <span class="ml-1 tracking-wide text-xs text-white font-bold">{{ node.status }}</span>
+    <span class="ml-1 tracking-wide text-sm text-white font-bold">{{ node.status }}</span>
   </div>
   <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 border-gray-400 bg-gray-300">
     <Timer :size="16" :strokeWidth="3" class="self-center" />
-    <span class="ml-1 tracking-wide text-xs font-bold">{{ node.duration }}</span>
+    <span class="ml-1 tracking-wide text-sm font-bold">{{ node.duration }}</span>
   </div>
   <div v-for="section in node.sections">
     <Section :section="section" />
