@@ -4,7 +4,7 @@ defineProps<{ block: Block, depth: number }>()
 </script>
 
 <template>
-  <p v-if="block.type === 'p'" class="text-sm">{{ block.content }}</p>
+  <p v-if="block.type === 'p'">{{ block.content }}</p>
   <table v-if="block.type === 'kvp'">
     <tbody>
       <tr v-for="(pair, index) in Object.entries(block.content)" :class="{'border-b': index < Object.entries(block.content).length - 1}">
