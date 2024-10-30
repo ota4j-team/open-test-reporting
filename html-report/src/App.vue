@@ -18,7 +18,7 @@ const selectedNode = ref()
         <TestTree :tree="tree" :roots="tree.roots()" v-model:selectedNode="selectedNode" class="-ml-3"/>
       </div>
       <div class="grow overflow-scroll p-4">
-        <NodeDetails :node="selectedNode" v-if="selectedNode"/>
+        <NodeDetails :tree="tree" :node="selectedNode" v-model:selectedNode="selectedNode" v-if="selectedNode"/>
       </div>
     </div>
   </main>
