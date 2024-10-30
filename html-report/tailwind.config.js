@@ -8,6 +8,10 @@ export default {
     extend: {},
   },
   plugins: [],
-  safelist: ['red', 'green'].flatMap(color => [`border-${color}-600`, `bg-${color}-500`]),
+  safelist: [
+    ...['red', 'green', 'yellow', 'gray']
+      .flatMap(color => [`border-${color}-600`, `bg-${color}-500`, `text-${color}-600`]),
+    'text-white',
+  ],
 }
 
