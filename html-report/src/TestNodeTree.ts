@@ -1,9 +1,16 @@
 export default class TestNodeTree {
 
-  private readonly rootIds: string[];
-  private readonly childrenIds: Map<string, string[]>;
-  private readonly parentIds: Map<string, string>;
-  private readonly testNodes: Map<string, TestNode>;
+  static STATUSES = [
+    'SKIPPED',
+    'ABORTED',
+    'SUCCESSFUL',
+    'FAILED',
+  ];
+
+  private readonly rootIds: string[]
+  private readonly childrenIds: Map<string, string[]>
+  private readonly parentIds: Map<string, string>
+  private readonly testNodes: Map<string, TestNode>
 
   constructor(
     rootIds: string[],
@@ -46,5 +53,22 @@ export default class TestNodeTree {
 
   isRoot(node: TestNode): boolean {
     return !this.parentIds.has(node.id)
+  }
+
+  overallStatus(): string {
+    var statuses = Array.from(this.testNodes.values())
+      .map(node => TestNodeTree.STATUSES.indexOf(node.status))
+      .sort()
+    return statuses.length > 0
+      ? TestNodeTree.STATUSES[statuses[statuses.length - 1]]
+      : TestNodeTree.STATUSES[0]
+  }
+
+  statusCount(): Map<string, number> {
+    const result = new Map<string, number>()
+    TestNodeTree.STATUSES.forEach(s => result.set(s, 0))
+    Array.from(this.testNodes.values())
+      .forEach(n => result.set(n.status, result.get(n.status)!! + 1))
+    return result
   }
 }

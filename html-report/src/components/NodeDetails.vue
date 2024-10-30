@@ -4,10 +4,11 @@ import Section from './Section.vue';
 import TestResultStatusIcon from './TestResultStatusIcon.vue';
 import { ChevronRight, Timer } from 'lucide-vue-next';
 import TestNodeTree from '../TestNodeTree';
+import testResultStatusColor from '../TestResultStatus';
 
 const selectedNode = defineModel('selectedNode')
 const props = defineProps<{ node: TestNode, tree: TestNodeTree }>()
-const color = computed(() => props.node.status === 'SUCCESSFUL' ? 'green' : 'red')
+const color = computed(() => testResultStatusColor(props.node.status))
 function selectNode(node: TestNode) {
   selectedNode.value = node
 }
@@ -16,16 +17,16 @@ function selectNode(node: TestNode) {
 <template>
   <div class="flex flex-col">
     <div class="bg-gray-50 p-4">
-      <ul class="text-sm pb-2" v-if="!tree.isRoot(node)">
+      <ul class="text-sm mb-3" v-if="!tree.isRoot(node)">
         <li v-for="parent in tree.parents(node)" class="inline-flex">
-          <span @click="selectNode(parent)" class="underline decoration-gray-300 hover:decoration-gray-400 decoration-2 cursor-pointer">{{ parent.name }}</span>
+          <span @click="selectNode(parent)" class="underline underline-offset-4 decoration-gray-300 hover:decoration-gray-400 decoration-2 cursor-pointer">{{ parent.name }}</span>
           <ChevronRight :size="16" class="inline self-center mx-1 text-gray-600" />
         </li>
       </ul>
       <h2 class="text-xl font-bold mb-3">{{ node.name }}</h2>
       <div>
         <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 mr-2" :class="[`border-${color}-600`, `bg-${color}-500`]">
-          <TestResultStatusIcon :status="node.status" class="text-white" />
+          <TestResultStatusIcon :status="node.status" :color="'white'" />
           <span class="ml-1 tracking-wide text-sm text-white font-bold">{{ node.status }}</span>
         </div>
         <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 border-gray-400 bg-gray-300">

@@ -13,15 +13,16 @@ const rootProps = {
     ),
 };
 
-console.log(rootProps);
-
 const app = createApp(App, rootProps);
 
 const i18n = createI18n({
     messages: {
         en: {
             executionSummary: {
-                testCount: 'There are no tests | There is 1 test | There are {count} tests'
+                testCount: 'No tests | 1 test/container | {count} tests/containers',
+                failed: '1 failed | {count} failed',
+                aborted: '1 aborted | {count} aborted',
+                skipped: '1 skipped | {count} skipped',
             }
         }
     }

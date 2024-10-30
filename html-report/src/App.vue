@@ -12,7 +12,7 @@ const selectedNode = ref()
 
 <template>
   <main class="flex flex-col h-screen">
-    <ExecutionSummary :testCount="tree.size()" :status="'SUCCESSFUL'" />
+    <ExecutionSummary :tree="tree" />
     <div class="flex grow">
       <div class="bg-gray-100 w-1/4 min-w-80 px-2 py-4 overflow-y-auto text-sm">
         <TestTree :tree="tree" :roots="tree.roots()" v-model:selectedNode="selectedNode" class="-ml-3"/>
