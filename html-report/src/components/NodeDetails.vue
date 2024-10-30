@@ -14,22 +14,30 @@ function selectNode(node: TestNode) {
 </script>
 
 <template>
-  <ul class="text-sm mb-2">
-    <li v-for="parent in tree.parents(node)" class="inline-flex">
-      <span @click="selectNode(parent)" class="underline decoration-gray-300 decoration-2 cursor-pointer">{{ parent.name }}</span>
-      <ChevronRight :size="16" class="inline self-center mx-1 text-gray-600" />
-    </li>
-  </ul>
-  <h2 class="text-xl mb-4 font-bold">{{ node.name }}</h2>
-  <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 mr-2" :class="[`border-${color}-600`, `bg-${color}-500`]">
-    <TestResultStatusIcon :status="node.status" class="text-white" />
-    <span class="ml-1 tracking-wide text-sm text-white font-bold">{{ node.status }}</span>
-  </div>
-  <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 border-gray-400 bg-gray-300">
-    <Timer :size="16" :strokeWidth="3" class="self-center" />
-    <span class="ml-1 tracking-wide text-sm font-bold">{{ node.duration }}</span>
-  </div>
-  <div v-for="section in node.sections">
-    <Section :section="section" />
+  <div class="flex flex-col">
+    <div class="bg-gray-50 p-4">
+      <ul class="text-sm pb-2" v-if="!tree.isRoot(node)">
+        <li v-for="parent in tree.parents(node)" class="inline-flex">
+          <span @click="selectNode(parent)" class="underline decoration-gray-300 hover:decoration-gray-400 decoration-2 cursor-pointer">{{ parent.name }}</span>
+          <ChevronRight :size="16" class="inline self-center mx-1 text-gray-600" />
+        </li>
+      </ul>
+      <h2 class="text-xl font-bold mb-3">{{ node.name }}</h2>
+      <div>
+        <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 mr-2" :class="[`border-${color}-600`, `bg-${color}-500`]">
+          <TestResultStatusIcon :status="node.status" class="text-white" />
+          <span class="ml-1 tracking-wide text-sm text-white font-bold">{{ node.status }}</span>
+        </div>
+        <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 border-gray-400 bg-gray-300">
+          <Timer :size="16" :strokeWidth="3" class="self-center" />
+          <span class="ml-1 tracking-wide text-sm font-bold">{{ node.duration }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="px-4 pb-4 grow">
+      <div v-for="section in node.sections">
+        <Section :section="section" />
+      </div>
+    </div>
   </div>
 </template>

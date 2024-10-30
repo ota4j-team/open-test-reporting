@@ -43,4 +43,8 @@ export default class TestNodeTree {
     }
     return []
   }
+
+  isRoot(node: TestNode): boolean {
+    return !this.parentIds.has(node.id)
+  }
 }

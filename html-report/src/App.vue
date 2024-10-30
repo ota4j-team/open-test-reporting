@@ -14,10 +14,10 @@ const selectedNode = ref()
   <main class="flex flex-col h-screen">
     <ExecutionSummary :testCount="tree.size()" :status="'SUCCESSFUL'" />
     <div class="flex grow">
-      <div class="bg-gray-50 w-1/4 min-w-80 px-2 py-4 overflow-y-auto text-sm">
+      <div class="bg-gray-100 w-1/4 min-w-80 px-2 py-4 overflow-y-auto text-sm">
         <TestTree :tree="tree" :roots="tree.roots()" v-model:selectedNode="selectedNode" class="-ml-3"/>
       </div>
-      <div class="grow overflow-scroll p-4">
+      <div class="grow overflow-scroll">
         <NodeDetails :tree="tree" :node="selectedNode" v-model:selectedNode="selectedNode" v-if="selectedNode"/>
       </div>
     </div>
