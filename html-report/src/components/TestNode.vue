@@ -25,7 +25,7 @@ const children = computed(() => props.tree ? props.tree.children(props.node) : [
       <ChevronDown :size="16" v-if="showChildren" />
       <ChevronRight :size="16" v-else />
     </div>
-    <div class="cursor-pointer rounded p-px px-1 inline-flex" :class="{ 'bg-gray-200 font-bold': isSelected }" @click="selectNodeAndShowChildren()">
+    <div class="cursor-pointer rounded p-px px-1 inline-flex" :class="{ 'bg-gray-300 font-bold': isSelected, 'hover:bg-gray-200': !isSelected }" @click="selectNodeAndShowChildren()">
       <TestResultStatusIcon :status="node.status" />
       <span class="ml-1">{{ node.name }}</span>
     </div>
