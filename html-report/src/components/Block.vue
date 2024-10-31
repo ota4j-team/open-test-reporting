@@ -16,8 +16,8 @@ defineProps<{ block: Block, depth: number }>()
   <div v-else-if="block.type === 'sub'" v-for="section in (block.content as Section[])">
     <Section :section="section" :depth="depth + 1" />
   </div>
-  <ul v-else-if="block.type == 'labels'">
-    <li v-for="label in (block.content as string[])" class="inline-block rounded bg-neutral-200 dark:bg-neutral-700 mr-2 px-2 py-0.5 text-sm">{{ label }}</li>
+  <ul v-else-if="block.type == 'labels'" class="text-sm -mb-1">
+    <li v-for="label in (block.content as string[])" class="inline-block rounded bg-neutral-200 dark:bg-neutral-700 mr-2 mb-1 px-2 py-0.5">{{ label }}</li>
   </ul>
   <pre v-else class="text-xs rounded-lg shadow-inner p-4 h-1/2 max-h-96 border w-full overflow-scroll">{{ block.content }}</pre>
 </template>
