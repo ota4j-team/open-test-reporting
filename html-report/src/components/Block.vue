@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CodeBlock from './CodeBlock.vue';
 import Section from './Section.vue'
 defineProps<{ block: Block, depth: number }>()
 </script>
@@ -19,5 +20,5 @@ defineProps<{ block: Block, depth: number }>()
   <ul v-else-if="block.type == 'labels'" class="text-sm -mb-1">
     <li v-for="label in (block.content as string[])" class="inline-block rounded bg-neutral-200 dark:bg-neutral-700 mr-2 mb-1 px-2 py-0.5">{{ label }}</li>
   </ul>
-  <pre v-else class="text-xs rounded-lg shadow-inner p-4 h-1/2 max-h-96 border w-full overflow-scroll">{{ block.content }}</pre>
+  <CodeBlock v-else :content="block.content as string" />
 </template>
