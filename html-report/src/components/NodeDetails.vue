@@ -16,20 +16,20 @@ function selectNode(node: TestNode) {
 
 <template>
   <div class="flex flex-col">
-    <div class="bg-gray-50 p-4">
+    <div class="bg-neutral-50 dark:bg-neutral-900 p-4">
       <ul class="text-sm mb-3" v-if="!tree.isRoot(node)">
         <li v-for="parent in tree.parents(node)" class="inline-flex">
-          <span @click="selectNode(parent)" class="underline underline-offset-4 decoration-gray-300 hover:decoration-gray-400 decoration-2 cursor-pointer">{{ parent.name }}</span>
-          <ChevronRight :size="16" class="inline self-center mx-1 text-gray-600" />
+          <span @click="selectNode(parent)" class="underline underline-offset-4 decoration-neutral-300 dark:decoration-neutral-700 hover:decoration-neutral-400 decoration-2 cursor-pointer">{{ parent.name }}</span>
+          <ChevronRight :size="16" class="inline self-center mx-1 text-neutral-500" />
         </li>
       </ul>
       <h2 class="text-xl font-bold mb-3">{{ node.name }}</h2>
       <div>
-        <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 mr-2" :class="[`border-${color}-600`, `bg-${color}-500`]">
+        <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 mr-2" :class="[`border-${color}-600`, `bg-${color}-500`, `dark:border-${color}-500`, `dark:bg-${color}-600`]">
           <TestResultStatusIcon :status="node.status" :color="'white'" />
           <span class="ml-1 tracking-wide text-sm text-white font-bold">{{ node.status }}</span>
         </div>
-        <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 border-gray-400 bg-gray-300">
+        <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 border-neutral-400 bg-neutral-300 dark:bg-neutral-500">
           <Timer :size="16" :strokeWidth="3" class="self-center" />
           <span class="ml-1 tracking-wide text-sm font-bold">{{ node.duration }}</span>
         </div>

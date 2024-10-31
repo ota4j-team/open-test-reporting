@@ -8,7 +8,7 @@ defineProps<{ tree: TestNodeTree, roots: TestNode[] }>()
 
 <template>
   <ul v-if="roots.length" class="pl-3">
-    <li v-for="root in roots" class="pt-0.5" :key="root.id">
+    <li v-for="root in roots" :key="root.id">
       <TestNode :tree="tree" :node="root" v-model:selectedNode="selectedNode"/>
     </li>
   </ul>

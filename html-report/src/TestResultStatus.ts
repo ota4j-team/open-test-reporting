@@ -5,7 +5,7 @@ const testResultStatusColor = (status: string) => {
     case 'ABORTED':
       return 'yellow'
     case 'SKIPPED':
-      return 'gray'
+      return 'sky'
     default:
       return 'red'
   }
