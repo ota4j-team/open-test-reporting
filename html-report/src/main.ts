@@ -23,7 +23,10 @@ const i18n = createI18n({
                 failed: '1 failed | {count} failed',
                 aborted: '1 aborted | {count} aborted',
                 skipped: '1 skipped | {count} skipped',
-            }
+            },
+            clipboard: {
+                copy: 'Copy to clipboard',
+            },
         }
     }
 });
