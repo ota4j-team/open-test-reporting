@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CircleCheck, CircleX, SkipForward, SquareSlash } from 'lucide-vue-next';
+import { CircleCheck, CircleX, SquareArrowOutUpRight, SquareSlash } from 'lucide-vue-next';
 import testResultStatusColor from '../TestResultStatus';
 
 const props = defineProps<{ status: string, color?: string }>()
@@ -13,6 +13,6 @@ function commonClasses(status: string) {
 <template>
   <CircleCheck v-if="status === 'SUCCESSFUL'" :size="size" :strokeWidth="strokeWidth" :class="commonClasses('SUCCESSFUL')" />
   <CircleX v-else-if="status === 'FAILED'" :size="size" :strokeWidth="strokeWidth" :class="commonClasses('FAILED')" />
-  <SkipForward v-else-if="status == 'SKIPPED'" :size="size" :strokeWidth="strokeWidth" :class="commonClasses('SKIPPED')" />
-  <SquareSlash v-else :size="size" :strokeWidth="strokeWidth" :class="commonClasses('ABORTED')"/>
+  <SquareSlash v-else-if="status == 'SKIPPED'" :size="size" :strokeWidth="strokeWidth" :class="commonClasses('SKIPPED')" />
+  <SquareArrowOutUpRight v-else :size="size" :strokeWidth="strokeWidth" :class="commonClasses('ABORTED')"/>
 </template>
