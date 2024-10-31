@@ -3,12 +3,10 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import TestResultStatusIcon from './TestResultStatusIcon.vue';
 import TestNodeTree from '../TestNodeTree';
-import testResultStatusColor from '../TestResultStatus';
 
 const { t } = useI18n()
 const props = defineProps<{ tree: TestNodeTree }>()
 const overallStatus = computed(() => props.tree.overallStatus())
-const color = computed(() => testResultStatusColor(overallStatus.value))
 function formattedCount(key: string, count?: number): string[] {
   return count ? [t(key, { count: count }, count)] : []
 }
@@ -24,10 +22,8 @@ const summaryMessage = computed(() => {
 </script>
 
 <template>
-  <div class="h-10 p-2 border-b-2 text-white" :class="[`border-${color}-600`, `bg-${color}-500`]">
-    <div class="cursor-pointer rounded p-px px-1 inline-flex">
-      <TestResultStatusIcon :status="overallStatus" :color="'white'" />
-      <span class="ml-1 font-bold">{{ summaryMessage }}</span>
-    </div>
+  <div class="p-px px-1 inline-flex">
+    <TestResultStatusIcon :status="overallStatus" :color="'white'" />
+    <span class="ml-1 font-bold self-center">{{ summaryMessage }}</span>
   </div>
 </template>
