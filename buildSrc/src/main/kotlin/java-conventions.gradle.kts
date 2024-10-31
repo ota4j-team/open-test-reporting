@@ -77,7 +77,7 @@ tasks {
         files(test.map { it.reports.junitXml.outputLocation.get().asFileTree.matching { include("junit-platform-events-*.xml") } })
 
     val convertTestResultXmlToHierarchicalFormat by registering(JavaExec::class) {
-        dependsOn(test)
+        mustRunAfter(test)
         mainClass.set("org.opentest4j.reporting.cli.ReportingCli")
         args("convert")
         classpath(cli)
