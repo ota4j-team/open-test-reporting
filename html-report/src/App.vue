@@ -6,8 +6,7 @@ import TestNodeTree from './TestNodeTree';
 import StatusBar from './components/StatusBar.vue';
 
 const props = defineProps<{ tree: TestNodeTree }>()
-console.log(props.tree);
-const selectedNode = ref()
+const selectedNode = ref(props.tree.initialSelection());
 </script>
 
 <template>
