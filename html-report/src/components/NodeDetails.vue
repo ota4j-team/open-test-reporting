@@ -32,7 +32,7 @@ function selectNode(node: TestNode) {
         </div>
         <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 border-neutral-400 bg-neutral-300 dark:bg-neutral-500">
           <Timer :size="16" :strokeWidth="3" class="self-center" />
-          <span class="ml-1 tracking-wide text-sm font-bold">
+          <span class="ml-1 text-sm font-bold">
             <Duration :millis="node.durationMillis" />
           </span>
         </div>
