@@ -71,4 +71,16 @@ export default class TestNodeTree {
       .forEach(n => result.set(n.status, result.get(n.status)!! + 1))
     return result
   }
+
+  initialSelection(): TestNode | undefined {
+    const failedNodes = Array.from(this.testNodes.values())
+      .filter(n => n.status === 'FAILED')
+    if (failedNodes.length > 0) {
+      return failedNodes[0]
+    }
+    if (this.rootIds.length > 0) {
+      return this.testNodes.get(this.rootIds[0])
+    }
+    return undefined
+  }
 }
