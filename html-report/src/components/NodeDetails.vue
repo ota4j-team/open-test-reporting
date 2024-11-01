@@ -36,9 +36,8 @@ function selectNode(node: TestNode) {
       </div>
     </div>
     <div class="px-4 pb-4 grow">
-      <div v-for="section in node.sections">
-        <Section :section="section" />
-      </div>
+      <Section :section="section" v-for="section in node.sections" v-if="node.sections" />
+      <p class="mt-3" v-else>No additional information</p>
     </div>
   </div>
 </template>
