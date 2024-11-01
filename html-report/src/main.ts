@@ -27,6 +27,12 @@ const i18n = createI18n({
             clipboard: {
                 copy: 'Copy to clipboard',
             },
+            duration: {
+                hours: '{count} h',
+                minutes: '{count} m',
+                seconds: '{count} s',
+                millis: '{count} ms',
+            },
         }
     }
 });

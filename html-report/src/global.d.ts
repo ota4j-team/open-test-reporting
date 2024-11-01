@@ -3,7 +3,7 @@ export declare global {
         id: string,
         name: string,
         status: string,
-        duration: string,
+        durationMillis: number,
         sections: Section[],
     }
     interface Section {
