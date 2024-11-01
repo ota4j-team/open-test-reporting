@@ -20,6 +20,6 @@ const parts = computed(() => {
   <span 
     v-for="(value, label, index) in parts"
     :class="{'mr-1': index < Object.entries(parts).length - 1}"
-    style="word-spacing: -.2em"
+    style="word-spacing: -.1em"
   >{{ $t(`duration.${label}`, {count: value}, value) }}</span>
 </template>
