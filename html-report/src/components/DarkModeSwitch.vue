@@ -1,8 +1,18 @@
 <script setup lang="ts">
 import { MoonStar, Sun } from 'lucide-vue-next';
-import { useDark, useToggle } from '@vueuse/core'
+import { BasicColorSchema, useDark, useToggle } from '@vueuse/core'
 
-const toggleDark = useToggle(useDark())
+const toggleDark = useToggle(useDark({
+  onChanged(
+    _dark: boolean,
+    defaultHandler: (mode: BasicColorSchema) => void,
+    mode: BasicColorSchema,
+  ) {
+    defaultHandler(mode)
+    // Toggle color of scrollbars
+    document.body.style.colorScheme = mode
+  },
+}))
 </script>
 
 <template>
