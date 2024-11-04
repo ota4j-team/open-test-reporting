@@ -24,6 +24,6 @@ const summaryMessage = computed(() => {
 <template>
   <div class="p-px px-1 inline-flex">
     <TestResultStatusIcon :status="overallStatus" :color="'white'" />
-    <span class="ml-1 font-bold self-center">{{ summaryMessage }}</span>
+    <span class="ml-1 mt-px font-bold self-center">{{ summaryMessage }}</span>
   </div>
 </template>
