@@ -27,11 +27,11 @@ function selectNode(node: TestNode) {
     <div>
       <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 mr-2" :class="[`border-${color}-600`, `bg-${color}-500`, `dark:border-${color}-500`, `dark:bg-${color}-600`]">
         <TestResultStatusIcon :status="node.status" :color="'white'" />
-        <span class="ml-1 tracking-wide text-sm text-white font-bold">{{ node.status }}</span>
+        <span class="ml-1 tracking-wide text-sm text-white font-bold self-center">{{ node.status }}</span>
       </div>
       <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 border-neutral-400 bg-neutral-300 dark:bg-neutral-500">
         <Timer :size="16" :strokeWidth="3" class="self-center" />
-        <span class="ml-1 text-sm font-bold">
+        <span class="ml-1 text-sm font-bold self-center">
           <Duration :millis="node.durationMillis" />
         </span>
       </div>
