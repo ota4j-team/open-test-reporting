@@ -10,7 +10,7 @@ defineProps<{ block: Block, depth: number }>()
     <tbody>
       <tr v-for="(pair, index) in Object.entries(block.content)" :class="{'border-b': index < Object.entries(block.content).length - 1}" class="border-neutral-200 dark:border-neutral-700">
         <td class="pr-4 text-sm w-1/5">{{ pair[0] }}</td>
-        <td class="w-4/5"><code class="text-sm">{{ pair[1] }}</code></td>
+        <td class="w-4/5 break-all"><code class="text-sm">{{ pair[1] }}</code></td>
       </tr>
     </tbody>
   </table>
