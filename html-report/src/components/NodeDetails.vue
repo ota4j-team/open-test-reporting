@@ -3,12 +3,12 @@ import { computed } from 'vue';
 import Section from './Section.vue';
 import TestResultStatusIcon from './TestResultStatusIcon.vue';
 import { ChevronRight, Timer } from 'lucide-vue-next';
-import TestNodeTree from '../TestNodeTree';
+import TestExecution from '../TestExecution';
 import testResultStatusColor from '../TestResultStatus';
 import Duration from './Duration.vue';
 
 const selectedNode = defineModel('selectedNode')
-const props = defineProps<{ node: TestNode, tree: TestNodeTree }>()
+const props = defineProps<{ node: TestNode, execution: TestExecution }>()
 const color = computed(() => testResultStatusColor(props.node.status))
 function selectNode(node: TestNode) {
   selectedNode.value = node
@@ -17,8 +17,8 @@ function selectNode(node: TestNode) {
 
 <template>
   <div class="sticky top-0 bg-neutral-100/50 dark:bg-neutral-800/50 backdrop-blur p-4">
-    <ul class="text-sm mb-3" v-if="!tree.isRoot(node)">
-      <li v-for="parent in tree.parents(node)" class="inline-flex">
+    <ul class="text-sm mb-3" v-if="!execution.isRoot(node)">
+      <li v-for="parent in execution.parents(node)" class="inline-flex">
         <span @click="selectNode(parent)" class="underline underline-offset-4 decoration-neutral-300 dark:decoration-neutral-700 hover:decoration-neutral-400 decoration-2 cursor-pointer">{{ parent.name }}</span>
         <ChevronRight :size="16" class="inline self-center mx-1 text-neutral-500" />
       </li>

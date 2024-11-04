@@ -1,4 +1,9 @@
 export declare global {
+    interface Execution {
+        roots: string[];
+        children: { [id: string]: string[] };
+        testNodes: TestNode[];
+    }
     interface TestNode {
         id: string,
         name: string,
@@ -15,8 +20,6 @@ export declare global {
         content: any
     }
     declare module globalThis {
-        var roots: string[];
-        var children: { [id: string]: string[] };
-        var testNodes: TestNode[];
+        var testExecutions: Execution[];
     }
 }
