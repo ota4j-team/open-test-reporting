@@ -13,7 +13,7 @@ defineProps<{ executions: TestExecution[] }>()
     <template #default="{ node }">
       <TreeNode :execution="(node as TestExecution)" :node="node" :children="(node as TestExecution).roots()" v-model:selectedNode="selectedNode">
         <template #icon="iconProps">
-          <SquareActivity v-bind="iconProps" />
+          <SquareActivity v-bind="iconProps" class="text-neutral-600" />
         </template>
       </TreeNode>
     </template>
