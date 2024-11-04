@@ -7,23 +7,25 @@ export default class TestExecution {
     'FAILED',
   ];
 
+  public readonly id: string;
+  public readonly name: string = "Execution";
+  public readonly sections: Section[];
+
   private readonly rootIds: string[]
   private readonly childrenIds: Map<string, string[]>
   private readonly parentIds: Map<string, string>
   private readonly testNodes: Map<string, TestNode>
 
-  constructor(
-    rootIds: string[],
-    childrenIds: Map<string, string[]>,
-    testNodes: TestNode[]
-  ) {
-    this.rootIds = rootIds
-    this.childrenIds = childrenIds
+  constructor(execution: Execution) {
+    this.id = execution.id
+    this.sections = execution.sections || []
+    this.rootIds = execution.roots
+    this.childrenIds = new Map(Object.entries(execution.children))
     this.parentIds = new Map<string, string>()
     this.childrenIds.forEach((children, p) => {
       children.forEach(c => this.parentIds.set(c, p))
     });
-    this.testNodes = new Map(testNodes.map(n => [n.id, n]))
+    this.testNodes = new Map(execution.testNodes?.map(n => [n.id, n]))
   }
 
   size(): number {
@@ -42,17 +44,13 @@ export default class TestExecution {
     return []
   }
 
-  parents(node: TestNode): TestNode[] {
+  parents(node: TestNode): (TestNode | TestExecution)[] {
     if (this.parentIds.has(node.id)) {
       const parentId = this.parentIds.get(node.id)!!
       const parent = this.testNodes.get(parentId)!!
       return [...this.parents(parent), parent]
     }
-    return []
-  }
-
-  isRoot(node: TestNode): boolean {
-    return !this.parentIds.has(node.id)
+    return [this]
   }
 
   overallStatus(): string {
@@ -72,15 +70,12 @@ export default class TestExecution {
     return result
   }
 
-  initialSelection(): TestNode | undefined {
+  initialSelection(): TestNode | TestExecution {
     const failedNodes = Array.from(this.testNodes.values())
       .filter(n => n.status === 'FAILED')
     if (failedNodes.length > 0) {
       return failedNodes[0]
     }
-    if (this.rootIds.length > 0) {
-      return this.testNodes.get(this.rootIds[0])
-    }
-    return undefined
+    return this
   }
 }

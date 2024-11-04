@@ -7,11 +7,7 @@ import TestExecution from './TestExecution'
 
 const rootProps = {
   executions: globalThis.testExecutions
-    .map(e => new TestExecution(
-      e.roots,
-      new Map(Object.entries(e.children)),
-      e.testNodes,
-    )),
+    .map(it => new TestExecution(it)),
 };
 
 const app = createApp(App, rootProps);

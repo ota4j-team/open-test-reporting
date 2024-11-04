@@ -2,9 +2,10 @@
 import { CircleCheck, CircleX, SquareArrowOutUpRight, SquareSlash } from 'lucide-vue-next';
 import testResultStatusColor from '../TestResultStatus';
 
-const props = defineProps<{ status: string, color?: string }>()
-const size = 16
-const strokeWidth = 3
+const props = withDefaults(defineProps<{ status: string, color?: string, size?: number, strokeWidth?: number }>(), {
+  size: 16,
+  strokeWidth: 2.5,
+})
 function commonClasses(status: string) {
   return ['self-center', ...props.color ? [`text-${props.color}`] : [`text-${testResultStatusColor(status)}-600`]]
 }

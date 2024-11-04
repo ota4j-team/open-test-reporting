@@ -1,15 +1,17 @@
 export declare global {
-    interface Execution {
+    interface Node {
+        id: string,
+        sections: Section[] | undefined,
+    }
+    interface Execution extends Node {
         roots: string[];
         children: { [id: string]: string[] };
-        testNodes: TestNode[];
+        testNodes: TestNode[] | undefined;
     }
-    interface TestNode {
-        id: string,
+    interface TestNode extends Node {
         name: string,
         status: string,
         durationMillis: number,
-        sections: Section[],
     }
     interface Section {
         title: string,
