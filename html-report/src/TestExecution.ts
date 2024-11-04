@@ -1,4 +1,4 @@
-export default class TestNodeTree {
+export default class TestExecution {
 
   static STATUSES = [
     'SKIPPED',
@@ -57,16 +57,16 @@ export default class TestNodeTree {
 
   overallStatus(): string {
     var statuses = Array.from(this.testNodes.values())
-      .map(node => TestNodeTree.STATUSES.indexOf(node.status))
+      .map(node => TestExecution.STATUSES.indexOf(node.status))
       .sort()
     return statuses.length > 0
-      ? TestNodeTree.STATUSES[statuses[statuses.length - 1]]
-      : TestNodeTree.STATUSES[0]
+      ? TestExecution.STATUSES[statuses[statuses.length - 1]]
+      : TestExecution.STATUSES[0]
   }
 
   statusCount(): Map<string, number> {
     const result = new Map<string, number>()
-    TestNodeTree.STATUSES.forEach(s => result.set(s, 0))
+    TestExecution.STATUSES.forEach(s => result.set(s, 0))
     Array.from(this.testNodes.values())
       .forEach(n => result.set(n.status, result.get(n.status)!! + 1))
     return result

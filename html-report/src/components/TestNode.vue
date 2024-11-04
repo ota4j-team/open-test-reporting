@@ -3,10 +3,10 @@ import { computed, ref } from 'vue';
 import {  ChevronDown, ChevronRight } from 'lucide-vue-next';
 import TestResultStatusIcon from './TestResultStatusIcon.vue';
 import TestTree from './TestTree.vue';
-import TestNodeTree from '../TestNodeTree';
+import TestExecution from '../TestExecution';
 
 const selectedNode = defineModel('selectedNode')
-const props = defineProps<{ tree: TestNodeTree, node: TestNode }>()
+const props = defineProps<{ execution: TestExecution, node: TestNode }>()
 const showChildren = ref(true)
 function toggleChildren() {
   showChildren.value = !showChildren.value
@@ -16,7 +16,7 @@ function selectNodeAndShowChildren() {
   showChildren.value = true
 }
 const isSelected = computed(() => selectedNode.value !== undefined && (selectedNode.value as TestNode).id == props.node.id)
-const children = computed(() => props.tree ? props.tree.children(props.node) : [])
+const children = computed(() => props.execution ? props.execution.children(props.node) : [])
 const toggleSize = 16
 </script>
 
@@ -39,5 +39,5 @@ const toggleSize = 16
       <span class="ml-1">{{ node.name }}</span>
     </div>
   </div>
-  <TestTree :tree="tree" :roots="children" v-model:selectedNode="selectedNode" v-if="children" :class="{ hidden: !showChildren }"/>
+  <TestTree :execution="execution" :roots="children" v-model:selectedNode="selectedNode" v-if="children" :class="{ hidden: !showChildren }"/>
 </template>

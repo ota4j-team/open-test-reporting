@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import TestNodeTree from '../TestNodeTree';
+import TestExecution from '../TestExecution';
 import TestNode from './TestNode.vue';
 
 const selectedNode = defineModel('selectedNode')
-defineProps<{ tree: TestNodeTree, roots: TestNode[] }>()
+defineProps<{ execution: TestExecution, roots: TestNode[] }>()
 </script>
 
 <template>
   <ul v-if="roots.length" class="pl-3">
     <li v-for="root in roots" :key="root.id">
-      <TestNode :tree="tree" :node="root" v-model:selectedNode="selectedNode"/>
+      <TestNode :execution="execution" :node="root" v-model:selectedNode="selectedNode"/>
     </li>
   </ul>
 </template>

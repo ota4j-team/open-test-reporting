@@ -2,18 +2,18 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import TestResultStatusIcon from './TestResultStatusIcon.vue';
-import TestNodeTree from '../TestNodeTree';
+import TestExecution from '../TestExecution';
 
 const { t } = useI18n()
-const props = defineProps<{ tree: TestNodeTree }>()
-const overallStatus = computed(() => props.tree.overallStatus())
+const props = defineProps<{ execution: TestExecution }>()
+const overallStatus = computed(() => props.execution.overallStatus())
 function formattedCount(key: string, count?: number): string[] {
   return count ? [t(key, { count: count }, count)] : []
 }
 const summaryMessage = computed(() => {
-  const statusCount = props.tree.statusCount()
+  const statusCount = props.execution.statusCount()
   return [
-    t('executionSummary.testCount', { count: props.tree.size() }, props.tree.size()),
+    t('executionSummary.testCount', { count: props.execution.size() }, props.execution.size()),
     ...formattedCount('executionSummary.failed', statusCount.get('FAILED')),
     ...formattedCount('executionSummary.aborted', statusCount.get('ABORTED')),
     ...formattedCount('executionSummary.skipped', statusCount.get('SKIPPED')),
