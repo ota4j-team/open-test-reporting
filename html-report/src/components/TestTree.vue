@@ -1,15 +1,21 @@
 <script setup lang="ts">
 import TestExecution from '../TestExecution';
-import TestNode from './TestNode.vue';
+import TestResultStatusIcon from './TestResultStatusIcon.vue';
+import TreeNode from './TreeNode.vue';
+import Tree from './Tree.vue';
 
-const selectedNode = defineModel('selectedNode')
+const selectedNode = defineModel<TestExecution | TestNode | undefined>('selectedNode')
 defineProps<{ execution: TestExecution, roots: TestNode[] }>()
 </script>
 
 <template>
-  <ul v-if="roots.length" class="pl-3">
-    <li v-for="root in roots" :key="root.id">
-      <TestNode :execution="execution" :node="root" v-model:selectedNode="selectedNode"/>
-    </li>
-  </ul>
+  <Tree :roots="roots">
+    <template #default="{ node }">
+      <TreeNode :execution="execution" :node="node" :children="execution.children(node as TestNode)" v-model:selectedNode="selectedNode">
+        <template #icon="iconProps">
+          <TestResultStatusIcon :status="(node as TestNode).status" v-bind="iconProps" />
+        </template>
+      </TreeNode>
+    </template>
+  </Tree>
 </template>
