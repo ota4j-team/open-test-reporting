@@ -1,11 +1,49 @@
+import Selection from "./Selection";
+
 export default class TestExecution {
 
-  static STATUSES = [
+  private static readonly STATUSES = [
     'SKIPPED',
     'ABORTED',
     'SUCCESSFUL',
     'FAILED',
   ];
+
+  static initialSelection(executions: TestExecution[]): Selection | undefined {
+    const failedExecution = executions
+      .find(e => e.overallStatus() === 'FAILED')
+    if (failedExecution) {
+      const failedNode = Array.from(failedExecution.testNodes.values())
+        .find(n => n.status === 'FAILED')
+      if (failedNode) {
+        return new Selection(failedExecution, failedNode)
+      }
+    }
+    if (executions.length > 0) {
+      return new Selection(executions[0], executions[0])
+    }
+    return undefined
+  }
+
+  static overallStatus(executions: TestExecution[]): string {
+    var statuses = executions
+      .map(e => TestExecution.STATUSES.indexOf(e.overallStatus()))
+      .sort()
+    return statuses.length > 0
+      ? TestExecution.STATUSES[statuses[statuses.length - 1]]
+      : TestExecution.STATUSES[0]
+  }
+
+  static statusCount(executions: TestExecution[]): Map<string, number> {
+    const statusCount = new Map<string, number>()
+    TestExecution.STATUSES.forEach(s => statusCount.set(s, 0))
+    executions.forEach(e => {
+      e.statusCount().forEach((count, status) => {
+        statusCount.set(status, statusCount.get(status)!! + count)
+      })
+    })
+    return statusCount
+  }
 
   public readonly id: string;
   public readonly name: string;
@@ -71,14 +109,5 @@ export default class TestExecution {
     Array.from(this.testNodes.values())
       .forEach(n => result.set(n.status, result.get(n.status)!! + 1))
     return result
-  }
-
-  initialSelection(): TestExecution | TestNode | undefined {
-    const failedNodes = Array.from(this.testNodes.values())
-      .filter(n => n.status === 'FAILED')
-    if (failedNodes.length > 0) {
-      return failedNodes[0]
-    }
-    return this
   }
 }

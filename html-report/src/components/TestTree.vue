@@ -3,15 +3,17 @@ import TestExecution from '../TestExecution';
 import TestResultStatusIcon from './TestResultStatusIcon.vue';
 import TreeNode from './TreeNode.vue';
 import Tree from './Tree.vue';
+import Selection from '../Selection';
 
-const selectedNode = defineModel<TestExecution | TestNode | undefined>('selectedNode')
+const selection = defineModel<Selection | undefined>('selection')
 defineProps<{ execution: TestExecution, roots: TestNode[] }>()
 </script>
 
 <template>
   <Tree :roots="roots">
     <template #default="{ node }">
-      <TreeNode :execution="execution" :node="node" :children="execution.children(node as TestNode)" v-model:selectedNode="selectedNode">
+      <TreeNode :execution="execution" :node="node" :children="execution.children(node as TestNode)"
+        v-model:selection="selection">
         <template #icon="iconProps">
           <TestResultStatusIcon :status="(node as TestNode).status" v-bind="iconProps" />
         </template>
