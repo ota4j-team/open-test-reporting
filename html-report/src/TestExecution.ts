@@ -60,8 +60,8 @@ export default class TestExecution {
     this.name = execution.name
     this.durationMillis = execution.durationMillis
     this.sections = execution.sections || []
-    this.rootIds = execution.roots
-    this.childrenIds = new Map(Object.entries(execution.children))
+    this.rootIds = execution.roots || []
+    this.childrenIds = new Map(Object.entries(execution.children ? execution.children : []))
     this.parentIds = new Map<string, string>()
     this.childrenIds.forEach((children, p) => {
       children.forEach(c => this.parentIds.set(c, p))
