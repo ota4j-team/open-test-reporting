@@ -15,7 +15,7 @@ const { isScrolling } = useScroll(el, { idle: 2000 })
 <template>
   <div class="z-0	relative rounded bg-neutral-50 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700 border">
     <pre class="resize-y p-3 text-sm w-full overflow-auto min-h-14 max-h-96" ref="el"><code>{{ content }}</code></pre>
-    <div class="absolute top-2 right-2" v-if="isSupported" :class="{ 'hidden': isScrolling }">
+    <div class="absolute bottom-2 right-2" v-if="isSupported" :class="{ 'hidden': isScrolling }">
       <div
         class="cursor-pointer bg-neutral-50 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-700 border-neutral-200 dark:border-neutral-700 border rounded-lg p-1.5"
         :title="$t('clipboard.copy')" @click="copy(source)">
