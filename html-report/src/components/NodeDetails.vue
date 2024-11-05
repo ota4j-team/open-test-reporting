@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import TestResultStatusIcon from './TestResultStatusIcon.vue';
-import { ChevronRight, Timer } from 'lucide-vue-next';
+import { ChevronRight } from 'lucide-vue-next';
 import TestExecution from '../TestExecution';
 import testResultStatusColor from '../TestResultStatus';
-import Duration from './Duration.vue';
+import DurationLabel from './DurationLabel.vue';
 import DetailsSections from './DetailsSections.vue';
 import DetailsHeader from './DetailsHeader.vue';
 
@@ -33,12 +33,7 @@ const parents = computed(() => props.execution.parents(props.node))
           <TestResultStatusIcon :status="node.status" :color="'white'" />
           <span class="ml-1 tracking-wide text-sm text-white font-bold self-center">{{ node.status }}</span>
         </div>
-        <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 border-neutral-400 bg-neutral-300 dark:bg-neutral-500">
-          <Timer :size="16" :strokeWidth="3" class="self-center" />
-          <span class="ml-1 text-sm font-bold self-center">
-            <Duration :millis="node.durationMillis" />
-          </span>
-        </div>
+        <DurationLabel :millis="node.durationMillis" />
       </div>
     </template>
   </DetailsHeader>

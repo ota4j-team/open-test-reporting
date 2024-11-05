@@ -2,6 +2,7 @@ export declare global {
     interface Node {
         id: string,
         name: string,
+        durationMillis: number,
         sections: Section[] | undefined,
     }
     interface Execution extends Node {
@@ -11,7 +12,6 @@ export declare global {
     }
     interface TestNode extends Node {
         status: string,
-        durationMillis: number,
     }
     interface Section {
         title: string,
