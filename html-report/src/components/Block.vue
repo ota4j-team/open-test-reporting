@@ -8,9 +8,9 @@ defineProps<{ block: Block, depth: number }>()
   <p v-if="block.type === 'p'">{{ block.content }}</p>
   <table v-else-if="block.type === 'kvp'" class="w-full">
     <tbody>
-      <tr v-for="(pair, index) in Object.entries(block.content)"
-        :class="{ 'border-b': index < Object.entries(block.content).length - 1 }"
-        class="border-neutral-200 dark:border-neutral-700 w-full">
+      <tr v-for="(pair, index) in Object.entries(block.content)" :class="{
+        'border-b': index < Object.entries(block.content).length - 1
+      }" class="border-neutral-200 dark:border-neutral-700 w-full">
         <td class="w-44 pr-4 text-sm">{{ pair[0] }}</td>
         <td class="break-all"><code class="text-sm">{{ pair[1] }}</code>
         </td>

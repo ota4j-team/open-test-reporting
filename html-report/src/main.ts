@@ -20,6 +20,7 @@ const i18n = createI18n({
         failed: '1 failed | {count} failed',
         aborted: '1 aborted | {count} aborted',
         skipped: '1 skipped | {count} skipped',
+        execution: 'in 1 execution | in { count } executions',
       },
       clipboard: {
         copy: 'Copy to clipboard',
