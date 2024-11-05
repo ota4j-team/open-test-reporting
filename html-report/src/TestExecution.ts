@@ -9,6 +9,7 @@ export default class TestExecution {
 
   public readonly id: string;
   public readonly name: string;
+  public readonly durationMillis: number;
   public readonly sections: Section[];
 
   private readonly rootIds: string[]
@@ -19,6 +20,7 @@ export default class TestExecution {
   constructor(execution: Execution) {
     this.id = execution.id
     this.name = execution.name
+    this.durationMillis = execution.durationMillis
     this.sections = execution.sections || []
     this.rootIds = execution.roots
     this.childrenIds = new Map(Object.entries(execution.children))
