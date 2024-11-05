@@ -8,7 +8,7 @@ export default class TestExecution {
   ];
 
   public readonly id: string;
-  public readonly name: string = "Execution";
+  public readonly name: string;
   public readonly sections: Section[];
 
   private readonly rootIds: string[]
@@ -18,6 +18,7 @@ export default class TestExecution {
 
   constructor(execution: Execution) {
     this.id = execution.id
+    this.name = execution.name
     this.sections = execution.sections || []
     this.rootIds = execution.roots
     this.childrenIds = new Map(Object.entries(execution.children))
@@ -70,7 +71,7 @@ export default class TestExecution {
     return result
   }
 
-  initialSelection(): TestNode | TestExecution {
+  initialSelection(): TestExecution | TestNode | undefined {
     const failedNodes = Array.from(this.testNodes.values())
       .filter(n => n.status === 'FAILED')
     if (failedNodes.length > 0) {

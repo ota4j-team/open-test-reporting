@@ -1,6 +1,7 @@
 export declare global {
     interface Node {
         id: string,
+        name: string,
         sections: Section[] | undefined,
     }
     interface Execution extends Node {
@@ -9,7 +10,6 @@ export declare global {
         testNodes: TestNode[] | undefined;
     }
     interface TestNode extends Node {
-        name: string,
         status: string,
         durationMillis: number,
     }
