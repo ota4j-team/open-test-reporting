@@ -16,7 +16,8 @@ selection.value = TestExecution.initialSelection(props.executions)
   <main class="flex flex-col h-screen bg-white dark:bg-black text-black dark:text-white">
     <StatusBar :executions="executions" />
     <div class="flex flex-1 overflow-hidden">
-      <div class="bg-neutral-100 dark:bg-neutral-800 w-1/4 min-w-80 px-2 py-4 overflow-auto text-sm">
+      <div
+        class="bg-neutral-100 dark:bg-neutral-800 w-1/4 min-w-80 px-2 py-4 overflow-auto text-sm border-r border-neutral-200 dark:border-neutral-700">
         <ExecutionTree :executions="executions" v-model:selection="selection" class="-ml-3" />
       </div>
       <div class="flex-1 overflow-auto">
