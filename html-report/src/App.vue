@@ -8,7 +8,8 @@ import StatusBar from './components/StatusBar.vue';
 
 const props = defineProps<{ executions: TestExecution[] }>()
 const execution = computed(() => props.executions[0]);
-const selectedNode = ref<TestExecution | TestNode | undefined>(props.executions[0].initialSelection());
+const selectedNode = ref<TestExecution | TestNode | undefined>();
+selectedNode.value = props.executions[0].initialSelection()
 </script>
 
 <template>
