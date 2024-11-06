@@ -35,6 +35,6 @@ include("cli")
 include("documentation")
 include("events")
 include("schema")
-include("tooling")
+include("tooling-core")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
