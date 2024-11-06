@@ -8,6 +8,7 @@ import DurationLabel from './DurationLabel.vue';
 import DetailsSections from './DetailsSections.vue';
 import DetailsHeader from './DetailsHeader.vue';
 import Selection from '../Selection';
+import ExecutionIcon from './ExecutionIcon.vue';
 
 const selection = defineModel<Selection | undefined>('selection')
 const props = defineProps<{ node: TestNode, execution: TestExecution }>()
@@ -21,11 +22,15 @@ const parents = computed(() => props.execution.parents(props.node))
 <template>
   <DetailsHeader :title="node.name">
     <template #above>
-      <ul class="text-sm mb-3" v-if="parents">
+      <ul class="text-sm mb-3 inline-flex h-5">
         <li v-for="parent in parents" class="inline-flex">
-          <span @click="selectNode(parent)"
-            class="underline underline-offset-4 decoration-neutral-300 dark:decoration-neutral-700 hover:decoration-neutral-400 decoration-2 cursor-pointer">{{
-              parent.name }}</span>
+          <ExecutionIcon v-if="(parent instanceof TestExecution)" class="-ml-px cursor-pointer"
+            @click="selectNode(parent)" />
+          <span v-else
+            class="underline underline-offset-4 decoration-neutral-300 dark:decoration-neutral-700 hover:decoration-neutral-400 decoration-2 cursor-pointer"
+            @click="selectNode(parent)">
+            {{ parent.name }}
+          </span>
           <ChevronRight :size="16" class="inline self-center mx-1 text-neutral-500" />
         </li>
       </ul>
