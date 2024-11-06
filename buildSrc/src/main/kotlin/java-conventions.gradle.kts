@@ -57,7 +57,7 @@ tasks {
     }
     jar {
         manifest {
-            attributes("Automatic-Module-Name" to "org.opentest4j.reporting.${project.name}")
+            attributes("Automatic-Module-Name" to "org.opentest4j.reporting.${project.name.replace('-', '.')}")
         }
     }
     javadoc {

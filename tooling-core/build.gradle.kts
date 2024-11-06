@@ -5,6 +5,7 @@ plugins {
 dependencies {
     api(projects.schema)
     implementation(projects.events)
+    implementation(projects.toolingSpi)
     implementation(libs.jackson.dataformat.xml)
     implementation(libs.jsonSanitizer)
     implementation(libs.joox)
@@ -16,7 +17,7 @@ dependencies {
 
 tasks {
     compileJava {
-        options.release.set(11)
+        options.release = 11
     }
 }
 
@@ -44,7 +45,7 @@ val prepareResourceDir by tasks.registering(Sync::class) {
     rename {
         "template.html"
     }
-    into(generatedResourcesDir.map { it.dir("org/opentest4j/reporting/tooling/htmlreport") })
+    into(generatedResourcesDir.map { it.dir("org/opentest4j/reporting/tooling/core/htmlreport") })
 }
 
 sourceSets {
