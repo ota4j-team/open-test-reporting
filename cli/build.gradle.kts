@@ -22,21 +22,10 @@ tasks {
         options.release = 11
     }
     shadowJar {
+        archiveClassifier = "standalone"
         exclude("META-INF/maven/**")
         exclude("META-INF/LICENSE*")
         exclude("META-INF/NOTICE*")
         exclude("**/module-info.class")
-    }
-}
-
-publishing {
-    publications {
-        register<MavenPublication>("standalone") {
-            project.shadow.component(this)
-            artifactId = "${base.archivesName.get()}-standalone"
-            pom {
-                description = "Standalone CLI distribution of open-test-reporting"
-            }
-        }
     }
 }
