@@ -31,7 +31,7 @@ const toggleSize = 16
       [`ml-[${toggleSize}px]`]: children.length == 0
     }" @click="selectNodeAndShowChildren()">
       <slot name="icon" :size="16" :strokeWidth="2.5" />
-      <span class="ml-1">{{ node.name }}</span>
+      <span class="ml-1 whitespace-nowrap">{{ node.name }}</span>
     </div>
   </div>
   <TestTree :execution="execution" :roots="children" v-model:selection="selection" v-if="children"
