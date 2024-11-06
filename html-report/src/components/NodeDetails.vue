@@ -27,7 +27,7 @@ const parents = computed(() => props.execution.parents(props.node))
           <ExecutionIcon v-if="(parent instanceof TestExecution)" class="-ml-px cursor-pointer"
             @click="selectNode(parent)" />
           <span v-else
-            class="underline underline-offset-4 decoration-neutral-300 dark:decoration-neutral-700 hover:decoration-neutral-400 decoration-2 cursor-pointer"
+            class="underline underline-offset-4 decoration-neutral-300 dark:decoration-neutral-700 hover:decoration-neutral-400 decoration-2 whitespace-nowrap cursor-pointer"
             @click="selectNode(parent)">
             {{ parent.name }}
           </span>
