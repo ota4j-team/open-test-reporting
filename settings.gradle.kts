@@ -36,5 +36,6 @@ include("documentation")
 include("events")
 include("schema")
 include("tooling-core")
+include("tooling-spi")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
