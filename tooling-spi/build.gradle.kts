@@ -5,7 +5,7 @@ plugins {
 dependencies {
     annotationProcessor(libs.immutables.value)
     compileOnly(libs.immutables.valueAnnotations)
-    implementation(libs.jackson.annotations)
+    compileOnly(libs.jackson.annotations)
 }
 
 tasks {
