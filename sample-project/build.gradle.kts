@@ -16,16 +16,17 @@ dependencies {
     cli(projects.cli)
 }
 
+val htmlReportFile = tasks.test.flatMap { it.reports.junitXml.outputLocation.file("open-test-report.html") }
+
 tasks {
     compileTestJava {
         options.release = 8
     }
 
     val eventXmlFiles =
-        files(test.map { it.reports.junitXml.outputLocation.get().asFileTree.matching { include("junit-platform-events-*.xml") } })
+        files(test.map { it.reports.junitXml.outputLocation.get().asFileTree.matching { include("junit-platform-events-*.xml") } }).builtBy(test)
 
     val convertTestResultXmlToHierarchicalFormat by registering(JavaExec::class) {
-        mustRunAfter(test)
         mainClass.set("org.opentest4j.reporting.cli.ReportingCli")
         args("convert")
         classpath(cliClasspath)
@@ -36,13 +37,23 @@ tasks {
     }
 
     val generateHtmlReport by registering(JavaExec::class) {
-        mustRunAfter(test)
         mainClass.set("org.opentest4j.reporting.cli.ReportingCli")
         args("html-report")
         classpath(cliClasspath)
+        outputs.file(htmlReportFile)
         inputs.files(eventXmlFiles).withPathSensitivity(NONE).skipWhenEmpty()
         argumentProviders += CommandLineArgumentProvider {
-            listOf(eventXmlFiles.singleFile.absolutePath)
+            listOf(
+                "--output",
+                htmlReportFile.get().asFile.absolutePath
+            ) + eventXmlFiles.files.map { it.absolutePath }.toList()
+        }
+    }
+
+    configurations.consumable("htmlReport") {
+        outgoing.artifact(generateHtmlReport.map { it.outputs.files.singleFile })
+        attributes {
+            attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE, objects.named(LibraryElements.RESOURCES))
         }
     }
 

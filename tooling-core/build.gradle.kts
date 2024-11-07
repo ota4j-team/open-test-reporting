@@ -3,6 +3,7 @@ plugins {
 }
 
 val htmlReportTemplate = configurations.dependencyScope("htmlReportTemplate")
+val sampleHtmlReport = configurations.dependencyScope("sampleHtmlReport")
 
 dependencies {
     api(projects.schema)
@@ -11,17 +12,30 @@ dependencies {
     implementation(libs.jackson.dataformat.xml)
     implementation(libs.jsonSanitizer)
     implementation(libs.joox)
+
     testImplementation(libs.assertj.core)
     testImplementation(libs.bundles.junit)
     testImplementation(libs.xmlunit.assertj)
+    testImplementation(libs.playwright)
     testCompileOnly(libs.jetbrains.annotations)
+
     htmlReportTemplate(projects.htmlReport)
+    sampleHtmlReport(project(mapOf("path" to projects.sampleProject.identityPath, "configuration" to "htmlReport")))
 }
 
-tasks {
-    compileJava {
-        options.release = 11
-    }
+tasks.compileJava {
+    options.release = 11
+}
+
+val sampleHtmlReportFiles = configurations.resolvable("sampleHtmlReportFiles") {
+    extendsFrom(sampleHtmlReport.get())
+}
+
+tasks.test {
+    inputs.files(sampleHtmlReportFiles).withPathSensitivity(PathSensitivity.NONE)
+    jvmArgumentProviders.add(CommandLineArgumentProvider {
+        listOf("-DsampleHtmlReport=${sampleHtmlReportFiles.get().singleFile.absolutePath}")
+    })
 }
 
 val htmlReportTemplateFiles = configurations.resolvable("htmlReportTemplateFiles") {
@@ -41,7 +55,7 @@ val prepareResourceDir by tasks.registering(Sync::class) {
 sourceSets {
     main {
         resources {
-            srcDir(generatedResourcesDir)
+            srcDir(files(generatedResourcesDir).builtBy(prepareResourceDir))
         }
     }
 }

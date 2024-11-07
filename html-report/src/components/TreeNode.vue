@@ -29,7 +29,7 @@ const toggleSize = 16
       'bg-neutral-300 dark:bg-neutral-600 font-bold': isSelected,
       'hover:bg-neutral-200 dark:hover:bg-neutral-700': !isSelected,
       [`ml-[${toggleSize}px]`]: children.length == 0
-    }" @click="selectNodeAndShowChildren()">
+    }" @click="selectNodeAndShowChildren()" role="link" :aria-label="node.name">
       <slot name="icon" :size="16" :strokeWidth="2.5" />
       <span class="ml-1 whitespace-nowrap">{{ node.name }}</span>
     </div>
