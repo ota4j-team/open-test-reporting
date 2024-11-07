@@ -34,6 +34,7 @@ develocity {
 include("cli")
 include("documentation")
 include("events")
+include("html-report")
 include("schema")
 include("tooling-core")
 include("tooling-spi")
