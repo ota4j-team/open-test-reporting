@@ -13,6 +13,9 @@ runs:
       with:
         distribution: temurin
         java-version: 17
+    - uses: actions/setup-node@v4
+      with:
+        node-version-file: 'html-report/.tool-versions'
     - uses: gradle/actions/setup-gradle@d156388eb19639ec20ade50009f3d199ce1e2808 # v4
     - shell: bash
       env:
@@ -20,6 +23,7 @@ runs:
       run: |
         ./gradlew \
         -Porg.gradle.java.installations.auto-download=false \
+        -PopenTestReporting.nodeDownload=false \
         javaToolchains \
         ${{ inputs.arguments }}
     - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4

@@ -5,7 +5,7 @@ plugins {
 }
 
 node {
-    download = true
+    download = providers.gradleProperty("openTestReporting.nodeDownload").map { it.toBoolean() }.orElse(true)
     version = providers.fileContents(layout.projectDirectory.file(".tool-versions")).asText.map {
         it.substringAfter("nodejs").trim()
     }
