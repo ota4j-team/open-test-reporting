@@ -3,8 +3,11 @@ package org.example;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.TestReporter;
 
 import java.util.LinkedHashMap;
@@ -14,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.abort;
 
 @Tag("inherited")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class KitchenSinkTests {
 
     @SuppressWarnings("JUnitMalformedDeclaration")
@@ -25,6 +29,7 @@ public class KitchenSinkTests {
     @Test
     @DisplayName("successful test")
     @Tag("success")
+    @Order(1)
     void successful(TestReporter reporter) {
         reporter.publishEntry("✅");
     }
@@ -32,11 +37,13 @@ public class KitchenSinkTests {
     @Test
     @Disabled("for demonstration purposes")
     @Tag("aborted")
+    @Order(2)
     void skipped() {
     }
 
     @Test
     @Tag("aborted")
+    @Order(3)
     void aborted(TestReporter reporter) {
         reporter.publishEntry("foo", "bar");
         reporter.publishEntry("baz", "qux");
@@ -46,6 +53,7 @@ public class KitchenSinkTests {
 
     @Test
     @Tag("failure")
+    @Order(4)
     void failed(TestReporter reporter) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("foo", "bar");
