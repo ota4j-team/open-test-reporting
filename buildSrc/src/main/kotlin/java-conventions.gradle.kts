@@ -87,6 +87,17 @@ tasks {
         }
     }
 
+    val generateHtmlReport by registering(JavaExec::class) {
+        mustRunAfter(test)
+        mainClass.set("org.opentest4j.reporting.cli.ReportingCli")
+        args("html-report")
+        classpath(cli)
+        inputs.files(eventXmlFiles).withPathSensitivity(NONE).skipWhenEmpty()
+        argumentProviders += CommandLineArgumentProvider {
+            listOf(eventXmlFiles.singleFile.absolutePath)
+        }
+    }
+
     withType<Test>().configureEach {
         useJUnitPlatform()
     }
@@ -106,7 +117,7 @@ tasks {
             }
         }
 
-        finalizedBy(convertTestResultXmlToHierarchicalFormat)
+        finalizedBy(convertTestResultXmlToHierarchicalFormat, generateHtmlReport)
     }
 }
 
