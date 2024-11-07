@@ -1,27 +1,27 @@
 export declare global {
-    interface Node {
+    interface Data {
         id: string,
         name: string,
         durationMillis: number,
-        sections: Section[] | undefined,
+        sections: SectionData[] | undefined,
     }
-    interface Execution extends Node {
+    interface ExecutionData extends Data {
         roots: string[];
         children: { [id: string]: string[] };
-        testNodes: TestNode[] | undefined;
+        testNodes: TestNodeData[] | undefined;
     }
-    interface TestNode extends Node {
+    interface TestNodeData extends Data {
         status: string,
     }
-    interface Section {
+    interface SectionData {
         title: string,
-        blocks: Block[]
+        blocks: BlockData[]
     }
-    interface Block {
+    interface BlockData {
         type: string,
         content: any
     }
     declare module globalThis {
-        var testExecutions: Execution[];
+        var testExecutions: ExecutionData[];
     }
 }

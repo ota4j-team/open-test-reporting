@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Section from './Section.vue';
 
-defineProps<{ sections: Section[] | undefined }>()
+defineProps<{ sections: SectionData[] | undefined }>()
 </script>
 
 <template>

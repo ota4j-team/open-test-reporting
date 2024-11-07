@@ -11,9 +11,9 @@ import Selection from '../Selection';
 import ExecutionIcon from './ExecutionIcon.vue';
 
 const selection = defineModel<Selection | undefined>('selection')
-const props = defineProps<{ node: TestNode, execution: TestExecution }>()
+const props = defineProps<{ node: TestNodeData, execution: TestExecution }>()
 const color = computed(() => testResultStatusColor(props.node.status))
-function selectNode(node: TestNode | TestExecution) {
+function selectNode(node: TestNodeData | TestExecution) {
   selection.value = new Selection(props.execution, node)
 }
 const parents = computed(() => props.execution.parents(props.node))

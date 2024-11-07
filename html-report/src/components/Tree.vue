@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TestExecution from '../TestExecution';
 
-defineProps<{ roots: TestNode[] | TestExecution[] }>()
+defineProps<{ roots: TestNodeData[] | TestExecution[] }>()
 </script>
 
 <template>
