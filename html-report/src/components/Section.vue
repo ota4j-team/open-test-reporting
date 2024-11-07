@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Block from './Block.vue'
 
-const { depth = 3 } = defineProps<{ section: Section, depth?: number }>()
+const { depth = 3 } = defineProps<{ section: SectionData, depth?: number }>()
 </script>
 
 <template>

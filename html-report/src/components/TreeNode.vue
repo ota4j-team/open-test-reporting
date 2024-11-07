@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { ChevronDown, ChevronRight } from 'lucide-vue-next';
-import TestTree from './TestTree.vue';
+import TestNodeTree from './TestNodeTree.vue';
 import TestExecution from '../TestExecution';
 import Selection from '../Selection';
 
 const selection = defineModel<Selection | undefined>('selection')
-const props = defineProps<{ execution: TestExecution, node: TestExecution | TestNode, children: TestNode[] }>()
+const props = defineProps<{ execution: TestExecution, node: TestExecution | TestNodeData, children: TestNodeData[] }>()
 const showChildren = ref(true)
 function toggleChildren() {
   showChildren.value = !showChildren.value
@@ -34,6 +34,6 @@ const toggleSize = 16
       <span class="ml-1 whitespace-nowrap">{{ node.name }}</span>
     </div>
   </div>
-  <TestTree :execution="execution" :roots="children" v-model:selection="selection" v-if="children"
+  <TestNodeTree :execution="execution" :roots="children" v-model:selection="selection" v-if="children"
     :class="{ hidden: !showChildren }" />
 </template>

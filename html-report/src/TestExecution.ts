@@ -48,14 +48,14 @@ export default class TestExecution {
   public readonly id: string;
   public readonly name: string;
   public readonly durationMillis: number;
-  public readonly sections: Section[];
+  public readonly sections: SectionData[];
 
   private readonly rootIds: string[]
   private readonly childrenIds: Map<string, string[]>
   private readonly parentIds: Map<string, string>
-  private readonly testNodes: Map<string, TestNode>
+  private readonly testNodes: Map<string, TestNodeData>
 
-  constructor(execution: Execution) {
+  constructor(execution: ExecutionData) {
     this.id = execution.id
     this.name = execution.name
     this.durationMillis = execution.durationMillis
@@ -73,11 +73,11 @@ export default class TestExecution {
     return this.testNodes.size
   }
 
-  roots(): TestNode[] {
+  roots(): TestNodeData[] {
     return this.rootIds.map(id => this.testNodes.get(id)!!)
   }
 
-  children(node: TestNode): TestNode[] {
+  children(node: TestNodeData): TestNodeData[] {
     if (this.childrenIds.has(node.id)) {
       return this.childrenIds.get(node.id)!!
         .map(id => this.testNodes.get(id)!!)
@@ -85,7 +85,7 @@ export default class TestExecution {
     return []
   }
 
-  parents(node: TestNode): (TestNode | TestExecution)[] {
+  parents(node: TestNodeData): (TestNodeData | TestExecution)[] {
     if (this.parentIds.has(node.id)) {
       const parentId = this.parentIds.get(node.id)!!
       const parent = this.testNodes.get(parentId)!!

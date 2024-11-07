@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import CodeBlock from './CodeBlock.vue';
 import Section from './Section.vue'
-defineProps<{ block: Block, depth: number }>()
+defineProps<{ block: BlockData, depth: number }>()
 </script>
 
 <template>
@@ -17,7 +17,7 @@ defineProps<{ block: Block, depth: number }>()
       </tr>
     </tbody>
   </table>
-  <template v-else-if="block.type === 'sub'" v-for="section in (block.content as Section[])">
+  <template v-else-if="block.type === 'sub'" v-for="section in (block.content as SectionData[])">
     <Section :section="section" :depth="depth + 1" />
   </template>
   <ul v-else-if="block.type == 'labels'" class="text-sm -mb-1">
