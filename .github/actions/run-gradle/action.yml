@@ -29,3 +29,4 @@ runs:
         path: |
           **/build/test-results/*/junit-platform-events-*.xml
           **/build/test-results/*/hierarchy.xml
+          **/build/test-results/*/*.html
