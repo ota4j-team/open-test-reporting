@@ -27,7 +27,7 @@ val buildVueDist by tasks.registering {
     doLast {
         exec {
             workingDir = htmlReportProjectDir.asFile
-            commandLine("npm", "install")
+            commandLine("npm", "install", "--no-audit")
         }
         exec {
             workingDir = htmlReportProjectDir.asFile
