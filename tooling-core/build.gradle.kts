@@ -1,9 +1,8 @@
-import com.github.gradle.node.npm.task.NpmTask
-
 plugins {
     `java-conventions`
-    alias(libs.plugins.node)
 }
+
+val htmlReportTemplate = configurations.dependencyScope("htmlReportTemplate")
 
 dependencies {
     api(projects.schema)
@@ -16,6 +15,7 @@ dependencies {
     testImplementation(libs.bundles.junit)
     testImplementation(libs.xmlunit.assertj)
     testCompileOnly(libs.jetbrains.annotations)
+    htmlReportTemplate(projects.htmlReport)
 }
 
 tasks {
@@ -24,29 +24,14 @@ tasks {
     }
 }
 
-node {
-    nodeProjectDir = layout.projectDirectory.dir("../html-report")
-    download = true
-    version = provider {
-        resources.text.fromFile("../.tool-versions").asString().substringAfter("nodejs ").trim()
-    }
-    npmInstallCommand = providers.environmentVariable("CI").map { "ci" }.orElse("install")
+val htmlReportTemplateFiles = configurations.resolvable("htmlReportTemplateFiles") {
+    extendsFrom(htmlReportTemplate.get())
 }
 
-val buildVueDist by tasks.registering(NpmTask::class) {
-    dependsOn(tasks.npmInstall)
-    inputs.files(fileTree(node.nodeProjectDir) {
-        include("public/**", "src/**", "*.html", "*.js", "*.json", "*.ts")
-    })
-    outputs.dir(node.nodeProjectDir.dir("dist"))
-    npmCommand.addAll("run", "build")
-}
-
-val generatedResourcesDir = layout.buildDirectory.dir("generated-resources/main")
+val generatedResourcesDir = layout.buildDirectory.dir("generated/sources/htmlReportTemplate")
 
 val prepareResourceDir by tasks.registering(Sync::class) {
-    from(buildVueDist)
-    include("index.html")
+    from(htmlReportTemplateFiles)
     rename {
         "template.html"
     }
@@ -55,6 +40,8 @@ val prepareResourceDir by tasks.registering(Sync::class) {
 
 sourceSets {
     main {
-        output.dir(files(generatedResourcesDir).builtBy(prepareResourceDir))
+        resources {
+            srcDir(generatedResourcesDir)
+        }
     }
 }

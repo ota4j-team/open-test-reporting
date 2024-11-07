@@ -1,0 +1,31 @@
+import com.github.gradle.node.npm.task.NpmTask
+
+plugins {
+    alias(libs.plugins.node)
+}
+
+node {
+    download = true
+    version = providers.fileContents(layout.projectDirectory.file(".tool-versions")).asText.map {
+        it.substringAfter("nodejs").trim()
+    }
+    npmInstallCommand = providers.environmentVariable("CI").map { "ci" }.orElse("install")
+}
+
+val buildVueDist by tasks.registering(NpmTask::class) {
+    dependsOn(tasks.npmInstall)
+    inputs.files(fileTree(node.nodeProjectDir) {
+        include("public/**", "src/**", "*.html", "*.js", "*.json", "*.ts")
+    })
+    outputs.file(node.nodeProjectDir.file("dist/index.html"))
+    npmCommand.addAll("run", "build")
+}
+
+configurations.consumable("htmlReportTemplate") {
+    outgoing {
+        artifact(buildVueDist)
+    }
+    attributes {
+        attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE, objects.named(LibraryElements.RESOURCES))
+    }
+}
