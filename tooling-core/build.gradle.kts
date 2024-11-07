@@ -1,5 +1,8 @@
+import com.github.gradle.node.npm.task.NpmTask
+
 plugins {
     `java-conventions`
+    alias(libs.plugins.node)
 }
 
 dependencies {
@@ -21,26 +24,28 @@ tasks {
     }
 }
 
-val htmlReportProjectDir = layout.projectDirectory.dir("../html-report")
-
-val buildVueDist by tasks.registering {
-    doLast {
-        exec {
-            workingDir = htmlReportProjectDir.asFile
-            commandLine("npm", "install", "--no-audit")
-        }
-        exec {
-            workingDir = htmlReportProjectDir.asFile
-            commandLine("npm", "run", "build")
-        }
+node {
+    nodeProjectDir = layout.projectDirectory.dir("../html-report")
+    download = true
+    version = provider {
+        resources.text.fromFile("../.tool-versions").asString().substringAfter("nodejs ").trim()
     }
+    npmInstallCommand = providers.environmentVariable("CI").map { "ci" }.orElse("install")
+}
+
+val buildVueDist by tasks.registering(NpmTask::class) {
+    dependsOn(tasks.npmInstall)
+    inputs.files(fileTree(node.nodeProjectDir) {
+        include("public/**", "src/**", "*.html", "*.js", "*.json", "*.ts")
+    })
+    outputs.dir(node.nodeProjectDir.dir("dist"))
+    npmCommand.addAll("run", "build")
 }
 
 val generatedResourcesDir = layout.buildDirectory.dir("generated-resources/main")
 
 val prepareResourceDir by tasks.registering(Sync::class) {
-    dependsOn(buildVueDist)
-    from(htmlReportProjectDir.dir("dist"))
+    from(buildVueDist)
     include("index.html")
     rename {
         "template.html"
