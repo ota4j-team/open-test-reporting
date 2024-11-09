@@ -9,8 +9,7 @@ dependencies {
     api(projects.schema)
     implementation(projects.events)
     implementation(projects.toolingSpi)
-    implementation(libs.jackson.dataformat.xml)
-    implementation(libs.jsonSanitizer)
+    implementation(libs.gson)
     implementation(libs.joox)
 
     testImplementation(libs.assertj.core)
