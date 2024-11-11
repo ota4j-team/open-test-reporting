@@ -36,6 +36,9 @@ spotless {
 fun Project.requiredVersionFromLibs(name: String) =
     libsVersionCatalog.findVersion(name).get().requiredVersion
 
+fun Project.dependencyFromLibs(name: String) =
+    libsVersionCatalog.findLibrary(name).get()
+
 private val Project.libsVersionCatalog: VersionCatalog
     get() = the<VersionCatalogsExtension>().named("libs")
 
@@ -47,6 +50,14 @@ val cli by configurations.creating {
 
 dependencies {
     cli(project(":cli"))
+    cli(dependencyFromLibs("junit-platform-reporting"))
+}
+
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        substitute(module("${group}:open-test-reporting-tooling-spi"))
+            .using(project(":tooling-spi"))
+    }
 }
 
 tasks {

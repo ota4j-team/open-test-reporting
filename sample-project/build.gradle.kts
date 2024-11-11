@@ -14,6 +14,14 @@ dependencies {
     testImplementation(libs.junit.jupiter)
     testRuntimeOnly(libs.junit.platform.reporting)
     cli(projects.cli)
+    cli(libs.junit.platform.reporting)
+}
+
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        substitute(module("${group}:open-test-reporting-${projects.toolingSpi.name}"))
+            .using(project(projects.toolingSpi.path))
+    }
 }
 
 val htmlReportFile = tasks.test.flatMap { it.reports.junitXml.outputLocation.file("open-test-report.html") }

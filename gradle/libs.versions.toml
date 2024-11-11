@@ -10,8 +10,8 @@ immutables-value = { module = "org.immutables:value", version.ref = "immutables"
 immutables-valueAnnotations = { module = "org.immutables:value-annotations", version.ref = "immutables" }
 jetbrains-annotations = { module = "org.jetbrains:annotations", version = "26.0.1" }
 joox = { module = "org.jooq:joox", version = "2.0.1" }
-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version = "5.11.3" }
-junit-platform-reporting = { module = "org.junit.platform:junit-platform-reporting", version = "1.11.3" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version = "5.12.0-SNAPSHOT" }
+junit-platform-reporting = { module = "org.junit.platform:junit-platform-reporting", version = "1.12.0-SNAPSHOT" }
 log4j-slf4j2-impl = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version = "2.24.1" }
 picocli = { module = "info.picocli:picocli", version = "4.7.6" }
 playwright = { module = "com.microsoft.playwright:playwright", version = "1.48.0" }
