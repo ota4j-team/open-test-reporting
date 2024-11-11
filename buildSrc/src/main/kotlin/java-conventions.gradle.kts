@@ -3,6 +3,7 @@ import java.nio.file.Files
 
 plugins {
     `java-library`
+    id("biz.aQute.bnd.builder")
     id("com.diffplug.spotless")
     id("publishing-conventions")
 }
@@ -57,7 +58,16 @@ tasks {
     }
     jar {
         manifest {
-            attributes("Automatic-Module-Name" to "org.opentest4j.reporting.${project.name.replace('-', '.')}")
+            val moduleName = "org.opentest4j.reporting.${project.name.replace('-', '.')}"
+            attributes(
+                "Automatic-Module-Name" to moduleName,
+                "Bundle-Name" to project.name,
+                "Bundle-Description" to project.name,
+                "Bundle-DocURL" to "https://github.com/ota4j-team/open-test-reporting",
+                "Bundle-Vendor" to "opentest4j.org",
+                "-exportcontents" to "org.opentest4j.reporting.*",
+                "Bundle-SymbolicName" to moduleName,
+            )
         }
     }
     javadoc {

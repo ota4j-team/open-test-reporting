@@ -8,6 +8,7 @@ repositories {
 }
 
 dependencies {
+    implementation(libs.plugins.bnd.markerCoordinates)
     implementation(libs.plugins.spotless.markerCoordinates)
 }
 
