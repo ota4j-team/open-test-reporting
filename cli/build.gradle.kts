@@ -21,6 +21,11 @@ tasks {
     compileJava {
         options.release = 11
     }
+    jar {
+        manifest {
+            attributes("Main-Class" to application.mainClass)
+        }
+    }
     shadowJar {
         archiveClassifier = "standalone"
         exclude("META-INF/maven/**")
