@@ -31,6 +31,8 @@ runs:
       with:
         path: ${{ github.workspace }}/.gradle/playwright
         key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.value }}
+        restore-keys: |
+          ${{ runner.os }}-playwright-
     - shell: bash
       env:
         JAVA_HOME: ${{ steps.setup-gradle-jdk.outputs.path }}
