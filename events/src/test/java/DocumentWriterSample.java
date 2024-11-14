@@ -34,6 +34,7 @@ public class DocumentWriterSample {
 
 		NamespaceRegistry namespaceRegistry = NamespaceRegistry.builder(Namespace.REPORTING_CORE) // <1>
 				.add("e", Namespace.REPORTING_EVENTS) //
+				.add("git", Namespace.REPORTING_GIT) //
 				.add("java", Namespace.REPORTING_JAVA) //
 				.build();
 
