@@ -26,6 +26,12 @@ tasks.compileJava {
     options.release = 11
 }
 
+val installPlaywrightDeps by tasks.registering(JavaExec::class) {
+    classpath(configurations.testRuntimeClasspath)
+    mainClass = "com.microsoft.playwright.CLI"
+    args("install-deps")
+}
+
 val sampleHtmlReportFiles = configurations.resolvable("sampleHtmlReportFiles") {
     extendsFrom(sampleHtmlReport.get())
 }
