@@ -19,9 +19,22 @@ runs:
         cache: npm
         cache-dependency-path: html-report/package-lock.json
     - uses: gradle/actions/setup-gradle@473878a77f1b98e2b5ac4af93489d1656a80a5ed # v4
+    - name: Read Playwright version
+      uses: SebRollen/toml-action@v1.2.0
+      id: playwright-version
+      with:
+        file: gradle/libs.versions.toml
+        field: versions.playwright
+    - name: Cache Playwright browsers
+      uses: actions/cache@v3
+      id: playwright-cache
+      with:
+        path: ${{ github.workspace }}/.gradle/playwright
+        key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.value }}
     - shell: bash
       env:
         JAVA_HOME: ${{ steps.setup-gradle-jdk.outputs.path }}
+        PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.gradle/playwright
       run: |
         ./gradlew \
         -Porg.gradle.java.installations.auto-download=false \
