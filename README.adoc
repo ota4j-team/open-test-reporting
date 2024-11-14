@@ -95,10 +95,17 @@ The following example shows the result of converting the above event-based repor
 <3> child node of "test" with timestamp, duration, and result status
 
 [#xml-extensions]
-=== Java extensions
+=== Schema extensions
 
 All schema definitions mentioned so far are language-agnostic.
+
+==== Java
+
 In order to report Java-specific attributes, e.g. the class or method name of a test, an extension schema is defined in link:schema/src/main/resources/org/opentest4j/reporting/schema/java.xsd[java.xsd].
+
+==== Git
+
+In order to include Git-specific metadata, e.g. the commit hash or branch name, an extension schema is defined in link:schema/src/main/resources/org/opentest4j/reporting/schema/git.xsd[git.xsd].
 
 [TIP]
 ====
