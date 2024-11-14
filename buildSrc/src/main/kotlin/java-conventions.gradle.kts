@@ -132,8 +132,11 @@ tasks {
         }
 
         doFirst {
-            // Delete existing event-based report files
-            eventXmlFiles.files.forEach {
+            files(reports.junitXml.outputLocation.get().asFileTree.matching {
+                include("junit-platform-events-*.xml")
+                include("junit-platform-events-*.html")
+                include("hierarchy.xml")
+            }).files.forEach {
                 Files.delete(it.toPath())
             }
         }
