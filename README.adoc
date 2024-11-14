@@ -2,7 +2,7 @@
 :schemaVersion: 0.1.0
 :openTestReportingVersion: 0.1.0-M2
 
-New <<xml-formats, XML>> and <<cli-html-report, HTML>> test reporting formats that are agnostic of testing framework and programming language.
+<<xml-formats, XML>> and <<cli-html-report, HTML>> test reporting formats that are agnostic of testing framework and programming language.
 
 == Introduction
 
