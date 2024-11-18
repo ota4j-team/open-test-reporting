@@ -1,5 +1,5 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="https://schemas.opentest4j.org/reporting/git/0.1.0"
+           targetNamespace="https://schemas.opentest4j.org/reporting/git/0.2.0"
            elementFormDefault="qualified">
 
   <!-- infrastructure -->

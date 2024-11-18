@@ -1,6 +1,6 @@
 = Open Test Reporting
-:schemaVersion: 0.1.0
-:openTestReportingVersion: 0.1.0-M2
+:schemaVersion: 0.2.0
+:openTestReportingVersion: 0.2.0-SNAPSHOT
 
 <<xml-formats, XML>> and <<cli-html-report, HTML>> test reporting formats that are agnostic of testing framework and programming language.
 
