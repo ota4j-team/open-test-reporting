@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <e:events
-        xmlns="https://schemas.opentest4j.org/reporting/core/0.1.0"
-        xmlns:e="https://schemas.opentest4j.org/reporting/events/0.1.0">
+        xmlns="https://schemas.opentest4j.org/reporting/core/0.2.0"
+        xmlns:e="https://schemas.opentest4j.org/reporting/events/0.2.0">
     <infrastructure> <!--1-->
         <hostName>wonderland</hostName>
         <userName>alice</userName>
