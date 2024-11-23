@@ -6,10 +6,19 @@
 
   <xs:element name="repository">
     <xs:complexType>
-      <xs:attribute name="originUrl" type="xs:anyURI" use="required">
+      <xs:attribute name="originUrl" use="required">
         <xs:annotation>
           <xs:documentation>the URL of the 'origin' remote of the Git repository</xs:documentation>
         </xs:annotation>
+        <xs:simpleType>
+          <xs:union memberTypes="xs:anyURI">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:pattern value=".*:.*"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:union>
+        </xs:simpleType>
       </xs:attribute>
     </xs:complexType>
   </xs:element>
