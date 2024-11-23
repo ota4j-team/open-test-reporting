@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, Reactive, reactive } from 'vue'
 import { createI18n } from 'vue-i18n'
 
 import './style.css'
@@ -10,6 +10,52 @@ const rootProps = {
     .map(it => new TestExecution(it)),
 };
 
+export type NodeUi = {
+    collapsed: boolean
+}
+
+export type RootUi = {
+    nodes: Record<string, NodeUi>
+    collapseAll: () => void
+    expandAll: () => void
+    toggleNode: (id: string) => void
+}
+
+export const rootStore: Reactive<RootUi> = reactive({
+        nodes: rootProps.executions
+            .reduce((prev, current) => {
+                return {
+                    ...prev,
+                    [current.id]: {
+                        collapsed: false,
+                    },
+                    ...current.idsForNodesWithChildren().reduce((prev, current) => {
+                        return {
+                            ...prev,
+                            [current]: {
+                                collapsed: false,
+                            }
+                        }
+                    }, {})
+                }
+            }, {} as Record<string, NodeUi>),
+
+        collapseAll() {
+            Object.keys(this.nodes).forEach((key) => {
+                this.nodes[key].collapsed = true;
+            });
+        },
+        expandAll() {
+            Object.keys(this.nodes).forEach((key) => {
+                this.nodes[key].collapsed = false;
+            });
+        },
+        toggleNode(id: string) {
+            this.nodes[id].collapsed = !this.nodes[id].collapsed;
+        }
+
+    }
+)
 const app = createApp(App, rootProps);
 
 const i18n = createI18n({
@@ -31,6 +77,10 @@ const i18n = createI18n({
         seconds: '{count} s',
         millis: '{count} ms',
       },
+      toolbar: {
+        collapseAll: 'Collapse all',
+        expandAll: 'Expand all',
+      }
     }
   }
 });

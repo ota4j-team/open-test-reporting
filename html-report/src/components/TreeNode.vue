@@ -1,19 +1,16 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { ChevronDown, ChevronRight } from 'lucide-vue-next';
 import TestNodeTree from './TestNodeTree.vue';
 import TestExecution from '../TestExecution';
 import Selection from '../Selection';
+import { rootStore } from '../main';
 
 const selection = defineModel<Selection | undefined>('selection')
 const props = defineProps<{ execution: TestExecution, node: TestExecution | TestNodeData, children: TestNodeData[] }>()
-const showChildren = ref(true)
-function toggleChildren() {
-  showChildren.value = !showChildren.value
-}
 function selectNodeAndShowChildren() {
   selection.value = new Selection(props.execution, props.node)
-  showChildren.value = true
+  rootStore.nodes[props.node.id].collapsed = false
 }
 const isSelected = computed(() => selection.value?.item !== undefined && selection.value.item.id === props.node.id)
 const toggleSize = 16
@@ -21,9 +18,9 @@ const toggleSize = 16
 
 <template>
   <div class="inline-flex -mt-0.5">
-    <div @click="toggleChildren" class="cursor-pointer self-center" v-if="children.length > 0">
-      <ChevronDown :size="toggleSize" v-if="showChildren" />
-      <ChevronRight :size="toggleSize" v-else />
+    <div @click="rootStore.toggleNode(node.id)" class="cursor-pointer self-center" v-if="children.length > 0">
+      <ChevronRight :size="toggleSize" v-if="rootStore.nodes[node.id]?.collapsed" />
+      <ChevronDown :size="toggleSize" v-else />
     </div>
     <div class="cursor-pointer rounded p-px px-1 inline-flex" :class="{
       'bg-neutral-300 dark:bg-neutral-600 font-bold': isSelected,
@@ -35,5 +32,5 @@ const toggleSize = 16
     </div>
   </div>
   <TestNodeTree :execution="execution" :roots="children" v-model:selection="selection" v-if="children"
-    :class="{ hidden: !showChildren }" />
+    :class="{ hidden: rootStore.nodes[node.id]?.collapsed }" />
 </template>
