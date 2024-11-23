@@ -7,6 +7,7 @@ import TestNodeDetails from './components/TestNodeDetails.vue';
 import Selection from './Selection';
 import StatusBar from './components/StatusBar.vue';
 import TestExecution from './TestExecution';
+import ToolBar from './components/ToolBar.vue';
 
 const props = defineProps<{ executions: TestExecution[] }>()
 const selection = ref<Selection | undefined>();
@@ -28,7 +29,8 @@ const resizeConfig: ResizableConfig = {
     <StatusBar :executions="executions" />
     <div class="flex flex-1 overflow-hidden">
       <div v-resizable="resizeConfig"
-        class="resize-x bg-neutral-100 dark:bg-neutral-800 w-1/2 lg:w-1/3 2xl:w-1/4 min-w-80 px-2 py-4 overflow-auto text-sm border-r border-neutral-200 dark:border-neutral-700">
+        class="resize-x bg-neutral-100 dark:bg-neutral-800 w-1/2 lg:w-1/3 2xl:w-1/4 min-w-80 px-2 overflow-auto text-sm border-r border-neutral-200 dark:border-neutral-700">
+        <ToolBar :executions="executions" />
         <ExecutionTree :executions="executions" v-model:selection="selection" class="-ml-2.5 w-full h-full" />
       </div>
       <div class="flex-1 overflow-auto">
