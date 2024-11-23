@@ -6,3 +6,5 @@ build
 
 # SDKMAN!
 .sdkmanrc
+
+.idea
