@@ -17,7 +17,7 @@ const toggleSize = 16
 </script>
 
 <template>
-  <div class="inline-flex -mt-0.5">
+  <div class="inline-flex -mt-0.5" v-if="rootStore.isVisible(execution.nodeStatuses((node as TestNodeData)))">
     <div @click="rootStore.toggleNode(node.id)" class="cursor-pointer self-center" v-if="children.length > 0">
       <ChevronRight :size="toggleSize" v-if="rootStore.nodes[node.id]?.collapsed" />
       <ChevronDown :size="toggleSize" v-else />

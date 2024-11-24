@@ -7,11 +7,15 @@ export declare global {
     }
     interface ExecutionData extends Data {
         roots: string[];
-        children: { [id: string]: string[] };
+        children: Record<string, ChildMetadata>;
         testNodes: TestNodeData[] | undefined;
     }
     interface TestNodeData extends Data {
         status: string,
+    }
+    interface ChildMetadata {
+        ids: string[],
+        childStatuses: string[]
     }
     interface SectionData {
         title: string,
