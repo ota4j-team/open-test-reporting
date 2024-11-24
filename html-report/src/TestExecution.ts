@@ -51,7 +51,7 @@ export default class TestExecution {
   public readonly sections: SectionData[];
 
   private readonly rootIds: string[]
-  private readonly childrenIds: Map<string, string[]>
+  private readonly childrenMetadata: Map<string, ChildMetadata>
   private readonly parentIds: Map<string, string>
   private readonly testNodes: Map<string, TestNodeData>
 
@@ -61,10 +61,10 @@ export default class TestExecution {
     this.durationMillis = execution.durationMillis
     this.sections = execution.sections || []
     this.rootIds = execution.roots || []
-    this.childrenIds = new Map(Object.entries(execution.children ? execution.children : []))
+    this.childrenMetadata = new Map(Object.entries(execution.children ? execution.children : []))
     this.parentIds = new Map<string, string>()
-    this.childrenIds.forEach((children, p) => {
-      children.forEach(c => this.parentIds.set(c, p))
+    this.childrenMetadata.forEach((children, p) => {
+      children.ids?.forEach(c => this.parentIds.set(c, p))
     });
     this.testNodes = new Map(execution.testNodes?.map(n => [n.id, n]))
   }
@@ -74,7 +74,7 @@ export default class TestExecution {
   }
 
   idsForNodesWithChildren(): string[] {
-    return Array.from(this.childrenIds.keys())
+    return Array.from(this.childrenMetadata.keys())
   }
 
   roots(): TestNodeData[] {
@@ -82,8 +82,9 @@ export default class TestExecution {
   }
 
   children(node: TestNodeData): TestNodeData[] {
-    if (this.childrenIds.has(node.id)) {
-      return this.childrenIds.get(node.id)!!
+    if (this.childrenMetadata.has(node.id)) {
+      return this.childrenMetadata.get(node.id)!!
+        .ids!!
         .map(id => this.testNodes.get(id)!!)
     }
     return []
@@ -96,6 +97,14 @@ export default class TestExecution {
       return [...this.parents(parent), parent]
     }
     return [this]
+  }
+
+  nodeStatuses(node: TestNodeData): string[] {
+    if (this.childrenMetadata.has(node.id)) {
+      return this.childrenMetadata.get(node.id)!!
+        .childStatuses!!
+    }
+    return node.status ? [node.status] : []
   }
 
   overallStatus(): string {

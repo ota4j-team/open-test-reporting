@@ -16,12 +16,23 @@ export type NodeUi = {
 
 export type RootUi = {
     nodes: Record<string, NodeUi>
+    showAborted: boolean
+    showFailed: boolean
+    showSkipped: boolean
+    showSuccessful: boolean
+
     collapseAll: () => void
     expandAll: () => void
+    toggleShowAborted: () => void
+    toggleShowFailed: () => void
+    toggleShowSkipped: () => void
+    toggleShowSuccessful: () => void
     toggleNode: (id: string) => void
+
+    isVisible: (statuses: string[]) => boolean
 }
 
-export const rootStore: Reactive<RootUi> = reactive({
+export const rootStore: Reactive<RootUi> = reactive<RootUi>({
         nodes: rootProps.executions
             .reduce((prev, current) => {
                 return {
@@ -39,6 +50,26 @@ export const rootStore: Reactive<RootUi> = reactive({
                     }, {})
                 }
             }, {} as Record<string, NodeUi>),
+        showAborted: true,
+        showFailed: true,
+        showSkipped: true,
+        showSuccessful: false,
+
+        toggleShowAborted() {
+            this.showAborted = !this.showAborted;
+        },
+
+        toggleShowFailed() {
+            this.showFailed = !this.showFailed;
+        },
+
+        toggleShowSuccessful() {
+            this.showSuccessful = !this.showSuccessful;
+        },
+
+        toggleShowSkipped() {
+            this.showSkipped = !this.showSkipped;
+        },
 
         collapseAll() {
             Object.keys(this.nodes).forEach((key) => {
@@ -52,6 +83,23 @@ export const rootStore: Reactive<RootUi> = reactive({
         },
         toggleNode(id: string) {
             this.nodes[id].collapsed = !this.nodes[id].collapsed;
+        },
+
+        isVisible(statuses: string[]): boolean {
+            return statuses.length == 0 || statuses.filter(status => {
+                if (status === 'SUCCESSFUL') {
+                    return this.showSuccessful;
+                }
+                if (status === 'FAILED') {
+                    return this.showFailed;
+                }
+                if (status === 'SKIPPED') {
+                    return this.showSkipped;
+                }
+                if (status === 'ABORTED') {
+                    return this.showAborted;
+                }
+            }).length > 0;
         }
 
     }
@@ -80,6 +128,10 @@ const i18n = createI18n({
       toolbar: {
         collapseAll: 'Collapse all',
         expandAll: 'Expand all',
+        showAborted: 'Show aborted',
+        showFailed: 'Show failed',
+        showSkipped: 'Show skipped',
+        showSuccessful: 'Show successful',
       }
     }
   }
