@@ -16,7 +16,7 @@
     "vue-resizables": "^0.7.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "5.2.0",
+    "@vitejs/plugin-vue": "5.2.1",
     "autoprefixer": "10.4.20",
     "postcss": "8.4.49",
     "tailwindcss": "3.4.15",
