@@ -49,6 +49,6 @@ runs:
       with:
         name: Open Test Reports (${{ github.job }})
         path: |
-          **/build/test-results/*/junit-platform-events-*.xml
+          **/build/test-results/*/open-test-report.xml
+          **/build/test-results/*/open-test-report.html
           **/build/test-results/*/hierarchy.xml
-          **/build/test-results/*/*.html

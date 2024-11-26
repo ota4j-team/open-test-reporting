@@ -95,7 +95,7 @@ tasks {
     }
 
     val eventXmlFiles =
-        files(test.map { it.reports.junitXml.outputLocation.get().asFileTree.matching { include("junit-platform-events-*.xml") } })
+        files(test.map { it.reports.junitXml.outputLocation.get().asFileTree.matching { include("open-test-report.xml") } })
 
     val convertTestResultXmlToHierarchicalFormat by registering(JavaExec::class) {
         mustRunAfter(test)
@@ -133,8 +133,8 @@ tasks {
 
         doFirst {
             files(reports.junitXml.outputLocation.get().asFileTree.matching {
-                include("junit-platform-events-*.xml")
-                include("junit-platform-events-*.html")
+                include("open-test-report.xml")
+                include("open-test-report.html")
                 include("hierarchy.xml")
             }).files.forEach {
                 Files.delete(it.toPath())
