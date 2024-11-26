@@ -41,6 +41,7 @@ runs:
         ./gradlew \
         -Porg.gradle.java.installations.auto-download=false \
         -PopenTestReporting.nodeDownload=false \
+        --refresh-dependencies \
         javaToolchains \
         installPlaywrightDeps \
         ${{ inputs.arguments }}
