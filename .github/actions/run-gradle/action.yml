@@ -41,10 +41,10 @@ runs:
         ./gradlew \
         -Porg.gradle.java.installations.auto-download=false \
         -PopenTestReporting.nodeDownload=false \
-        --no-configuration-cache \ # Disable configuration cache due to https://github.com/diffplug/spotless/issues/2331
         javaToolchains \
         installPlaywrightDeps \
-        ${{ inputs.arguments }}
+        ${{ inputs.arguments }} \
+        --no-configuration-cache # Disable configuration cache due to https://github.com/diffplug/spotless/issues/2331
     - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4
       if: ${{ always() }}
       with:
