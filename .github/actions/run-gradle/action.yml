@@ -41,7 +41,6 @@ runs:
         ./gradlew \
         -Porg.gradle.java.installations.auto-download=false \
         -PopenTestReporting.nodeDownload=false \
-        --no-configuration-cache # Disable configuration cache due to https://github.com/diffplug/spotless/issues/2331 \
         javaToolchains \
         installPlaywrightDeps \
         ${{ inputs.arguments }}
