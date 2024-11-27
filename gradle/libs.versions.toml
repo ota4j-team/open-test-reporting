@@ -30,4 +30,4 @@ junit = ["junit-jupiter", "junit-platform-reporting"]
 bnd = { id = "biz.aQute.bnd.builder", version = "7.0.0" }
 node = { id = "com.github.node-gradle.node", version = "7.1.0" }
 shadow = { id = "com.gradleup.shadow", version = "8.3.5" }
-spotless = { id = "com.diffplug.spotless", version = "7.0.0.BETA3" }
+spotless = { id = "com.diffplug.spotless", version = "7.0.0.BETA2" }
