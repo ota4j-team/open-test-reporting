@@ -1,0 +1,14 @@
+name: Archive Open Test Reports
+description: Archives Open Test Reports and attached files
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4
+      if: ${{ always() }}
+      with:
+        name: Open Test Reports (${{ github.job }})
+        path: |
+          **/build/test-results/*/open-test-report.xml
+          **/build/test-results/*/open-test-report.html
+          **/build/test-results/*/hierarchy.xml
+          **/build/test-results/*/junit-jupiter/**

@@ -22,6 +22,8 @@ jobs:
         fetch-depth: 1
     - name: Build
       uses: ./.github/actions/run-gradle
+    - name: Archive Open Test Reports
+      uses: ./.github/actions/archive-reports
 
   Windows:
     runs-on: windows-latest
@@ -32,6 +34,8 @@ jobs:
         fetch-depth: 1
     - name: Build
       uses: ./.github/actions/run-gradle
+    - name: Archive Open Test Reports
+      uses: ./.github/actions/archive-reports
 
   macOS:
     runs-on: macos-latest
@@ -42,6 +46,8 @@ jobs:
         fetch-depth: 1
     - name: Build
       uses: ./.github/actions/run-gradle
+    - name: Archive Open Test Reports
+      uses: ./.github/actions/archive-reports
 
   publish_artifacts:
     name: Publish Snapshot Artifacts
