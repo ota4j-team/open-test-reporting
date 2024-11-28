@@ -53,3 +53,4 @@ runs:
           **/build/test-results/*/open-test-report.xml
           **/build/test-results/*/open-test-report.html
           **/build/test-results/*/hierarchy.xml
+          **/build/test-results/*/junit-jupiter/**

@@ -10,9 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.TestReporter;
 
+import java.nio.file.Files;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.abort;
 
@@ -32,6 +34,7 @@ public class KitchenSinkTests {
     @Order(1)
     void successful(TestReporter reporter) {
         reporter.publishEntry("✅");
+        reporter.publishFile("test.txt", file -> Files.write(file, singletonList("Hello, World!")));
     }
 
     @Test
