@@ -1,0 +1,71 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:core="https://schemas.opentest4j.org/reporting/core/0.1.0"
+           targetNamespace="https://schemas.opentest4j.org/reporting/java/0.1.0"
+           elementFormDefault="qualified">
+
+  <xs:import schemaLocation="core-0.1.0.xsd" namespace="https://schemas.opentest4j.org/reporting/core/0.1.0"/>
+
+  <!-- infrastructure -->
+  <xs:element name="javaVersion">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string"/>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fileEncoding">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string"/>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="heapSize">
+    <xs:complexType>
+      <xs:attribute name="max" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- source -->
+  <xs:element name="classSource">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="filePosition" type="core:FilePosition" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="className" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="methodSource">
+    <xs:complexType>
+      <xs:attribute name="className" type="xs:string" use="required"/>
+      <xs:attribute name="methodName" type="xs:string" use="required"/>
+      <xs:attribute name="methodParameterTypes" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="classpathResourceSource">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="filePosition" type="core:FilePosition" minOccurs="0"/>
+      </xs:all>
+      <xs:attribute name="resourceName" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="packageSource">
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- result -->
+  <xs:element name="throwable">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="type" type="xs:string" use="required"/>
+          <xs:attribute name="assertionError" type="xs:boolean" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
