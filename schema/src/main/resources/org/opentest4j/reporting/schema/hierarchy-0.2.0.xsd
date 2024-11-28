@@ -1,0 +1,27 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:h="https://schemas.opentest4j.org/reporting/hierarchy/0.2.0"
+           xmlns:core="https://schemas.opentest4j.org/reporting/core/0.2.0"
+           targetNamespace="https://schemas.opentest4j.org/reporting/hierarchy/0.2.0"
+           elementFormDefault="qualified">
+  <xs:import schemaLocation="core-0.2.0.xsd" namespace="https://schemas.opentest4j.org/reporting/core/0.2.0"/>
+  <xs:element name="execution">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="core:infrastructure" minOccurs="0"/>
+        <xs:element name="root" type="h:Node" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Node">
+    <xs:complexContent>
+      <xs:extension base="core:TestInfo">
+        <xs:sequence>
+          <xs:element name="child" type="h:Node" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="duration" type="xs:duration"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="start" type="xs:dateTime" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>
