@@ -9,3 +9,7 @@ val schemas by configurations.creating {
         artifact(file("src/main/resources/org/opentest4j/reporting/schema"))
     }
 }
+
+dependencies {
+    testImplementation(libs.bundles.junit)
+}
