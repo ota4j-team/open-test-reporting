@@ -2,7 +2,7 @@ import org.gradle.api.tasks.PathSensitivity.NONE
 import java.nio.file.Files
 
 plugins {
-    `java-library`
+    `java-basics`
 }
 
 val cli by configurations.dependencyScope("cli")

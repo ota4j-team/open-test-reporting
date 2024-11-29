@@ -2,9 +2,9 @@ import org.gradle.api.tasks.PathSensitivity.NONE
 import java.nio.file.Files
 
 plugins {
-    `java-library`
     id("biz.aQute.bnd.builder")
     id("com.diffplug.spotless")
+    id("java-basics")
     id("publishing-conventions")
 }
 
