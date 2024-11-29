@@ -1,12 +1,6 @@
 plugins {
     `java-conventions`
-    application
     alias(libs.plugins.shadow)
-}
-
-application {
-    applicationName = "open-test-reporting"
-    mainClass = "org.opentest4j.reporting.cli.ReportingCli"
 }
 
 dependencies {
@@ -23,7 +17,7 @@ tasks {
     }
     jar {
         manifest {
-            attributes("Main-Class" to application.mainClass)
+            attributes("Main-Class" to "org.opentest4j.reporting.cli.ReportingCli")
         }
     }
     shadowJar {

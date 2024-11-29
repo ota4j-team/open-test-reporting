@@ -17,10 +17,10 @@ dependencyResolutionManagement {
     }
 }
 
+val isCiServer = System.getenv("CI") != null
+
 develocity {
     buildScan {
-        val isCiServer = System.getenv("CI") != null
-
         server = "https://ge.junit.org"
         uploadInBackground = !isCiServer
 
@@ -34,6 +34,16 @@ develocity {
         }
 
         publishing.onlyIf { it.isAuthenticated }
+    }
+}
+
+buildCache {
+    local {
+        isEnabled = !isCiServer
+    }
+    remote(develocity.buildCache) {
+        val authenticated = System.getenv("DEVELOCITY_ACCESS_KEY") != null
+        isPush = isCiServer && authenticated
     }
 }
 

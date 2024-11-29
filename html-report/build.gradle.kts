@@ -18,6 +18,7 @@ val buildVueDist by tasks.registering(NpmTask::class) {
         include("public/**", "src/**", "*.html", "*.js", "*.json", "*.ts")
     })
     outputs.file(node.nodeProjectDir.file("dist/index.html"))
+    outputs.cacheIf { true }
     npmCommand.addAll("run", "build")
 }
 
