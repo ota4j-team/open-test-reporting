@@ -24,6 +24,7 @@ jobs:
       uses: ./.github/actions/run-gradle
     - name: Archive Open Test Reports
       uses: ./.github/actions/archive-reports
+      if: ${{ always() }}
 
   Windows:
     runs-on: windows-latest
@@ -36,6 +37,7 @@ jobs:
       uses: ./.github/actions/run-gradle
     - name: Archive Open Test Reports
       uses: ./.github/actions/archive-reports
+      if: ${{ always() }}
 
   macOS:
     runs-on: macos-latest
@@ -48,6 +50,7 @@ jobs:
       uses: ./.github/actions/run-gradle
     - name: Archive Open Test Reports
       uses: ./.github/actions/archive-reports
+      if: ${{ always() }}
 
   publish_artifacts:
     name: Publish Snapshot Artifacts
