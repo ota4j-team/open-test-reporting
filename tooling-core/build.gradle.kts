@@ -26,10 +26,12 @@ tasks.compileJava {
     options.release = 11
 }
 
-val installPlaywrightDeps by tasks.registering(JavaExec::class) {
-    classpath(configurations.testRuntimeClasspath)
-    mainClass = "com.microsoft.playwright.CLI"
-    args("install-deps")
+val playwrightInstallationAction = objects.newInstance(InstallPlaywrightDeps::class).apply {
+    classpath.from(configurations.testRuntimeClasspath)
+}
+
+val installPlaywrightDeps by tasks.registering {
+    doFirst(playwrightInstallationAction)
 }
 
 val sampleHtmlReportFiles = configurations.resolvable("sampleHtmlReportFiles") {
@@ -41,6 +43,20 @@ tasks.test {
     jvmArgumentProviders.add(CommandLineArgumentProvider {
         listOf("-DsampleHtmlReport=${sampleHtmlReportFiles.get().singleFile.absolutePath}")
     })
+    if (System.getenv("CI") != null) {
+        doFirst(playwrightInstallationAction)
+    }
+}
+
+abstract class InstallPlaywrightDeps @Inject constructor (private val execOperations: ExecOperations) : Action<Task> {
+    abstract val classpath: ConfigurableFileCollection
+    override fun execute(t: Task) {
+        execOperations.javaexec {
+            classpath(this@InstallPlaywrightDeps.classpath)
+            mainClass = "com.microsoft.playwright.CLI"
+            args("install-deps")
+        }
+    }
 }
 
 val htmlReportTemplateFiles = configurations.resolvable("htmlReportTemplateFiles") {
