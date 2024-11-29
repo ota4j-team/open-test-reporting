@@ -42,6 +42,8 @@ tasks {
         argumentProviders += CommandLineArgumentProvider {
             listOf(eventXmlFiles.singleFile.absolutePath)
         }
+        outputs.files(provider { eventXmlFiles.firstOrNull()?.resolveSibling("hierarchy.xml") })
+        outputs.cacheIf { true }
     }
 
     val generateHtmlReport by registering(JavaExec::class) {
@@ -56,6 +58,8 @@ tasks {
                 htmlReportFile.get().asFile.absolutePath
             ) + eventXmlFiles.files.map { it.absolutePath }.toList()
         }
+        outputs.files(provider { eventXmlFiles.firstOrNull()?.let { xmlFile -> xmlFile.resolveSibling(xmlFile.nameWithoutExtension + ".html") } })
+        outputs.cacheIf { true }
     }
 
     configurations.consumable("htmlReport") {
