@@ -58,7 +58,6 @@ tasks {
                 htmlReportFile.get().asFile.absolutePath
             ) + eventXmlFiles.files.map { it.absolutePath }.toList()
         }
-        outputs.files(provider { eventXmlFiles.firstOrNull()?.let { xmlFile -> xmlFile.resolveSibling(xmlFile.nameWithoutExtension + ".html") } })
         outputs.cacheIf { true }
     }
 
