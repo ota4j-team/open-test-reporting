@@ -61,9 +61,11 @@ tasks {
         outputs.cacheIf { true }
     }
 
-    configurations.consumable("htmlReport") {
-        outgoing.artifact(generateHtmlReport.map { it.outputs.files.singleFile })
+    configurations.consumable("xmlReport") {
         attributes {
+            outgoing.artifact(provider { eventXmlFiles.singleFile }) {
+                builtBy(test)
+            }
             attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE, objects.named(LibraryElements.RESOURCES))
         }
     }

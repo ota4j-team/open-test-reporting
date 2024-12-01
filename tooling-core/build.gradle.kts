@@ -3,7 +3,7 @@ plugins {
 }
 
 val htmlReportTemplate = configurations.dependencyScope("htmlReportTemplate")
-val sampleHtmlReport = configurations.dependencyScope("sampleHtmlReport")
+val sampleXmlReport = configurations.dependencyScope("sampleXmlReport")
 
 dependencies {
     api(projects.schema)
@@ -19,7 +19,7 @@ dependencies {
     testCompileOnly(libs.jetbrains.annotations)
 
     htmlReportTemplate(projects.htmlReport)
-    sampleHtmlReport(project(mapOf("path" to projects.sampleProject.identityPath, "configuration" to "htmlReport")))
+    sampleXmlReport(project(mapOf("path" to projects.sampleProject.identityPath, "configuration" to "xmlReport")))
 }
 
 tasks.compileJava {
@@ -34,14 +34,14 @@ val installPlaywrightDeps by tasks.registering {
     doFirst(playwrightInstallationAction)
 }
 
-val sampleHtmlReportFiles = configurations.resolvable("sampleHtmlReportFiles") {
-    extendsFrom(sampleHtmlReport.get())
+val sampleXmlReportFiles = configurations.resolvable("sampleXmlReportFiles") {
+    extendsFrom(sampleXmlReport.get())
 }
 
 tasks.test {
-    inputs.files(sampleHtmlReportFiles).withPathSensitivity(PathSensitivity.NONE)
+    inputs.files(sampleXmlReportFiles).withPathSensitivity(PathSensitivity.NONE)
     jvmArgumentProviders.add(CommandLineArgumentProvider {
-        listOf("-DsampleHtmlReport=${sampleHtmlReportFiles.get().singleFile.absolutePath}")
+        listOf("-DsampleXmlReport=${sampleXmlReportFiles.get().singleFile.absolutePath}")
     })
     if (System.getenv("CI") != null) {
         doFirst(playwrightInstallationAction)

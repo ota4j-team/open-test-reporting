@@ -34,7 +34,6 @@ public class KitchenSinkTests {
     @Order(1)
     void successful(TestReporter reporter) {
         reporter.publishEntry("✅");
-        reporter.publishFile("test.txt", file -> Files.write(file, singletonList("Hello, World!")));
     }
 
     @Test
@@ -62,6 +61,8 @@ public class KitchenSinkTests {
         map.put("foo", "bar");
         map.put("baz", "qux");
         reporter.publishEntry(map);
+
+        reporter.publishFile("test.txt", file -> Files.write(file, singletonList("Hello, World!")));
 
         assertEquals("foo", "bar");
     }
