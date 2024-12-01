@@ -31,18 +31,18 @@ tasks {
         options.release = 8
     }
 
-    val eventXmlFiles =
-        files(test.map { it.reports.junitXml.outputLocation.get().asFileTree.matching { include("open-test-report.xml") } }).builtBy(test)
+    val eventXmlFile =
+        test.map { it.reports.junitXml.outputLocation.get().file("open-test-report.xml") }
 
     val convertTestResultXmlToHierarchicalFormat by registering(JavaExec::class) {
         mainClass.set("org.opentest4j.reporting.cli.ReportingCli")
         args("convert")
         classpath(cliClasspath)
-        inputs.files(eventXmlFiles).withPathSensitivity(NONE).skipWhenEmpty()
+        inputs.file(eventXmlFile).withPathSensitivity(NONE).skipWhenEmpty()
         argumentProviders += CommandLineArgumentProvider {
-            listOf(eventXmlFiles.singleFile.absolutePath)
+            listOf(eventXmlFile.get().asFile.absolutePath)
         }
-        outputs.files(provider { eventXmlFiles.firstOrNull()?.resolveSibling("hierarchy.xml") })
+        outputs.files(eventXmlFile.map { it.asFile.resolveSibling("hierarchy.xml") })
         outputs.cacheIf { true }
     }
 
@@ -51,21 +51,19 @@ tasks {
         args("html-report")
         classpath(cliClasspath)
         outputs.file(htmlReportFile)
-        inputs.files(eventXmlFiles).withPathSensitivity(NONE).skipWhenEmpty()
+        inputs.files(eventXmlFile).withPathSensitivity(NONE).skipWhenEmpty()
         argumentProviders += CommandLineArgumentProvider {
             listOf(
                 "--output",
                 htmlReportFile.get().asFile.absolutePath
-            ) + eventXmlFiles.files.map { it.absolutePath }.toList()
+            ) + eventXmlFile.get().asFile.absolutePath
         }
         outputs.cacheIf { true }
     }
 
     configurations.consumable("xmlReport") {
         attributes {
-            outgoing.artifact(provider { eventXmlFiles.singleFile }) {
-                builtBy(test)
-            }
+            outgoing.artifact(eventXmlFile)
             attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE, objects.named(LibraryElements.RESOURCES))
         }
     }
