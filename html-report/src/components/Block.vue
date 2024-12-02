@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import CodeBlock from './CodeBlock.vue';
 import Section from './Section.vue'
+import {inject} from "vue";
+import {imageHandler} from "./keys.ts";
+
 defineProps<{ block: BlockData, depth: number }>()
-defineEmits<{ imageClicked: [value: string] }>()
+
+const showImage = inject(imageHandler, () => {
+  console.error('No image handler provided')
+})
 </script>
 
 <template>
@@ -23,14 +29,14 @@ defineEmits<{ imageClicked: [value: string] }>()
     </tbody>
   </table>
   <template v-else-if="block.type === 'sub'" v-for="section in (block.content as SectionData[])">
-    <Section :section="section" :depth="depth + 1" @imageClicked="p => $emit('imageClicked', p)" />
+    <Section :section="section" :depth="depth + 1" />
   </template>
   <ul v-else-if="block.type == 'labels'" class="text-sm -mb-1">
     <li v-for="label in (block.content as string[])"
       class="inline-block rounded bg-neutral-200 dark:bg-neutral-700 mr-2 mb-1 px-2 py-0.5">{{ label }}</li>
   </ul>
   <div v-else-if="block.type == 'img'" class="my-2">
-    <a :href="block.content as string" @click.prevent="$emit('imageClicked', block.content)">
+    <a :href="block.content as string" @click.prevent="showImage(block.content)">
       <img
           class="border-2 border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600 rounded-lg max-h-96"
           :src="block.content as string"

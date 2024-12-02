@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import Section from './Section.vue';
 import VueEasyLightbox from 'vue-easy-lightbox'
-import {computed, ref} from "vue";
+import {computed, provide, ref} from "vue";
+import {imageHandler} from "./keys.ts";
 
 const props = defineProps<{ sections: SectionData[] | undefined }>()
 
@@ -17,22 +18,21 @@ const images = computed<string[]>(() => {
   }
   return ['foo.jpg']
 })
+provide(imageHandler, (path) => {
+  lightboxIndex.value = images.value.indexOf(path)
+  lightboxVisible.value = true
+})
 
 function allBlocks(block: BlockData): BlockData[] {
   return block.type === 'sub'
       ? (block.content as SectionData[]).flatMap(s => s.blocks).flatMap(allBlocks)
       : [block]
 }
-
-function showImage(path: string) {
-  lightboxIndex.value = images.value.indexOf(path)
-  lightboxVisible.value = true
-}
 </script>
 
 <template>
   <div class="px-4 pb-4">
-    <Section :section="section" v-for="section in sections" v-if="sections && sections.length > 0" @imageClicked="showImage" />
+    <Section :section="section" v-for="section in sections" v-if="sections && sections.length > 0" />
     <p class="mt-3" v-else>No additional information</p>
   </div>
   <VueEasyLightbox
