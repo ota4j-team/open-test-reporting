@@ -4,6 +4,7 @@ import { createI18n } from 'vue-i18n'
 import './style.css'
 import App from './App.vue'
 import TestExecution from './TestExecution'
+import VueEasyLightbox from "vue-easy-lightbox";
 
 const rootProps = {
   executions: globalThis.testExecutions
@@ -138,4 +139,5 @@ const i18n = createI18n({
 });
 
 app.use(i18n);
+app.use(VueEasyLightbox);
 app.mount('#app');
