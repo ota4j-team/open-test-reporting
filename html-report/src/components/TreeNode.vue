@@ -10,7 +10,10 @@ const selection = defineModel<Selection | undefined>('selection')
 const props = defineProps<{ execution: TestExecution, node: TestExecution | TestNodeData, children: TestNodeData[] }>()
 function selectNodeAndShowChildren() {
   selection.value = new Selection(props.execution, props.node)
-  rootStore.nodes[props.node.id].collapsed = false
+  const record = rootStore.nodes[props.node.id];
+  if (record) {
+    record.collapsed = false
+  }
 }
 const isSelected = computed(() => selection.value?.item !== undefined && selection.value.item.id === props.node.id)
 const toggleSize = 16
