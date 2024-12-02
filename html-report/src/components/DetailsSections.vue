@@ -8,18 +8,29 @@ const props = defineProps<{ sections: SectionData[] | undefined }>()
 
 const lightboxVisible = ref(false)
 const lightboxIndex = ref(0)
-const images = computed<string[]>(() => {
+
+interface Image {
+  src: string
+  title: string
+  alt: string
+}
+const images = computed<Image[]>(() => {
   if (props.sections) {
     return props.sections
         .flatMap(s => s.blocks)
         .flatMap(allBlocks)
         .filter(b => b.type === 'img')
-        .map(b => b.content as string)
+        .map(b => b as ImageBlockData)
+        .map(b => ({
+          src: b.content as string,
+          title: b.altText,
+          alt: b.altText
+        }))
   }
-  return ['foo.jpg']
+  return []
 })
 provide(imageHandler, (path) => {
-  lightboxIndex.value = images.value.indexOf(path)
+  lightboxIndex.value = images.value.map(img => img.src).indexOf(path)
   lightboxVisible.value = true
 })
 
@@ -36,6 +47,7 @@ function allBlocks(block: BlockData): BlockData[] {
     <p class="mt-3" v-else>No additional information</p>
   </div>
   <VueEasyLightbox
+      v-if="images.length > 0"
       :visible="lightboxVisible"
       :imgs="images"
       :index="lightboxIndex"
