@@ -25,6 +25,9 @@ export declare global {
         type: string,
         content: any
     }
+    interface ImageBlockData extends BlockData {
+        altText: string
+    }
     declare module globalThis {
         var testExecutions: ExecutionData[];
     }
