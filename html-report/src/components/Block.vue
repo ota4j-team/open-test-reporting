@@ -12,7 +12,11 @@ defineProps<{ block: BlockData, depth: number }>()
         'border-b': index < Object.entries(block.content).length - 1
       }" class="border-neutral-200 dark:border-neutral-700 w-full">
         <td class="w-44 pr-4 text-sm">{{ pair[0] }}</td>
-        <td class="break-all"><code class="text-sm">{{ pair[1] }}</code>
+        <td class="break-all">
+          <a v-if="(pair[1] as string).startsWith('link:')" :href="(pair[1] as string).substring(5)" class="text-blue-600 dark:text-blue-500 hover:underline">
+            <code class="text-sm">{{ (pair[1] as string).substring(5) }}</code>
+          </a>
+          <code v-else class="text-sm">{{ pair[1] }}</code>
         </td>
       </tr>
     </tbody>
