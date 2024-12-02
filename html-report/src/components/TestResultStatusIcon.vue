@@ -7,7 +7,7 @@ const props = withDefaults(defineProps<{ status: string, color?: string, size?: 
   strokeWidth: 2.5,
 })
 function commonClasses(status: string) {
-  return ['self-center', ...props.color ? [`text-${props.color}`] : [`text-${testResultStatusColor(status)}-600`]]
+  return ['self-center', ...props.color ? [props.color] : [`text-${testResultStatusColor(status)}-600`]]
 }
 </script>
 

@@ -39,7 +39,7 @@ const parents = computed(() => props.execution.parents(props.node))
       <div class="mt-3">
         <div class="inline-flex mb-2 border-2 rounded-full px-2 py-1 mr-2"
           :class="[`border-${color}-600`, `bg-${color}-500`, `dark:border-${color}-500`, `dark:bg-${color}-600`]">
-          <TestResultStatusIcon :status="node.status" :color="'white'" />
+          <TestResultStatusIcon :status="node.status" color="text-white" />
           <span class="ml-1 tracking-wide text-sm text-white font-bold self-center" role="status"
             :aria-label="node.status">{{ node.status }}</span>
         </div>

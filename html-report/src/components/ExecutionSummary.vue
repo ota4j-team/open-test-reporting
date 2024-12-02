@@ -24,7 +24,7 @@ const summaryMessage = computed(() => {
 
 <template>
   <div class="p-px px-1 inline-flex">
-    <TestResultStatusIcon :status="overallStatus" :color="'white'" />
+    <TestResultStatusIcon :status="overallStatus" color="text-white" />
     <span class="ml-1 mt-px font-bold self-center">{{ summaryMessage }}</span>
     <span v-if="executions.length > 1" class="ml-1 mt-px font-bold self-center text-white/60 dark:text-white/50">
       ({{ $t('executionSummary.execution', { count: executions.length }, executions.length) }})
