@@ -53,7 +53,7 @@ export const rootStore: Reactive<RootUi> = reactive<RootUi>({
         showAborted: true,
         showFailed: true,
         showSkipped: true,
-        showSuccessful: false,
+        showSuccessful: true,
 
         toggleShowAborted() {
             this.showAborted = !this.showAborted;
