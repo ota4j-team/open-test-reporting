@@ -1,5 +1,5 @@
-import { createApp, Reactive, reactive } from 'vue'
-import { createI18n } from 'vue-i18n'
+import {createApp, Reactive, reactive} from 'vue'
+import {createI18n} from 'vue-i18n'
 
 import './style.css'
 import App from './App.vue'
@@ -35,17 +35,19 @@ export type RootUi = {
 
 export const rootStore: Reactive<RootUi> = reactive<RootUi>({
         nodes: rootProps.executions
-            .reduce((prev, current) => {
+            .reduce((prev, execution) => {
                 return {
                     ...prev,
-                    [current.id]: {
+                    [execution.id]: {
                         collapsed: false,
                     },
-                    ...current.idsForNodesWithChildren().reduce((prev, current) => {
+                    ...execution.nodesWithChildren().reduce((prev, node) => {
+                        const statuses = execution.nodeStatuses(node);
+                        let initiallyCollapsed = execution.parents(node).length > 1 && statuses.length == 1 && statuses[0] == 'SUCCESSFUL';
                         return {
                             ...prev,
-                            [current]: {
-                                collapsed: false,
+                            [node.id]: {
+                                collapsed: initiallyCollapsed,
                             }
                         }
                     }, {})
@@ -88,17 +90,15 @@ export const rootStore: Reactive<RootUi> = reactive<RootUi>({
 
         isVisible(statuses: string[]): boolean {
             return statuses.length == 0 || statuses.filter(status => {
-                if (status === 'SUCCESSFUL') {
-                    return this.showSuccessful;
-                }
-                if (status === 'FAILED') {
-                    return this.showFailed;
-                }
-                if (status === 'SKIPPED') {
-                    return this.showSkipped;
-                }
-                if (status === 'ABORTED') {
-                    return this.showAborted;
+                switch (status) {
+                    case 'SUCCESSFUL':
+                        return this.showSuccessful;
+                    case 'FAILED':
+                        return this.showFailed;
+                    case 'SKIPPED':
+                        return this.showSkipped;
+                    case 'ABORTED':
+                        return this.showAborted;
                 }
             }).length > 0;
         }

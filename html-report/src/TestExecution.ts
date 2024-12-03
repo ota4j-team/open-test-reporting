@@ -73,8 +73,9 @@ export default class TestExecution {
     return this.testNodes.size
   }
 
-  idsForNodesWithChildren(): string[] {
+  nodesWithChildren(): TestNodeData[] {
     return Array.from(this.childrenMetadata.keys())
+        .map(id => this.testNodes.get(id)!!)
   }
 
   roots(): TestNodeData[] {
