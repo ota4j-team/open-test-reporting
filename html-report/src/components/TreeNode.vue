@@ -34,6 +34,5 @@ const toggleSize = 16
       <span class="ml-1 whitespace-nowrap">{{ node.name }}</span>
     </div>
   </div>
-  <TestNodeTree :execution="execution" :roots="children" v-model:selection="selection" v-if="children"
-    :class="{ hidden: rootStore.nodes[node.id]?.collapsed }" />
+  <TestNodeTree v-if="children && !rootStore.nodes[node.id]?.collapsed" :execution="execution" :roots="children" v-model:selection="selection" />
 </template>
