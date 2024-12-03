@@ -13,7 +13,7 @@ dependencies {
 
 tasks {
     compileJava {
-        options.release = 11
+        options.release = 21
     }
     jar {
         manifest {
