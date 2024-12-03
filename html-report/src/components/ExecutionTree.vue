@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import ExecutionIcon from './ExecutionIcon.vue';
 import TestExecution from '../TestExecution';
-import Tree from './Tree.vue';
 import TreeNode from './TreeNode.vue';
 import Selection from '../Selection';
 
@@ -10,14 +9,14 @@ defineProps<{ executions: TestExecution[] }>()
 </script>
 
 <template>
-  <Tree :roots="executions">
-    <template #default="{ node }">
-      <TreeNode :execution="(node as TestExecution)" :node="node" :children="(node as TestExecution).roots()"
-        v-model:selection="selection">
+  <ul v-if="executions.length">
+    <li v-for="root in executions" :key="root.id">
+      <TreeNode :execution="root" :node="root" :children="root.roots()"
+                v-model:selection="selection">
         <template #icon="iconProps">
           <ExecutionIcon v-bind="iconProps" />
         </template>
       </TreeNode>
-    </template>
-  </Tree>
+    </li>
+  </ul>
 </template>
