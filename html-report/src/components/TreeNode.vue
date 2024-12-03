@@ -17,6 +17,7 @@ function selectNodeAndShowChildren() {
 }
 const isSelected = computed(() => selection.value?.item !== undefined && selection.value.item.id === props.node.id)
 const toggleSize = 16
+const showChildren = computed(() => props.children.length > 0 && !rootStore.nodes[props.node.id]?.collapsed)
 </script>
 
 <template>
@@ -34,5 +35,5 @@ const toggleSize = 16
       <span class="ml-1 whitespace-nowrap">{{ node.name }}</span>
     </div>
   </div>
-  <TestNodeTree v-if="children && !rootStore.nodes[node.id]?.collapsed" :execution="execution" :roots="children" v-model:selection="selection" />
+  <TestNodeTree v-if="showChildren" :execution="execution" :roots="children" v-model:selection="selection" />
 </template>
