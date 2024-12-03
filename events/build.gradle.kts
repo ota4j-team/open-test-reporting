@@ -14,6 +14,7 @@ dependencies {
     testImplementation(libs.assertj.core)
     testImplementation(libs.bundles.junit)
     testImplementation(libs.xmlunit.assertj)
+    testCompileOnly(libs.jetbrains.annotations)
     woodstox(libs.woodstox.core)
 }
 
