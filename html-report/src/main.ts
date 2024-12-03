@@ -43,7 +43,7 @@ export const rootStore: Reactive<RootUi> = reactive<RootUi>({
                     },
                     ...execution.nodesWithChildren().reduce((prev, node) => {
                         const statuses = execution.nodeStatuses(node);
-                        let initiallyCollapsed = execution.parents(node).length > 1 && statuses.length == 1 && statuses[0] == 'SUCCESSFUL';
+                        let initiallyCollapsed = execution.parents(node).length > 1 && statuses.indexOf('FAILED') == -1;
                         return {
                             ...prev,
                             [node.id]: {
