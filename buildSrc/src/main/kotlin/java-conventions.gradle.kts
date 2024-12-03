@@ -13,7 +13,7 @@ base {
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
     withSourcesJar()
     withJavadocJar()
 }
@@ -65,7 +65,7 @@ tasks {
         options.release.convention(8)
     }
     compileTestJava {
-        options.release.convention(17)
+        options.release.convention(21)
     }
     jar {
         manifest {
