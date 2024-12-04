@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import {computed} from 'vue';
+import {computed, inject} from 'vue';
 import {ChevronDown, ChevronRight} from 'lucide-vue-next';
 import TestNodeTree from './TestNodeTree.vue';
 import TestExecution from '../../TestExecution.ts';
 import Selection from '../../Selection.ts';
-import {rootStore} from '../../main.ts';
 import {defaultIconProps} from "../common/icon.ts";
+import {rootStoreKey} from "./keys.ts";
 
+const rootStore = inject(rootStoreKey)!!
 const selection = defineModel<Selection | undefined>('selection')
 const props = defineProps<{ execution: TestExecution, node: TestExecution | TestNodeData, children: TestNodeData[] }>()
+const isSelected = computed(() => selection.value?.item !== undefined && selection.value.item.id === props.node.id)
+const showChildren = computed(() => props.children.length > 0 && !rootStore.nodes[props.node.id]?.collapsed)
+
 function selectNodeAndShowChildren() {
   selection.value = new Selection(props.execution, props.node)
   const record = rootStore.nodes[props.node.id];
@@ -16,8 +20,7 @@ function selectNodeAndShowChildren() {
     record.collapsed = false
   }
 }
-const isSelected = computed(() => selection.value?.item !== undefined && selection.value.item.id === props.node.id)
-const showChildren = computed(() => props.children.length > 0 && !rootStore.nodes[props.node.id]?.collapsed)
+
 </script>
 
 <template>

@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import {ChevronsDownUp, ChevronsUpDown} from 'lucide-vue-next'
-import {rootStore} from '../../main.ts'
 import ToolBarIcon from './ToolBarIcon.vue';
 import TestResultStatusIcon from "../common/TestResultStatusIcon.vue";
 import {defaultIconProps} from "../common/icon.ts";
+import {inject} from "vue";
+import {rootStoreKey} from "./keys.ts";
+
+const rootStore = inject(rootStoreKey)!!
 </script>
 
 <template>
