@@ -195,9 +195,9 @@ The CLI tool provided by the _cli_ subprojects provides subcommands for <<cli-va
 
 ==== Installation
 
-You can download the CLI tool from Maven Central using the `org.opentest4j.reporting:open-test-reporting:{openTestReportingVersion}-cli:standalone` coordinates.
+You can download the CLI tool from Maven Central using the https://repo1.maven.org/maven2/org/opentest4j/reporting/open-test-reporting-cli/{openTestReportingVersion}/open-test-reporting-cli-{openTestReportingVersion}-standalone.jar[`org.opentest4j.reporting:open-test-reporting:{openTestReportingVersion}-cli:standalone`] coordinates.
 
-Alternatively, you can use link:https://www.jbang.dev/[JBang]:
+Alternatively, you can use https://www.jbang.dev/[JBang]:
 
 [source,console,subs="attributes+"]
 ----
