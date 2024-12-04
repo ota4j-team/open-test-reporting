@@ -1,8 +1,11 @@
 import TestExecution from "../../TestExecution.ts";
+import {InjectionKey} from "vue";
 
-export default class RootUi {
+export const treeStateKey = Symbol() as InjectionKey<TreeState>
 
-    public readonly nodes: Record<string, NodeUi>
+export default class TreeState {
+
+    public readonly nodes: Record<string, NodeState>
 
     public showAborted = true
     public showFailed = true
@@ -28,7 +31,7 @@ export default class RootUi {
                       }
                   }, {})
               }
-          }, {} as Record<string, NodeUi>)
+          }, {} as Record<string, NodeState>)
     }
 
     toggleShowAborted() {
@@ -79,6 +82,6 @@ export default class RootUi {
     }
 }
 
-type NodeUi = {
+type NodeState = {
     collapsed: boolean
 }

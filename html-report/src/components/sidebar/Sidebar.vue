@@ -5,11 +5,12 @@ import ToolBar from "./ToolBar.vue";
 import TestExecution from "../../TestExecution.ts";
 import Selection from "../../Selection.ts";
 import {provide, reactive} from "vue";
-import RootUi from "./TreeState.ts";
-import {rootStoreKey} from "./keys.ts";
+import TreeState, {treeStateKey} from "./TreeState.ts";
 
 const selection = defineModel<Selection | undefined>('selection')
 const props = defineProps<{ executions: TestExecution[] }>()
+
+provide(treeStateKey, reactive(new TreeState(props.executions)))
 
 const resizeConfig: ResizableConfig = {
   edge: {
@@ -21,8 +22,6 @@ const resizeConfig: ResizableConfig = {
     }
   }
 }
-
-provide(rootStoreKey, reactive(new RootUi(props.executions)))
 </script>
 
 <template>
