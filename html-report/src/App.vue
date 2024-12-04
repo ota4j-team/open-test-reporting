@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { ResizableConfig, vResizable } from 'vue-resizables'
-import ExecutionDetails from './components/ExecutionDetails.vue';
-import ExecutionTree from './components/ExecutionTree.vue';
-import TestNodeDetails from './components/TestNodeDetails.vue';
+import ExecutionDetails from './components/details/ExecutionDetails.vue';
+import ExecutionTree from './components/sidebar/ExecutionTree.vue';
+import TestNodeDetails from './components/details/TestNodeDetails.vue';
 import Selection from './Selection';
-import StatusBar from './components/StatusBar.vue';
+import StatusBar from './components/header/StatusBar.vue';
 import TestExecution from './TestExecution';
-import ToolBar from './components/ToolBar.vue';
+import ToolBar from './components/sidebar/ToolBar.vue';
 
 const props = defineProps<{ executions: TestExecution[] }>()
 const selection = ref<Selection | undefined>();

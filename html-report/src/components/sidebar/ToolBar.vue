@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ChevronsDownUp, ChevronsUpDown } from 'lucide-vue-next'
-import { rootStore } from '../main'
+import { rootStore } from '../../main.ts'
 import ToolBarIcon from './ToolBarIcon.vue';
-import TestResultStatusIcon from "./TestResultStatusIcon.vue";
+import TestResultStatusIcon from "../common/TestResultStatusIcon.vue";
 
 const iconProps = {
   size: 16,

@@ -2,9 +2,9 @@
 import { computed } from 'vue';
 import { ChevronDown, ChevronRight } from 'lucide-vue-next';
 import TestNodeTree from './TestNodeTree.vue';
-import TestExecution from '../TestExecution';
-import Selection from '../Selection';
-import { rootStore } from '../main';
+import TestExecution from '../../TestExecution.ts';
+import Selection from '../../Selection.ts';
+import { rootStore } from '../../main.ts';
 
 const selection = defineModel<Selection | undefined>('selection')
 const props = defineProps<{ execution: TestExecution, node: TestExecution | TestNodeData, children: TestNodeData[] }>()

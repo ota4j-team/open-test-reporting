@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import TestExecution from '../TestExecution';
-import testResultStatusColor from '../TestResultStatus';
+import TestExecution from '../../TestExecution.ts';
+import testResultStatusColor from '../../TestResultStatus.ts';
 import ExecutionSummary from './ExecutionSummary.vue';
 import DarkModeSwitch from './DarkModeSwitch.vue';
 
