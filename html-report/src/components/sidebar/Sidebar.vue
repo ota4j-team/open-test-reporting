@@ -2,8 +2,8 @@
 import {ResizableConfig, vResizable} from 'vue-resizables'
 import ExecutionTree from "./ExecutionTree.vue";
 import ToolBar from "./ToolBar.vue";
-import TestExecution from "../../TestExecution.ts";
-import Selection from "../../Selection.ts";
+import TestExecution from "../common/TestExecution.ts";
+import Selection from "../common/Selection.ts";
 import {provide, reactive} from "vue";
 import TreeState, {treeStateKey} from "./TreeState.ts";
 

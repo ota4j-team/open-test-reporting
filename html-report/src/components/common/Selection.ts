@@ -1,4 +1,4 @@
-import TestExecution from "./TestExecution";
+import TestExecution from "./TestExecution.ts";
 
 export default class Selection {
 
