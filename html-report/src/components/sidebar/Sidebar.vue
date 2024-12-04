@@ -27,7 +27,7 @@ const resizeConfig: ResizableConfig = {
 <template>
   <div v-resizable="resizeConfig"
        class="resize-x bg-neutral-100 dark:bg-neutral-800 min-w-80 text-sm">
-    <ToolBar :executions="executions"/>
+    <ToolBar :executions="executions" class="sticky top-0"/>
     <ExecutionTree :executions="executions" v-model:selection="selection" class="ml-1.5 mt-2.5"/>
   </div>
 </template>
