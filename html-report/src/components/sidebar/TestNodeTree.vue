@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import TestExecution from '../TestExecution';
-import TestResultStatusIcon from './TestResultStatusIcon.vue';
+import TestExecution from '../../TestExecution.ts';
+import TestResultStatusIcon from '../common/TestResultStatusIcon.vue';
 import TreeNode from './TreeNode.vue';
-import Selection from '../Selection';
+import Selection from '../../Selection.ts';
 
 const selection = defineModel<Selection | undefined>('selection')
 defineProps<{ execution: TestExecution, roots: TestNodeData[] }>()

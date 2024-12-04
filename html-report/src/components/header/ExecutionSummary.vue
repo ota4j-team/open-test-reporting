@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import TestResultStatusIcon from './TestResultStatusIcon.vue';
-import TestExecution from '../TestExecution';
+import TestResultStatusIcon from '../common/TestResultStatusIcon.vue';
+import TestExecution from '../../TestExecution.ts';
 
 const { t } = useI18n()
 const { executions } = defineProps<{ executions: TestExecution[] }>()

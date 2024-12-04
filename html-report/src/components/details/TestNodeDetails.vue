@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import TestResultStatusIcon from './TestResultStatusIcon.vue';
+import TestResultStatusIcon from '../common/TestResultStatusIcon.vue';
 import { ChevronRight } from 'lucide-vue-next';
-import TestExecution from '../TestExecution';
-import testResultStatusColor from '../TestResultStatus';
+import TestExecution from '../../TestExecution.ts';
+import testResultStatusColor from '../../TestResultStatus.ts';
 import DurationLabel from './DurationLabel.vue';
 import DetailsSections from './DetailsSections.vue';
 import DetailsHeader from './DetailsHeader.vue';
-import Selection from '../Selection';
-import ExecutionIcon from './ExecutionIcon.vue';
+import Selection from '../../Selection.ts';
+import ExecutionIcon from '../common/ExecutionIcon.vue';
 
 const selection = defineModel<Selection | undefined>('selection')
 const props = defineProps<{ node: TestNodeData, execution: TestExecution }>()

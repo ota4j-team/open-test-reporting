@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TestExecution from '../TestExecution';
+import TestExecution from '../../TestExecution.ts';
 import DetailsHeader from './DetailsHeader.vue';
 import DetailsSections from './DetailsSections.vue';
 import DurationLabel from './DurationLabel.vue';
