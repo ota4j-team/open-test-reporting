@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { CircleCheck, CircleX, SquareArrowOutUpRight, SquareSlash } from 'lucide-vue-next';
+import {CircleCheck, CircleX, SquareArrowOutUpRight, SquareSlash} from 'lucide-vue-next';
 import testResultStatusColor from '../../TestResultStatus.ts';
+import {defaultIconProps} from "./icon.ts";
 
-const props = withDefaults(defineProps<{ status: string, color?: string, size?: number, strokeWidth?: number }>(), {
-  size: 16,
-  strokeWidth: 2.5,
-})
+const props = withDefaults(defineProps<{ status: string, color?: string, size?: number, strokeWidth?: number }>(), defaultIconProps)
 function commonClasses(status: string) {
   return ['self-center', ...props.color ? [props.color] : [`text-${testResultStatusColor(status)}-600`]]
 }

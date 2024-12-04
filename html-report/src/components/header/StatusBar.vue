@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import {computed} from 'vue';
 import TestExecution from '../../TestExecution.ts';
 import testResultStatusColor from '../../TestResultStatus.ts';
 import ExecutionSummary from './ExecutionSummary.vue';

@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { SquareActivity } from 'lucide-vue-next';
+import {SquareActivity} from 'lucide-vue-next';
+import {defaultIconProps} from "./icon.ts";
 
-const props = withDefaults(defineProps<{ size?: number, strokeWidth?: number }>(), {
-  size: 16,
-  strokeWidth: 2.5,
-})
+const props = withDefaults(defineProps<{ size?: number, strokeWidth?: number }>(), defaultIconProps)
 </script>
 
 <template>
