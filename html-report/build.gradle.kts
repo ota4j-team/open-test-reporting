@@ -1,7 +1,10 @@
 import com.github.gradle.node.npm.task.NpmTask
+import com.github.gradle.node.npm.task.NpxTask
 
 plugins {
+    base
     alias(libs.plugins.node)
+    id("com.diffplug.spotless")
 }
 
 node {
@@ -10,6 +13,26 @@ node {
         it.substringAfter("nodejs").trim()
     }
     npmInstallCommand = providers.environmentVariable("CI").map { "ci" }.orElse("install")
+}
+
+val prettierCheck by tasks.registering(NpxTask::class) {
+    dependsOn(tasks.npmInstall)
+    command = "prettier"
+    args.addAll(".", "--check")
+}
+
+val prettierWrite by tasks.registering(NpxTask::class) {
+    dependsOn(tasks.npmInstall)
+    command = "prettier"
+    args.addAll(".", "--write")
+}
+
+tasks.spotlessCheck {
+    dependsOn(prettierCheck)
+}
+
+tasks.spotlessApply {
+    dependsOn(prettierWrite)
 }
 
 val buildVueDist by tasks.registering(NpmTask::class) {
