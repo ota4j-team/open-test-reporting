@@ -8,6 +8,7 @@ dependencies {
     implementation(projects.toolingCore)
     implementation(libs.picocli)
     implementation(libs.slf4j.api)
+    compileOnlyApi(libs.apiguardian)
     runtimeOnly(libs.log4j.slf4j2.impl)
 }
 

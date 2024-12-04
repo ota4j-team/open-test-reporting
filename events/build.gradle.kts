@@ -10,6 +10,7 @@ val woodstoxRuntimeClasspath = configurations.resolvable("woodstoxRuntimeClasspa
 
 dependencies {
     api(projects.schema)
+    compileOnlyApi(libs.apiguardian)
     testImplementation(libs.archunit)
     testImplementation(libs.assertj.core)
     testImplementation(libs.bundles.junit)

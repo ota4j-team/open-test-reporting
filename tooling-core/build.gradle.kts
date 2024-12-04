@@ -11,6 +11,7 @@ dependencies {
     implementation(projects.toolingSpi)
     implementation(libs.gson)
     implementation(libs.joox)
+    compileOnlyApi(libs.apiguardian)
 
     testImplementation(libs.assertj.core)
     testImplementation(libs.bundles.junit)
