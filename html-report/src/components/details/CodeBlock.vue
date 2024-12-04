@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { Check, Copy } from 'lucide-vue-next';
-import { useClipboard, useScroll } from '@vueuse/core'
-import { computed, ref } from 'vue';
+import {Check, Copy} from 'lucide-vue-next';
+import {useClipboard, useScroll} from '@vueuse/core'
+import {computed, ref} from 'vue';
+import {defaultIconProps} from "../common/icon.ts";
 
 const props = defineProps<{ content: string }>()
 
@@ -19,8 +20,8 @@ const { isScrolling } = useScroll(el, { idle: 2000 })
       <div
         class="cursor-pointer bg-neutral-50 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-700 border-neutral-200 dark:border-neutral-700 border rounded-lg p-1.5"
         :title="$t('clipboard.copy')" @click="copy(source)">
-        <Copy v-if="!copied" :size="16" />
-        <Check v-else :size="16" />
+        <Copy v-if="!copied" v-bind="defaultIconProps" />
+        <Check v-else v-bind="defaultIconProps" />
       </div>
     </div>
   </div>

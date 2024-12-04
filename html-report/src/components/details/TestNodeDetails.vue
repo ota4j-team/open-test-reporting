@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import {computed} from 'vue';
 import TestResultStatusIcon from '../common/TestResultStatusIcon.vue';
-import { ChevronRight } from 'lucide-vue-next';
+import {ChevronRight} from 'lucide-vue-next';
 import TestExecution from '../../TestExecution.ts';
 import testResultStatusColor from '../../TestResultStatus.ts';
 import DurationLabel from './DurationLabel.vue';
@@ -9,6 +9,7 @@ import DetailsSections from './DetailsSections.vue';
 import DetailsHeader from './DetailsHeader.vue';
 import Selection from '../../Selection.ts';
 import ExecutionIcon from '../common/ExecutionIcon.vue';
+import {defaultIconProps} from "../common/icon.ts";
 
 const selection = defineModel<Selection | undefined>('selection')
 const props = defineProps<{ node: TestNodeData, execution: TestExecution }>()
@@ -31,7 +32,7 @@ const parents = computed(() => props.execution.parents(props.node))
             @click="selectNode(parent)">
             {{ parent.name }}
           </span>
-          <ChevronRight :size="16" class="inline self-center mx-1 text-neutral-500" />
+          <ChevronRight v-bind="defaultIconProps" class="inline self-center mx-1 text-neutral-500" />
         </li>
       </ul>
     </template>

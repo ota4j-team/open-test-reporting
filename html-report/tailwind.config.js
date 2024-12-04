@@ -1,3 +1,5 @@
+import {defaultIconProps} from "./src/components/common/icon.ts";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -13,6 +15,6 @@ export default {
     ...['red', 'green', 'yellow', 'sky']
       .flatMap(color => [`border-${color}-600`, `bg-${color}-500`, `text-${color}-600`, `dark:border-${color}-500`, `dark:bg-${color}-600`, `dark:border-${color}-500`, `dark:bg-${color}-600`]),
     'text-white',
-    'ml-[16px]'
+    `ml-[${(defaultIconProps.size)}px]`,
   ],
 }

@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { ChevronDown, ChevronRight } from 'lucide-vue-next';
+import {computed} from 'vue';
+import {ChevronDown, ChevronRight} from 'lucide-vue-next';
 import TestNodeTree from './TestNodeTree.vue';
 import TestExecution from '../../TestExecution.ts';
 import Selection from '../../Selection.ts';
-import { rootStore } from '../../main.ts';
+import {rootStore} from '../../main.ts';
+import {defaultIconProps} from "../common/icon.ts";
 
 const selection = defineModel<Selection | undefined>('selection')
 const props = defineProps<{ execution: TestExecution, node: TestExecution | TestNodeData, children: TestNodeData[] }>()
@@ -16,22 +17,21 @@ function selectNodeAndShowChildren() {
   }
 }
 const isSelected = computed(() => selection.value?.item !== undefined && selection.value.item.id === props.node.id)
-const toggleSize = 16
 const showChildren = computed(() => props.children.length > 0 && !rootStore.nodes[props.node.id]?.collapsed)
 </script>
 
 <template>
   <div class="inline-flex -mt-0.5" v-if="rootStore.isVisible(execution.nodeStatuses((node as TestNodeData)))">
     <div @click="rootStore.toggleNode(node.id)" class="cursor-pointer self-center" v-if="children.length > 0">
-      <ChevronRight :size="toggleSize" v-if="rootStore.nodes[node.id]?.collapsed" />
-      <ChevronDown :size="toggleSize" v-else />
+      <ChevronRight v-bind="defaultIconProps" v-if="rootStore.nodes[node.id]?.collapsed" />
+      <ChevronDown v-bind="defaultIconProps" v-else />
     </div>
     <div class="cursor-pointer rounded p-px px-1 inline-flex" :class="{
       'bg-neutral-300 dark:bg-neutral-600 font-bold': isSelected,
       'hover:bg-neutral-200 dark:hover:bg-neutral-700': !isSelected,
-      [`ml-[${toggleSize}px]`]: children.length == 0
+      [`ml-[${(defaultIconProps.size)}px]`]: children.length == 0
     }" @click="selectNodeAndShowChildren()" role="link" :aria-label="node.name">
-      <slot name="icon" :size="16" :strokeWidth="2.5" />
+      <slot name="icon" v-bind="defaultIconProps" />
       <span class="ml-1 whitespace-nowrap">{{ node.name }}</span>
     </div>
   </div>
