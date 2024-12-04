@@ -76,8 +76,13 @@ tasks {
                 "Bundle-Description" to project.name,
                 "Bundle-DocURL" to "https://github.com/ota4j-team/open-test-reporting",
                 "Bundle-Vendor" to "opentest4j.org",
-                "-exportcontents" to "org.opentest4j.reporting.*",
                 "Bundle-SymbolicName" to moduleName,
+            )
+        }
+        bundle {
+            bnd(
+                "-exportcontents: org.opentest4j.reporting.*",
+                "Import-Package: org.apiguardian.*;resolution:=\"optional\",*",
             )
         }
     }
