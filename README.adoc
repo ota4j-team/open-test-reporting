@@ -243,10 +243,14 @@ NOTE: Please run `html-report --help` for more information.
 The command takes one or multiple XML files in the event-based or hierarchical format as input and generates a single HTML file that can be opened in any modern web browser without requiring a server.
 
 .Sample HTML report where all tests pass (light theme)
+--
 image::documentation/html-report-successful.png[]
+--
 
 .Sample HTML report with a failing test (dark theme)
+--
 image::documentation/html-report-failed.png[]
+--
 
 
 [#html-report-extension]
