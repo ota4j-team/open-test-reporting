@@ -1,26 +1,34 @@
 <script setup lang="ts">
-import CodeBlock from './CodeBlock.vue';
-import Section from './Section.vue'
-import {inject} from "vue";
-import {imageHandler} from "./keys.ts";
+import CodeBlock from "./CodeBlock.vue";
+import Section from "./Section.vue";
+import { inject } from "vue";
+import { imageHandler } from "./keys.ts";
 
-defineProps<{ block: BlockData, depth: number }>()
+defineProps<{ block: BlockData; depth: number }>();
 
 const showImage = inject(imageHandler, () => {
-  console.error('No image handler provided')
-})
+  console.error("No image handler provided");
+});
 </script>
 
 <template>
   <p v-if="block.type === 'p'">{{ block.content }}</p>
   <table v-else-if="block.type === 'kvp'" class="w-full">
     <tbody>
-      <tr v-for="(pair, index) in Object.entries(block.content)" :class="{
-        'border-b': index < Object.entries(block.content).length - 1
-      }" class="border-neutral-200 dark:border-neutral-700 w-full">
+      <tr
+        v-for="(pair, index) in Object.entries(block.content)"
+        :class="{
+          'border-b': index < Object.entries(block.content).length - 1,
+        }"
+        class="border-neutral-200 dark:border-neutral-700 w-full"
+      >
         <td class="w-44 pr-4 text-sm">{{ pair[0] }}</td>
         <td class="break-all">
-          <a v-if="(pair[1] as string).startsWith('link:')" :href="(pair[1] as string).substring(5)" class="text-blue-600 dark:text-blue-500 hover:underline">
+          <a
+            v-if="(pair[1] as string).startsWith('link:')"
+            :href="(pair[1] as string).substring(5)"
+            class="text-blue-600 dark:text-blue-500 hover:underline"
+          >
             <code class="text-sm">{{ (pair[1] as string).substring(5) }}</code>
           </a>
           <code v-else class="text-sm">{{ pair[1] }}</code>
@@ -28,20 +36,30 @@ const showImage = inject(imageHandler, () => {
       </tr>
     </tbody>
   </table>
-  <template v-else-if="block.type === 'sub'" v-for="section in (block.content as SectionData[])">
+  <template
+    v-else-if="block.type === 'sub'"
+    v-for="section in block.content as SectionData[]"
+  >
     <Section :section="section" :depth="depth + 1" />
   </template>
   <ul v-else-if="block.type == 'labels'" class="text-sm -mb-1">
-    <li v-for="label in (block.content as string[])"
-      class="inline-block rounded bg-neutral-200 dark:bg-neutral-700 mr-2 mb-1 px-2 py-0.5">{{ label }}</li>
+    <li
+      v-for="label in block.content as string[]"
+      class="inline-block rounded bg-neutral-200 dark:bg-neutral-700 mr-2 mb-1 px-2 py-0.5"
+    >
+      {{ label }}
+    </li>
   </ul>
   <div v-else-if="block.type == 'img'" class="my-2">
-    <a :href="block.content as string" @click.prevent="showImage(block.content)">
+    <a
+      :href="block.content as string"
+      @click.prevent="showImage(block.content)"
+    >
       <img
-          class="border-2 border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600 rounded-lg max-h-96"
-          :src="block.content as string"
-          :alt="(block as ImageBlockData).altText as string"
-      >
+        class="border-2 border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600 rounded-lg max-h-96"
+        :src="block.content as string"
+        :alt="(block as ImageBlockData).altText as string"
+      />
     </a>
   </div>
   <CodeBlock v-else :content="block.content as string" />

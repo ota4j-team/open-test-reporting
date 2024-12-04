@@ -1,14 +1,14 @@
 const testResultStatusColor = (status: string) => {
   switch (status) {
-    case 'SUCCESSFUL':
-      return 'green'
-    case 'ABORTED':
-      return 'yellow'
-    case 'SKIPPED':
-      return 'sky'
+    case "SUCCESSFUL":
+      return "green";
+    case "ABORTED":
+      return "yellow";
+    case "SKIPPED":
+      return "sky";
     default:
-      return 'red'
+      return "red";
   }
-}
+};
 
-export default testResultStatusColor
+export default testResultStatusColor;

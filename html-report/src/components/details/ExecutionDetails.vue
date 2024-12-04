@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import TestExecution from '../common/TestExecution.ts';
-import DetailsHeader from './DetailsHeader.vue';
-import DetailsSections from './DetailsSections.vue';
-import DurationLabel from './DurationLabel.vue';
+import TestExecution from "../common/TestExecution.ts";
+import DetailsHeader from "./DetailsHeader.vue";
+import DetailsSections from "./DetailsSections.vue";
+import DurationLabel from "./DurationLabel.vue";
 
-defineProps<{ execution: TestExecution }>()
+defineProps<{ execution: TestExecution }>();
 </script>
 
 <template>
