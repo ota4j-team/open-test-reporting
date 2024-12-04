@@ -2,8 +2,8 @@
 import {computed, inject} from 'vue';
 import {ChevronDown, ChevronRight} from 'lucide-vue-next';
 import TestNodeTree from './TestNodeTree.vue';
-import TestExecution from '../../TestExecution.ts';
-import Selection from '../../Selection.ts';
+import TestExecution from '../common/TestExecution.ts';
+import Selection from '../common/Selection.ts';
 import {defaultIconProps} from "../common/icon.ts";
 import {treeStateKey} from "./TreeState.ts";
 

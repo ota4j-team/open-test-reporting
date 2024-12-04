@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {CircleCheck, CircleX, SquareArrowOutUpRight, SquareSlash} from 'lucide-vue-next';
-import testResultStatusColor from '../../TestResultStatus.ts';
+import testResultStatusColor from './TestResultStatus.ts';
 import {defaultIconProps} from "./icon.ts";
 
 const props = withDefaults(defineProps<{ status: string, color?: string, size?: number, strokeWidth?: number }>(), defaultIconProps)

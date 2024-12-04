@@ -2,7 +2,7 @@
 import {computed} from 'vue';
 import {useI18n} from 'vue-i18n';
 import TestResultStatusIcon from '../common/TestResultStatusIcon.vue';
-import TestExecution from '../../TestExecution.ts';
+import TestExecution from '../common/TestExecution.ts';
 
 const { t } = useI18n()
 const { executions } = defineProps<{ executions: TestExecution[] }>()

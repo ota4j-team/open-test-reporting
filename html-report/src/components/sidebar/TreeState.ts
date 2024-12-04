@@ -1,4 +1,4 @@
-import TestExecution from "../../TestExecution.ts";
+import TestExecution from "../common/TestExecution.ts";
 import {InjectionKey} from "vue";
 
 export const treeStateKey = Symbol() as InjectionKey<TreeState>

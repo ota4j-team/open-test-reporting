@@ -2,12 +2,12 @@
 import {computed} from 'vue';
 import TestResultStatusIcon from '../common/TestResultStatusIcon.vue';
 import {ChevronRight} from 'lucide-vue-next';
-import TestExecution from '../../TestExecution.ts';
-import testResultStatusColor from '../../TestResultStatus.ts';
+import TestExecution from '../common/TestExecution.ts';
+import testResultStatusColor from '../common/TestResultStatus.ts';
 import DurationLabel from './DurationLabel.vue';
 import DetailsSections from './DetailsSections.vue';
 import DetailsHeader from './DetailsHeader.vue';
-import Selection from '../../Selection.ts';
+import Selection from '../common/Selection.ts';
 import ExecutionIcon from '../common/ExecutionIcon.vue';
 import {defaultIconProps} from "../common/icon.ts";
 

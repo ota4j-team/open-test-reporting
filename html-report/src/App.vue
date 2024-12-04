@@ -2,9 +2,9 @@
 import { ref } from 'vue';
 import ExecutionDetails from './components/details/ExecutionDetails.vue';
 import TestNodeDetails from './components/details/TestNodeDetails.vue';
-import Selection from './Selection';
+import Selection from './components/common/Selection.ts';
 import StatusBar from './components/header/StatusBar.vue';
-import TestExecution from './TestExecution';
+import TestExecution from './components/common/TestExecution.ts';
 import Sidebar from "./components/sidebar/Sidebar.vue";
 
 const props = defineProps<{ executions: TestExecution[] }>()
