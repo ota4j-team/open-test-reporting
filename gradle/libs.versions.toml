@@ -1,5 +1,5 @@
 [versions]
-eclipse = "4.34.0"
+eclipse = "4.32.0"
 immutables = "2.10.1"
 playwright = "1.49.0"
 
