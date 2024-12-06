@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SquareActivity } from "lucide-vue-next";
+import { FileChartColumn } from "lucide-vue-next";
 import { defaultIconProps } from "./icon.ts";
 
 const props = withDefaults(
@@ -9,7 +9,7 @@ const props = withDefaults(
 </script>
 
 <template>
-  <SquareActivity
+  <FileChartColumn
     v-bind="props"
     class="text-neutral-600 dark:text-neutral-300 self-center"
   />
