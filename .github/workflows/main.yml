@@ -83,6 +83,7 @@ jobs:
       - name: Publish
         uses: ./.github/actions/run-gradle
         env:
-          GRGIT_USER: ${{ secrets.GH_TOKEN }}
+          GIT_USERNAME: git
+          GIT_PASSWORD: ${{ secrets.GH_TOKEN }}
         with:
           arguments: gitPublishPush

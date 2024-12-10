@@ -15,6 +15,9 @@ gitPublish {
     repoUri.set("https://github.com/ota4j-team/open-test-reporting.git")
     branch.set("gh-pages")
 
+    username = providers.environmentVariable("GIT_USERNAME")
+    password = providers.environmentVariable("GIT_PASSWORD")
+
     contents {
         from(schemas)
         into("schemas/snapshot")
