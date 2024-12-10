@@ -12,8 +12,10 @@ dependencies {
 }
 
 gitPublish {
-    repoUri.set("https://github.com/ota4j-team/open-test-reporting.git")
-    branch.set("gh-pages")
+    repoUri = "https://github.com/ota4j-team/open-test-reporting.git"
+    referenceRepoUri = rootDir.toURI().toString()
+
+    branch = "gh-pages"
 
     username = providers.environmentVariable("GIT_USERNAME")
     password = providers.environmentVariable("GIT_PASSWORD")
