@@ -80,6 +80,11 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 1
+      - name: Configure Git
+        shell: bash
+        run: |
+          git config --global user.name "JUnit Team"
+          git config --global user.email "team@junit.org"
       - name: Publish
         uses: ./.github/actions/run-gradle
         env:
