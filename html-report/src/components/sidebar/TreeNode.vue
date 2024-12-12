@@ -6,8 +6,9 @@ import TestExecution from "../common/TestExecution.ts";
 import Selection from "../common/Selection.ts";
 import { defaultIconProps } from "../common/icon.ts";
 import { treeStateKey } from "./TreeState.ts";
+/* global TestNodeData */
 
-const treeState = inject(treeStateKey)!!;
+const treeState = inject(treeStateKey)!;
 const selection = defineModel<Selection | undefined>("selection");
 const props = defineProps<{
   execution: TestExecution;

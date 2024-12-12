@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import Section from "./Section.vue";
+import RenderedSection from "./RenderedSection.vue";
 import VueEasyLightbox from "vue-easy-lightbox";
 import { computed, provide, ref } from "vue";
 import { imageHandler } from "./keys.ts";
+/* global SectionData, ImageBlockData, BlockData */
 
 const props = defineProps<{ sections: SectionData[] | undefined }>();
 
@@ -46,11 +47,13 @@ function allBlocks(block: BlockData): BlockData[] {
 
 <template>
   <div class="px-4 pb-4">
-    <Section
-      :section="section"
-      v-for="section in sections"
-      v-if="sections && sections.length > 0"
-    />
+    <div v-if="sections && sections.length > 0">
+      <RenderedSection
+        :section="section"
+        v-for="(section, index) in sections"
+        v-bind:key="index"
+      />
+    </div>
     <p class="mt-3" v-else>No additional information</p>
   </div>
   <VueEasyLightbox

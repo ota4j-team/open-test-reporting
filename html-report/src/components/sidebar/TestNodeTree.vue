@@ -3,6 +3,7 @@ import TestExecution from "../common/TestExecution.ts";
 import TestResultStatusIcon from "../common/TestResultStatusIcon.vue";
 import TreeNode from "./TreeNode.vue";
 import Selection from "../common/Selection.ts";
+/* global TestNodeData */
 
 const selection = defineModel<Selection | undefined>("selection");
 defineProps<{ execution: TestExecution; roots: TestNodeData[] }>();

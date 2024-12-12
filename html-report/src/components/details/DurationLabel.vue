@@ -28,6 +28,7 @@ const parts = computed(() => {
     <span class="ml-1 text-sm font-bold self-center">
       <span
         v-for="(value, label, index) in parts"
+        v-bind:key="label"
         :class="{ 'mr-1': index < Object.entries(parts).length - 1 }"
         style="word-spacing: -0.1em"
         >{{ $t(`duration.${label}`, { count: value }, value) }}</span

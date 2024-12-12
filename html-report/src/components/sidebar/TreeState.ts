@@ -21,7 +21,7 @@ export default class TreeState {
           },
           ...execution.nodesWithChildren().reduce((prev, node) => {
             const statuses = execution.nodeStatuses(node);
-            let initiallyCollapsed =
+            const initiallyCollapsed =
               execution.parents(node).length > 1 &&
               statuses.indexOf("FAILED") == -1;
             return {
