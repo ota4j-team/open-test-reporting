@@ -21,8 +21,8 @@ const toggleDark = useToggle(
 <template>
   <div
     class="cursor-pointer self-center hover:bg-black/20 rounded-full p-1"
-    @click="toggleDark()"
     role="switch"
+    @click="toggleDark()"
   >
     <Sun v-bind="defaultIconProps" class="dark:hidden" />
     <MoonStar v-bind="defaultIconProps" class="hidden dark:block" />

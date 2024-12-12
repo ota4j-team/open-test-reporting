@@ -19,8 +19,8 @@ selection.value = TestExecution.initialSelection(props.executions);
     <StatusBar :executions="executions" />
     <div class="flex flex-1 overflow-hidden">
       <SideBar
-        :executions="executions"
         v-model:selection="selection"
+        :executions="executions"
         class="overflow-auto w-1/2 lg:w-1/3 2xl:w-1/4 border-r border-neutral-200 dark:border-neutral-700 h-full"
       />
       <div class="flex-1 overflow-auto">
@@ -30,9 +30,9 @@ selection.value = TestExecution.initialSelection(props.executions);
         />
         <TestNodeDetails
           v-else-if="selection"
+          v-model:selection="selection"
           :execution="selection?.execution"
           :node="selection?.item as TestNodeData"
-          v-model:selection="selection"
         />
       </div>
     </div>

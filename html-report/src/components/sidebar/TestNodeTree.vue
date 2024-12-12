@@ -13,10 +13,10 @@ defineProps<{ execution: TestExecution; roots: TestNodeData[] }>();
   <ul v-if="roots.length" class="pl-3">
     <li v-for="node in roots" :key="node.id">
       <TreeNode
+        v-model:selection="selection"
         :execution="execution"
         :node="node"
         :children="execution.children(node as TestNodeData)"
-        v-model:selection="selection"
       >
         <template #icon="iconProps">
           <TestResultStatusIcon

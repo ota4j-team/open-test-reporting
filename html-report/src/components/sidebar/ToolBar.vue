@@ -15,9 +15,9 @@ const treeState = inject(treeStateKey)!;
   >
     <div class="flex flex-row flex-1">
       <ToolBarIcon
-        @click="treeState.toggleShowSuccessful()"
         :selected="treeState.showSuccessful"
         :title="$t('toolbar.showSuccessful')"
+        @click="treeState.toggleShowSuccessful()"
       >
         <TestResultStatusIcon
           status="SUCCESSFUL"
@@ -26,9 +26,9 @@ const treeState = inject(treeStateKey)!;
         />
       </ToolBarIcon>
       <ToolBarIcon
-        @click="treeState.toggleShowFailed()"
         :selected="treeState.showFailed"
         :title="$t('toolbar.showFailed')"
+        @click="treeState.toggleShowFailed()"
       >
         <TestResultStatusIcon
           status="FAILED"
@@ -37,9 +37,9 @@ const treeState = inject(treeStateKey)!;
         />
       </ToolBarIcon>
       <ToolBarIcon
-        @click="treeState.toggleShowSkipped()"
         :selected="treeState.showSkipped"
         :title="$t('toolbar.showSkipped')"
+        @click="treeState.toggleShowSkipped()"
       >
         <TestResultStatusIcon
           status="SKIPPED"
@@ -48,9 +48,9 @@ const treeState = inject(treeStateKey)!;
         />
       </ToolBarIcon>
       <ToolBarIcon
-        @click="treeState.toggleShowAborted()"
         :selected="treeState.showAborted"
         :title="$t('toolbar.showAborted')"
+        @click="treeState.toggleShowAborted()"
       >
         <TestResultStatusIcon
           status="ABORTED"
@@ -61,14 +61,14 @@ const treeState = inject(treeStateKey)!;
     </div>
     <div class="flex flex-row">
       <ToolBarIcon
-        @click="treeState.expandAll()"
         :title="$t('toolbar.expandAll')"
+        @click="treeState.expandAll()"
       >
         <ChevronsUpDown v-bind="defaultIconProps" />
       </ToolBarIcon>
       <ToolBarIcon
-        @click="treeState.collapseAll()"
         :title="$t('toolbar.collapseAll')"
+        @click="treeState.collapseAll()"
       >
         <ChevronsDownUp v-bind="defaultIconProps" />
       </ToolBarIcon>

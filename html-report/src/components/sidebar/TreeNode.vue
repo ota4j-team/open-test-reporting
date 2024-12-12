@@ -35,19 +35,19 @@ function selectAndExpandNode() {
 
 <template>
   <div
-    class="inline-flex -mt-0.5"
     v-if="treeState.isVisible(execution.nodeStatuses(node as TestNodeData))"
+    class="inline-flex -mt-0.5"
   >
     <div
-      @click="treeState.toggleNode(node.id)"
-      class="cursor-pointer self-center"
       v-if="children.length > 0"
+      class="cursor-pointer self-center"
+      @click="treeState.toggleNode(node.id)"
     >
       <ChevronRight
-        v-bind="defaultIconProps"
         v-if="treeState.nodes[node.id]?.collapsed"
+        v-bind="defaultIconProps"
       />
-      <ChevronDown v-bind="defaultIconProps" v-else />
+      <ChevronDown v-else v-bind="defaultIconProps" />
     </div>
     <div
       class="cursor-pointer rounded p-px px-1 inline-flex"
@@ -56,9 +56,9 @@ function selectAndExpandNode() {
         'hover:bg-neutral-200 dark:hover:bg-neutral-700': !isSelected,
         [`ml-[${defaultIconProps.size}px]`]: children.length == 0,
       }"
-      @click="selectAndExpandNode()"
       role="link"
       :aria-label="node.name"
+      @click="selectAndExpandNode()"
     >
       <slot name="icon" v-bind="defaultIconProps" />
       <span class="ml-1 whitespace-nowrap">{{ node.name }}</span>
@@ -66,8 +66,8 @@ function selectAndExpandNode() {
   </div>
   <TestNodeTree
     v-if="showChildren"
+    v-model:selection="selection"
     :execution="execution"
     :roots="children"
-    v-model:selection="selection"
   />
 </template>

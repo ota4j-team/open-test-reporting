@@ -27,11 +27,7 @@ const parents = computed(() => props.execution.parents(props.node));
   <DetailsHeader :title="node.name">
     <template #above>
       <ul class="text-sm mb-3 inline-flex h-5">
-        <li
-          v-for="parent in parents"
-          class="inline-flex"
-          v-bind:key="parent.id"
-        >
+        <li v-for="parent in parents" :key="parent.id" class="inline-flex">
           <ExecutionIcon
             v-if="parent instanceof TestExecution"
             class="-ml-px cursor-pointer"

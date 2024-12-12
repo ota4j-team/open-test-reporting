@@ -13,18 +13,22 @@ const showImage = inject(imageHandler, () => {
 </script>
 
 <template>
-  <p v-if="block.type === 'p'">{{ block.content }}</p>
+  <p v-if="block.type === 'p'">
+    {{ block.content }}
+  </p>
   <table v-else-if="block.type === 'kvp'" class="w-full">
     <tbody>
       <tr
         v-for="(pair, index) in Object.entries(block.content)"
-        v-bind:key="index"
+        :key="index"
         :class="{
           'border-b': index < Object.entries(block.content).length - 1,
         }"
         class="border-neutral-200 dark:border-neutral-700 w-full"
       >
-        <td class="w-44 pr-4 text-sm">{{ pair[0] }}</td>
+        <td class="w-44 pr-4 text-sm">
+          {{ pair[0] }}
+        </td>
         <td class="break-all">
           <a
             v-if="(pair[1] as string).startsWith('link:')"
@@ -39,16 +43,16 @@ const showImage = inject(imageHandler, () => {
     </tbody>
   </table>
   <template
-    v-else-if="block.type === 'sub'"
     v-for="section in block.content as SectionData[]"
-    v-bind:key="section"
+    v-else-if="block.type === 'sub'"
+    :key="section"
   >
     <RenderedSection :section="section" :depth="depth + 1" />
   </template>
   <ul v-else-if="block.type == 'labels'" class="text-sm -mb-1">
     <li
       v-for="label in block.content as string[]"
-      v-bind:key="label"
+      :key="label"
       class="inline-block rounded bg-neutral-200 dark:bg-neutral-700 mr-2 mb-1 px-2 py-0.5"
     >
       {{ label }}
