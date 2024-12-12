@@ -27,7 +27,7 @@ export default class TestExecution {
   }
 
   static overallStatus(executions: TestExecution[]): string {
-    var statuses = executions
+    const statuses = executions
       .map((e) => TestExecution.STATUSES.indexOf(e.overallStatus()))
       .sort();
     return statuses.length > 0
@@ -40,7 +40,7 @@ export default class TestExecution {
     TestExecution.STATUSES.forEach((s) => statusCount.set(s, 0));
     executions.forEach((e) => {
       e.statusCount().forEach((count, status) => {
-        statusCount.set(status, statusCount.get(status)!! + count);
+        statusCount.set(status, statusCount.get(status)! + count);
       });
     });
     return statusCount;
@@ -78,27 +78,27 @@ export default class TestExecution {
 
   nodesWithChildren(): TestNodeData[] {
     return Array.from(this.childrenMetadata.keys()).map(
-      (id) => this.testNodes.get(id)!!,
+      (id) => this.testNodes.get(id)!,
     );
   }
 
   roots(): TestNodeData[] {
-    return this.rootIds.map((id) => this.testNodes.get(id)!!);
+    return this.rootIds.map((id) => this.testNodes.get(id)!);
   }
 
   children(node: TestNodeData): TestNodeData[] {
     if (this.childrenMetadata.has(node.id)) {
       return this.childrenMetadata
-        .get(node.id)!!
-        .ids!!.map((id) => this.testNodes.get(id)!!);
+        .get(node.id)!
+        .ids!.map((id) => this.testNodes.get(id)!);
     }
     return [];
   }
 
   parents(node: TestNodeData): (TestNodeData | TestExecution)[] {
     if (this.parentIds.has(node.id)) {
-      const parentId = this.parentIds.get(node.id)!!;
-      const parent = this.testNodes.get(parentId)!!;
+      const parentId = this.parentIds.get(node.id)!;
+      const parent = this.testNodes.get(parentId)!;
       return [...this.parents(parent), parent];
     }
     return [this];
@@ -106,13 +106,13 @@ export default class TestExecution {
 
   nodeStatuses(node: TestNodeData): string[] {
     if (this.childrenMetadata.has(node.id)) {
-      return this.childrenMetadata.get(node.id)!!.childStatuses!!;
+      return this.childrenMetadata.get(node.id)!.childStatuses!;
     }
     return node.status ? [node.status] : [];
   }
 
   overallStatus(): string {
-    var statuses = Array.from(this.testNodes.values())
+    const statuses = Array.from(this.testNodes.values())
       .map((node) => TestExecution.STATUSES.indexOf(node.status))
       .sort();
     return statuses.length > 0
@@ -124,7 +124,7 @@ export default class TestExecution {
     const result = new Map<string, number>();
     TestExecution.STATUSES.forEach((s) => result.set(s, 0));
     Array.from(this.testNodes.values()).forEach((n) =>
-      result.set(n.status, result.get(n.status)!! + 1),
+      result.set(n.status, result.get(n.status)! + 1),
     );
     return result;
   }

@@ -10,6 +10,7 @@ import DetailsHeader from "./DetailsHeader.vue";
 import Selection from "../common/Selection.ts";
 import ExecutionIcon from "../common/ExecutionIcon.vue";
 import { defaultIconProps } from "../common/icon.ts";
+/* global TestNodeData */
 
 const selection = defineModel<Selection | undefined>("selection");
 const props = defineProps<{ node: TestNodeData; execution: TestExecution }>();
@@ -26,7 +27,11 @@ const parents = computed(() => props.execution.parents(props.node));
   <DetailsHeader :title="node.name">
     <template #above>
       <ul class="text-sm mb-3 inline-flex h-5">
-        <li v-for="parent in parents" class="inline-flex">
+        <li
+          v-for="parent in parents"
+          class="inline-flex"
+          v-bind:key="parent.id"
+        >
           <ExecutionIcon
             v-if="parent instanceof TestExecution"
             class="-ml-px cursor-pointer"

@@ -6,7 +6,7 @@ import { defaultIconProps } from "../common/icon.ts";
 import { inject } from "vue";
 import { treeStateKey } from "./TreeState.ts";
 
-const treeState = inject(treeStateKey)!!;
+const treeState = inject(treeStateKey)!;
 </script>
 
 <template>

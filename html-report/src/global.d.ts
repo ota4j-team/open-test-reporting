@@ -28,14 +28,14 @@ export declare global {
 
   interface BlockData {
     type: string;
-    content: any;
+    content: never;
   }
 
   interface ImageBlockData extends BlockData {
     altText: string;
   }
 
-  declare module globalThis {
-    var testExecutions: ExecutionData[];
+  declare namespace globalThis {
+    var testExecutions: ExecutionData[]; // eslint-disable-line no-var
   }
 }

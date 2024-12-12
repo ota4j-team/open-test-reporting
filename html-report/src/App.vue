@@ -5,7 +5,7 @@ import TestNodeDetails from "./components/details/TestNodeDetails.vue";
 import Selection from "./components/common/Selection.ts";
 import StatusBar from "./components/header/StatusBar.vue";
 import TestExecution from "./components/common/TestExecution.ts";
-import Sidebar from "./components/sidebar/Sidebar.vue";
+import SideBar from "./components/sidebar/SideBar.vue";
 
 const props = defineProps<{ executions: TestExecution[] }>();
 const selection = ref<Selection | undefined>();
@@ -18,7 +18,7 @@ selection.value = TestExecution.initialSelection(props.executions);
   >
     <StatusBar :executions="executions" />
     <div class="flex flex-1 overflow-hidden">
-      <Sidebar
+      <SideBar
         :executions="executions"
         v-model:selection="selection"
         class="overflow-auto w-1/2 lg:w-1/3 2xl:w-1/4 border-r border-neutral-200 dark:border-neutral-700 h-full"
