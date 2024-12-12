@@ -1,6 +1,5 @@
-import com.diffplug.gradle.spotless.SpotlessApply
-import com.diffplug.gradle.spotless.SpotlessCheck
 import com.github.gradle.node.npm.task.NpmTask
+import com.github.gradle.node.npm.task.NpxTask
 import java.util.*
 
 plugins {
@@ -22,18 +21,28 @@ val distIncludes = arrayOf("public/**", "src/**", "*.html", "*.js", "*.json", "*
 spotless {
     format("prettier") {
         target(*distIncludes)
-
-        val prettierVersion: String = resources.text.fromFile("package.json").asReader().useLines { lines ->
-            lines.first { it.contains("prettier") }
-        }.substringAfter("prettier\": \"").substringBefore("\"")
-
-        prettier(prettierVersion).apply {
+        prettier(readVersionFromPackageJson("prettier")).apply {
             if (node.download.get()) {
                 val npmExec = if (System.getProperty("os.name").lowercase(Locale.ROOT).contains("windows")) "/npm.cmd" else "/bin/npm"
                 npmExecutable("${tasks.npmSetup.get().npmDir.get()}${npmExec}")
             }
         }
     }
+}
+
+val eslintCheck by tasks.registering(NpxTask::class) {
+    dependsOn(tasks.npmInstall)
+    command = "eslint"
+}
+
+tasks.check {
+    dependsOn(eslintCheck)
+}
+
+val eslintFix by tasks.registering(NpxTask::class) {
+    dependsOn(tasks.npmInstall)
+    command = "eslint"
+    args.addAll("--fix")
 }
 
 val buildVueDist by tasks.registering(NpmTask::class) {
@@ -60,3 +69,7 @@ configurations.consumable("htmlReportTemplate") {
         attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE, objects.named(LibraryElements.RESOURCES))
     }
 }
+
+fun readVersionFromPackageJson(packageName: String) = resources.text.fromFile("package.json").asReader().useLines { lines ->
+        lines.first { it.contains("\"${packageName}\":") }
+    }.substringAfter("\"${packageName}\": \"").substringBefore("\"")
