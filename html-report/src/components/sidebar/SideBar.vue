@@ -31,8 +31,8 @@ const resizeConfig: ResizableConfig = {
   >
     <ToolBar :executions="executions" class="sticky top-0" />
     <ExecutionTree
-      :executions="executions"
       v-model:selection="selection"
+      :executions="executions"
       class="ml-1.5 mt-2.5"
     />
   </div>

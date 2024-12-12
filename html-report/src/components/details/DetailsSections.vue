@@ -49,12 +49,12 @@ function allBlocks(block: BlockData): BlockData[] {
   <div class="px-4 pb-4">
     <div v-if="sections && sections.length > 0">
       <RenderedSection
-        :section="section"
         v-for="(section, index) in sections"
-        v-bind:key="index"
+        :key="index"
+        :section="section"
       />
     </div>
-    <p class="mt-3" v-else>No additional information</p>
+    <p v-else class="mt-3">No additional information</p>
   </div>
   <VueEasyLightbox
     v-if="images.length > 0"

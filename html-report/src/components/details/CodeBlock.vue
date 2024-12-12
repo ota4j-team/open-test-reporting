@@ -18,12 +18,12 @@ const { isScrolling } = useScroll(el, { idle: 2000 });
     class="z-0 relative rounded bg-neutral-50 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700 border"
   >
     <pre
-      class="resize-y p-3 text-sm w-full overflow-auto min-h-10 max-h-96"
       ref="el"
+      class="resize-y p-3 text-sm w-full overflow-auto min-h-10 max-h-96"
     ><code>{{ content }}</code></pre>
     <div
-      class="absolute bottom-2 right-2"
       v-if="isSupported"
+      class="absolute bottom-2 right-2"
       :class="{ hidden: isScrolling }"
     >
       <div

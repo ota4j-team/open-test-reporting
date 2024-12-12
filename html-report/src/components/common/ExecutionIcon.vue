@@ -3,6 +3,7 @@ import { FileChartColumn } from "lucide-vue-next";
 import { defaultIconProps } from "./icon.ts";
 
 const props = withDefaults(
+  // eslint-disable-next-line vue/require-default-prop
   defineProps<{ size?: number; strokeWidth?: number }>(),
   defaultIconProps,
 );

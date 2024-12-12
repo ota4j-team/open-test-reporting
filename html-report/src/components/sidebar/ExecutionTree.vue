@@ -12,10 +12,10 @@ defineProps<{ executions: TestExecution[] }>();
   <ul v-if="executions.length">
     <li v-for="root in executions" :key="root.id">
       <TreeNode
+        v-model:selection="selection"
         :execution="root"
         :node="root"
         :children="root.roots()"
-        v-model:selection="selection"
       >
         <template #icon="iconProps">
           <ExecutionIcon v-bind="iconProps" />
