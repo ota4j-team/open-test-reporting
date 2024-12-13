@@ -64,6 +64,8 @@ public class KitchenSinkTests {
 
         reporter.publishFile("test.txt", file -> Files.write(file, singletonList("Hello, World!")));
 
+        System.out.println("Hello, world!");
+
         assertEquals("foo", "bar");
     }
 }
