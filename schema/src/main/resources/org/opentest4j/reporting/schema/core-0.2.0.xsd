@@ -74,6 +74,22 @@
                   <xs:attribute name="path" type="xs:string" use="required"/>
                 </xs:complexType>
               </xs:element>
+              <xs:element name="output">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="time" type="xs:dateTime" use="required"/>
+                      <xs:attribute name="source" type="xs:string" use="required">
+                        <xs:annotation>
+                          <xs:documentation>
+                            Typically 'stdout' or 'stderr' but may also be used for attaching other log output
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:attribute>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
               <xs:any namespace="##other"/>
             </xs:choice>
           </xs:sequence>
