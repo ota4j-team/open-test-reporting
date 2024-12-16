@@ -23,6 +23,7 @@ export declare global {
 
   interface SectionData {
     title: string;
+    metaInfo: string;
     blocks: BlockData[];
   }
 

@@ -2,7 +2,7 @@ globalThis.testExecutions = [
   {
     id: "1",
     name: "open-test-report.xml",
-    durationMillis: 61,
+    durationMillis: 67,
     sections: [
       {
         title: "Infrastructure",
@@ -38,8 +38,8 @@ globalThis.testExecutions = [
             type: "kvp",
             content: {
               Origin: "https://github.com/ota4j-team/open-test-reporting.git",
-              Branch: "marc/relativize-links-to-file-attachments",
-              "Commit hash": "6f8b2a81301e11e381cdcb2a172cdad08a48e213",
+              Branch: "main",
+              "Commit hash": "0766118523391cd55f8524a30a29d235f25ca31f",
               Clean: "false",
             },
           },
@@ -51,7 +51,8 @@ globalThis.testExecutions = [
                 blocks: [
                   {
                     type: "pre",
-                    content: " M sample-project/build.gradle.kts",
+                    content:
+                      " M html-report/public/init.js\n M html-report/src/global.d.ts\n M settings.gradle.kts\n M tooling-core/src/main/java/org/opentest4j/reporting/tooling/core/htmlreport/CoreContributor.java\n M tooling-core/src/main/java/org/opentest4j/reporting/tooling/core/htmlreport/DefaultHtmlReportWriter.java\n M tooling-spi/src/main/java/org/opentest4j/reporting/tooling/spi/htmlreport/Section.java",
                   },
                 ],
               },
@@ -75,14 +76,28 @@ globalThis.testExecutions = [
       {
         id: "2",
         name: "JUnit Jupiter",
-        durationMillis: 61,
+        durationMillis: 67,
         status: "SUCCESSFUL",
-        sections: [],
+        sections: [
+          {
+            title: "JUnit metadata",
+            blocks: [
+              {
+                type: "kvp",
+                content: {
+                  Type: "CONTAINER",
+                  "Unique ID": "[engine:junit-jupiter]",
+                  "Legacy reporting name": "JUnit Jupiter",
+                },
+              },
+            ],
+          },
+        ],
       },
       {
         id: "3",
         name: "KitchenSinkTests",
-        durationMillis: 45,
+        durationMillis: 54,
         status: "SUCCESSFUL",
         sections: [
           {
@@ -109,6 +124,20 @@ globalThis.testExecutions = [
             ],
           },
           {
+            title: "JUnit metadata",
+            blocks: [
+              {
+                type: "kvp",
+                content: {
+                  Type: "CONTAINER",
+                  "Unique ID":
+                    "[engine:junit-jupiter]/[class:org.example.KitchenSinkTests]",
+                  "Legacy reporting name": "org.example.KitchenSinkTests",
+                },
+              },
+            ],
+          },
+          {
             title: "Attachments",
             blocks: [
               {
@@ -116,15 +145,8 @@ globalThis.testExecutions = [
                 content: [
                   {
                     title: "Data",
-                    blocks: [
-                      {
-                        type: "kvp",
-                        content: {
-                          time: "2024-12-01T17:19:51.264725583",
-                          value: "beforeAll",
-                        },
-                      },
-                    ],
+                    metaInfo: "2024-12-16T09:27:14.762983214",
+                    blocks: [{ type: "kvp", content: { value: "beforeAll" } }],
                   },
                 ],
               },
@@ -135,7 +157,7 @@ globalThis.testExecutions = [
       {
         id: "4",
         name: "successful test",
-        durationMillis: 8,
+        durationMillis: 9,
         status: "SUCCESSFUL",
         sections: [
           {
@@ -167,6 +189,20 @@ globalThis.testExecutions = [
             ],
           },
           {
+            title: "JUnit metadata",
+            blocks: [
+              {
+                type: "kvp",
+                content: {
+                  Type: "TEST",
+                  "Unique ID":
+                    "[engine:junit-jupiter]/[class:org.example.KitchenSinkTests]/[method:successful(org.junit.jupiter.api.TestReporter)]",
+                  "Legacy reporting name": "successful(TestReporter)",
+                },
+              },
+            ],
+          },
+          {
             title: "Attachments",
             blocks: [
               {
@@ -174,15 +210,8 @@ globalThis.testExecutions = [
                 content: [
                   {
                     title: "Data",
-                    blocks: [
-                      {
-                        type: "kvp",
-                        content: {
-                          time: "2024-12-01T17:19:51.272912809",
-                          value: "✅",
-                        },
-                      },
-                    ],
+                    metaInfo: "2024-12-16T09:27:14.772575463",
+                    blocks: [{ type: "kvp", content: { value: "✅" } }],
                   },
                 ],
               },
@@ -223,6 +252,20 @@ globalThis.testExecutions = [
             ],
           },
           {
+            title: "JUnit metadata",
+            blocks: [
+              {
+                type: "kvp",
+                content: {
+                  Type: "TEST",
+                  "Unique ID":
+                    "[engine:junit-jupiter]/[class:org.example.KitchenSinkTests]/[method:skipped()]",
+                  "Legacy reporting name": "skipped()",
+                },
+              },
+            ],
+          },
+          {
             title: "Reason",
             blocks: [{ type: "p", content: "for demonstration purposes" }],
           },
@@ -231,7 +274,7 @@ globalThis.testExecutions = [
       {
         id: "6",
         name: "aborted(TestReporter)",
-        durationMillis: 4,
+        durationMillis: 5,
         status: "ABORTED",
         sections: [
           {
@@ -263,6 +306,20 @@ globalThis.testExecutions = [
             ],
           },
           {
+            title: "JUnit metadata",
+            blocks: [
+              {
+                type: "kvp",
+                content: {
+                  Type: "TEST",
+                  "Unique ID":
+                    "[engine:junit-jupiter]/[class:org.example.KitchenSinkTests]/[method:aborted(org.junit.jupiter.api.TestReporter)]",
+                  "Legacy reporting name": "aborted(TestReporter)",
+                },
+              },
+            ],
+          },
+          {
             title: "Result",
             blocks: [
               {
@@ -290,27 +347,13 @@ globalThis.testExecutions = [
                 content: [
                   {
                     title: "Data",
-                    blocks: [
-                      {
-                        type: "kvp",
-                        content: {
-                          time: "2024-12-01T17:19:51.283432229",
-                          foo: "bar",
-                        },
-                      },
-                    ],
+                    metaInfo: "2024-12-16T09:27:14.784819175",
+                    blocks: [{ type: "kvp", content: { foo: "bar" } }],
                   },
                   {
                     title: "Data",
-                    blocks: [
-                      {
-                        type: "kvp",
-                        content: {
-                          time: "2024-12-01T17:19:51.283731827",
-                          baz: "qux",
-                        },
-                      },
-                    ],
+                    metaInfo: "2024-12-16T09:27:14.785359179",
+                    blocks: [{ type: "kvp", content: { baz: "qux" } }],
                   },
                 ],
               },
@@ -321,7 +364,7 @@ globalThis.testExecutions = [
       {
         id: "7",
         name: "failed(TestReporter)",
-        durationMillis: 7,
+        durationMillis: 10,
         status: "FAILED",
         sections: [
           {
@@ -353,6 +396,20 @@ globalThis.testExecutions = [
             ],
           },
           {
+            title: "JUnit metadata",
+            blocks: [
+              {
+                type: "kvp",
+                content: {
+                  Type: "TEST",
+                  "Unique ID":
+                    "[engine:junit-jupiter]/[class:org.example.KitchenSinkTests]/[method:failed(org.junit.jupiter.api.TestReporter)]",
+                  "Legacy reporting name": "failed(TestReporter)",
+                },
+              },
+            ],
+          },
+          {
             title: "Result",
             blocks: [
               {
@@ -364,7 +421,7 @@ globalThis.testExecutions = [
                       {
                         type: "pre",
                         content:
-                          "org.opentest4j.AssertionFailedError: expected: \u003cfoo\u003e but was: \u003cbar\u003e\n\tat org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)\n\tat org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)\n\tat org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)\n\tat org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)\n\tat org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)\n\tat org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)\n\tat org.example.KitchenSinkTests.failed(KitchenSinkTests.java:67)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:580)\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1596)\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1596)\n",
+                          "org.opentest4j.AssertionFailedError: expected: \u003cfoo\u003e but was: \u003cbar\u003e\n\tat org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)\n\tat org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)\n\tat org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)\n\tat org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)\n\tat org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)\n\tat org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)\n\tat org.example.KitchenSinkTests.failed(KitchenSinkTests.java:70)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:580)\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1596)\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1596)\n",
                       },
                     ],
                   },
@@ -380,28 +437,35 @@ globalThis.testExecutions = [
                 content: [
                   {
                     title: "Data",
+                    metaInfo: "2024-12-16T09:27:14.791735171",
+                    blocks: [
+                      { type: "kvp", content: { foo: "bar", baz: "qux" } },
+                    ],
+                  },
+                  {
+                    title: "File",
+                    metaInfo: "2024-12-16T09:27:14.794006979",
                     blocks: [
                       {
                         type: "kvp",
                         content: {
-                          time: "2024-12-01T17:19:51.289237149",
-                          foo: "bar",
-                          baz: "qux",
+                          Filename: "test.txt",
+                          Path: "link:junit-jupiter/org.example.KitchenSinkTests/failed(org.junit.jupiter.api.TestReporter)/test.txt",
                         },
                       },
                     ],
                   },
                   {
-                    title: "File",
+                    title: "Standard output",
+                    metaInfo: "2024-12-16T09:27:14.798762991",
                     blocks: [
-                      {
-                        type: "kvp",
-                        content: {
-                          time: "2024-12-01T17:19:51.291075833",
-                          path: "link:junit-jupiter/org.example.KitchenSinkTests/failed(org.junit.jupiter.api.TestReporter)/test.txt",
-                        },
-                      },
+                      { type: "pre", content: "some standard output\n" },
                     ],
+                  },
+                  {
+                    title: "Standard error",
+                    metaInfo: "2024-12-16T09:27:14.798762991",
+                    blocks: [{ type: "pre", content: "some error output\n" }],
                   },
                 ],
               },
