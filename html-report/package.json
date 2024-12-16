@@ -28,7 +28,7 @@
     "prettier": "3.4.2",
     "tailwindcss": "3.4.16",
     "typescript": "5.7.2",
-    "typescript-eslint": "8.18.0",
+    "typescript-eslint": "8.18.1",
     "vite": "6.0.3",
     "vite-plugin-singlefile": "2.1.0",
     "vue-tsc": "https://pkg.pr.new/vuejs/language-tools/vue-tsc@3fb59af"
