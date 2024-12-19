@@ -72,6 +72,16 @@
                 <xs:complexType>
                   <xs:attribute name="time" type="xs:dateTime" use="required"/>
                   <xs:attribute name="path" type="xs:string" use="required"/>
+                  <xs:attribute name="mediaType" type="xs:string">
+                    <xs:annotation>
+                      <xs:documentation>
+                        The media type of the file content, e.g. 'text/plain' or 'application/json',
+                        see https://www.iana.org/assignments/media-types/media-types.xhtml.
+                        For text files, the charset should be specified in the 'charset' attribute,
+                        e.g. 'text/plain; charset=utf-8'.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
                 </xs:complexType>
               </xs:element>
               <xs:element name="output">
