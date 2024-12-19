@@ -9,11 +9,13 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.TestReporter;
+import org.junit.jupiter.api.extension.MediaType;
 
 import java.nio.file.Files;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static java.nio.charset.StandardCharsets.ISO_8859_1;
 import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.abort;
@@ -62,7 +64,8 @@ public class KitchenSinkTests {
         map.put("baz", "qux");
         reporter.publishEntry(map);
 
-        reporter.publishFile("test.txt", file -> Files.write(file, singletonList("Hello, World!")));
+        MediaType mediaType = MediaType.create("text", "plain", ISO_8859_1);
+        reporter.publishFile("test.txt", mediaType, file -> Files.write(file, singletonList("Hellö, Wörld!"), ISO_8859_1));
 
         System.out.println("some standard output");
         System.err.println("some error output");
