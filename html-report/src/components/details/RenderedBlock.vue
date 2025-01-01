@@ -37,7 +37,7 @@ const showImage = inject(imageHandler, () => {
           >
             <code class="text-sm">{{ (pair[1] as string).substring(5) }}</code>
           </a>
-          <code v-else class="text-sm">{{ pair[1] }}</code>
+          <pre v-else class="text-sm">{{ pair[1] }}</pre>
         </td>
       </tr>
     </tbody>
