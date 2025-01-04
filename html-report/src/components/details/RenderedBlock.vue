@@ -29,7 +29,7 @@ const showImage = inject(imageHandler, () => {
         <td class="w-44 pr-4 text-sm">
           {{ pair[0] }}
         </td>
-        <td class="break-all">
+        <td>
           <a
             v-if="(pair[1] as string).startsWith('link:')"
             :href="(pair[1] as string).substring(5)"
@@ -37,7 +37,9 @@ const showImage = inject(imageHandler, () => {
           >
             <code class="text-sm">{{ (pair[1] as string).substring(5) }}</code>
           </a>
-          <pre v-else class="text-sm">{{ pair[1] }}</pre>
+          <pre v-else class="text-sm whitespace-pre-wrap break-all">{{
+            pair[1]
+          }}</pre>
         </td>
       </tr>
     </tbody>
