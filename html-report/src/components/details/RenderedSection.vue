@@ -9,8 +9,9 @@ const { depth = 3 } = defineProps<{ section: SectionData; depth?: number }>();
   <div
     class="flex flex-row items-baseline mb-1"
     :class="{
-      'mt-3': depth === 3,
-      'mt-2': depth === 4,
+      'mt-4': depth === 3,
+      'mt-3': depth === 4,
+      'mt-2': depth > 4,
     }"
   >
     <div class="flex-auto">

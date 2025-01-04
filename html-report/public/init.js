@@ -2,7 +2,7 @@ globalThis.testExecutions = [
   {
     id: "1",
     name: "open-test-report.xml",
-    durationMillis: 65,
+    durationMillis: 85,
     sections: [
       {
         title: "Infrastructure",
@@ -39,24 +39,9 @@ globalThis.testExecutions = [
             content: {
               Origin: "https://github.com/ota4j-team/open-test-reporting.git",
               Branch: "main",
-              "Commit hash": "b0f0c8b48d25a6298326be6be66cb264e752a87e",
-              Clean: "false",
+              "Commit hash": "95a3fcc4e967f93e01ca54eac9077901e682a411",
+              Clean: "true",
             },
-          },
-          {
-            type: "sub",
-            content: [
-              {
-                title: "Status of working tree",
-                blocks: [
-                  {
-                    type: "pre",
-                    content:
-                      " M settings.gradle.kts\n M tooling-core/src/main/java/org/opentest4j/reporting/tooling/core/htmlreport/CoreContributor.java",
-                  },
-                ],
-              },
-            ],
           },
         ],
       },
@@ -76,7 +61,7 @@ globalThis.testExecutions = [
       {
         id: "2",
         name: "JUnit Jupiter",
-        durationMillis: 65,
+        durationMillis: 85,
         status: "SUCCESSFUL",
         sections: [
           {
@@ -97,7 +82,7 @@ globalThis.testExecutions = [
       {
         id: "3",
         name: "KitchenSinkTests",
-        durationMillis: 53,
+        durationMillis: 70,
         status: "SUCCESSFUL",
         sections: [
           {
@@ -147,7 +132,7 @@ globalThis.testExecutions = [
                 content: [
                   {
                     title: "Data",
-                    metaInfo: "2024-12-16T10:07:17.460144836",
+                    metaInfo: "2025-01-04T13:42:08.569908895",
                     blocks: [{ type: "kvp", content: { value: "beforeAll" } }],
                   },
                 ],
@@ -159,7 +144,7 @@ globalThis.testExecutions = [
       {
         id: "4",
         name: "successful test",
-        durationMillis: 9,
+        durationMillis: 13,
         status: "SUCCESSFUL",
         sections: [
           {
@@ -212,7 +197,7 @@ globalThis.testExecutions = [
                 content: [
                   {
                     title: "Data",
-                    metaInfo: "2024-12-16T10:07:17.469261759",
+                    metaInfo: "2025-01-04T13:42:08.581025508",
                     blocks: [{ type: "kvp", content: { value: "✅" } }],
                   },
                 ],
@@ -224,7 +209,7 @@ globalThis.testExecutions = [
       {
         id: "5",
         name: "skipped()",
-        durationMillis: 0,
+        durationMillis: 1,
         status: "SKIPPED",
         sections: [
           {
@@ -276,7 +261,7 @@ globalThis.testExecutions = [
       {
         id: "6",
         name: "aborted(TestReporter)",
-        durationMillis: 5,
+        durationMillis: 7,
         status: "ABORTED",
         sections: [
           {
@@ -333,7 +318,7 @@ globalThis.testExecutions = [
                       {
                         type: "pre",
                         content:
-                          "org.opentest4j.TestAbortedException: for demonstration purposes\n\tat org.junit.jupiter.api.Assumptions.abort(Assumptions.java:300)\n\tat org.example.KitchenSinkTests.aborted(KitchenSinkTests.java:53)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:580)\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1596)\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1596)\n",
+                          "org.opentest4j.TestAbortedException: for demonstration purposes\n\tat org.junit.jupiter.api.Assumptions.abort(Assumptions.java:300)\n\tat org.example.KitchenSinkTests.aborted(KitchenSinkTests.java:55)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:580)\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1596)\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1596)\n",
                       },
                     ],
                   },
@@ -349,12 +334,12 @@ globalThis.testExecutions = [
                 content: [
                   {
                     title: "Data",
-                    metaInfo: "2024-12-16T10:07:17.481488326",
+                    metaInfo: "2025-01-04T13:42:08.598566069",
                     blocks: [{ type: "kvp", content: { foo: "bar" } }],
                   },
                   {
                     title: "Data",
-                    metaInfo: "2024-12-16T10:07:17.482116168",
+                    metaInfo: "2025-01-04T13:42:08.599224439",
                     blocks: [{ type: "kvp", content: { baz: "qux" } }],
                   },
                 ],
@@ -366,7 +351,7 @@ globalThis.testExecutions = [
       {
         id: "7",
         name: "failed(TestReporter)",
-        durationMillis: 11,
+        durationMillis: 15,
         status: "FAILED",
         sections: [
           {
@@ -423,7 +408,7 @@ globalThis.testExecutions = [
                       {
                         type: "pre",
                         content:
-                          "org.opentest4j.AssertionFailedError: expected: \u003cfoo\u003e but was: \u003cbar\u003e\n\tat org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)\n\tat org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)\n\tat org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)\n\tat org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)\n\tat org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)\n\tat org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)\n\tat org.example.KitchenSinkTests.failed(KitchenSinkTests.java:70)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:580)\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1596)\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1596)\n",
+                          "org.opentest4j.AssertionFailedError: expected: \u003cfoo\u003e but was: \u003cbar\u003e\n\tat org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)\n\tat org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)\n\tat org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)\n\tat org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)\n\tat org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)\n\tat org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)\n\tat org.example.KitchenSinkTests.failed(KitchenSinkTests.java:73)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:580)\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1596)\n\tat java.base/java.util.ArrayList.forEach(ArrayList.java:1596)\n",
                       },
                     ],
                   },
@@ -439,34 +424,36 @@ globalThis.testExecutions = [
                 content: [
                   {
                     title: "Data",
-                    metaInfo: "2024-12-16T10:07:17.489363331",
+                    metaInfo: "2025-01-04T13:42:08.608483976",
                     blocks: [
                       { type: "kvp", content: { foo: "bar", baz: "qux" } },
                     ],
                   },
                   {
                     title: "File",
-                    metaInfo: "2024-12-16T10:07:17.491730007",
+                    metaInfo: "2025-01-04T13:42:08.612645162",
                     blocks: [
+                      { type: "pre", content: "Hellö, Wörld!\n" },
                       {
                         type: "kvp",
                         content: {
                           Filename: "test.txt",
                           Path: "link:junit-jupiter/org.example.KitchenSinkTests/failed(org.junit.jupiter.api.TestReporter)/test.txt",
+                          "Media type": "text/plain; charset\u003dISO-8859-1",
                         },
                       },
                     ],
                   },
                   {
                     title: "Standard output",
-                    metaInfo: "2024-12-16T10:07:17.497004216",
+                    metaInfo: "2025-01-04T13:42:08.619179136",
                     blocks: [
                       { type: "pre", content: "some standard output\n" },
                     ],
                   },
                   {
                     title: "Standard error",
-                    metaInfo: "2024-12-16T10:07:17.497004216",
+                    metaInfo: "2025-01-04T13:42:08.619179136",
                     blocks: [{ type: "pre", content: "some error output\n" }],
                   },
                 ],

@@ -16,7 +16,7 @@ const showImage = inject(imageHandler, () => {
   <p v-if="block.type === 'p'">
     {{ block.content }}
   </p>
-  <table v-else-if="block.type === 'kvp'" class="w-full">
+  <table v-else-if="block.type === 'kvp'" class="w-full my-2">
     <tbody>
       <tr
         v-for="(pair, index) in Object.entries(block.content)"
@@ -26,7 +26,7 @@ const showImage = inject(imageHandler, () => {
         }"
         class="border-neutral-200 dark:border-neutral-700 w-full"
       >
-        <td class="w-44 pr-4 text-sm">
+        <td class="w-44 pr-4 text-sm py-1">
           {{ pair[0] }}
         </td>
         <td>
