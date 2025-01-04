@@ -35,7 +35,9 @@ const showImage = inject(imageHandler, () => {
             :href="(pair[1] as string).substring(5)"
             class="text-blue-600 dark:text-blue-500 hover:underline"
           >
-            <code class="text-sm">{{ (pair[1] as string).substring(5) }}</code>
+            <pre class="text-sm whitespace-pre-wrap break-all">{{
+              (pair[1] as string).substring(5)
+            }}</pre>
           </a>
           <pre v-else class="text-sm whitespace-pre-wrap break-all">{{
             pair[1]
