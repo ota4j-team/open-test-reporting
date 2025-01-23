@@ -15,7 +15,7 @@ const { isScrolling } = useScroll(el, { idle: 2000 });
 
 <template>
   <div
-    class="z-0 relative rounded bg-neutral-50 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700 border mb-2"
+    class="z-0 relative rounded-sm bg-neutral-50 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700 border mb-2"
   >
     <pre
       ref="el"

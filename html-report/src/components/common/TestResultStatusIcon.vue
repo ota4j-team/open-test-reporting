@@ -5,7 +5,7 @@ import {
   SquareArrowOutUpRight,
   SquareSlash,
 } from "lucide-vue-next";
-import testResultStatusColor from "./TestResultStatus.ts";
+import { testResultStatusForegroundColorClass } from "./TestResultStatus.ts";
 import { defaultIconProps } from "./icon.ts";
 
 const props = withDefaults(
@@ -21,9 +21,7 @@ const props = withDefaults(
 function commonClasses(status: string) {
   return [
     "self-center",
-    ...(props.color
-      ? [props.color]
-      : [`text-${testResultStatusColor(status)}-600`]),
+    props.color ? props.color : testResultStatusForegroundColorClass(status),
   ];
 }
 </script>

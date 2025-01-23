@@ -3,7 +3,7 @@ import { computed } from "vue";
 import TestResultStatusIcon from "../common/TestResultStatusIcon.vue";
 import { ChevronRight } from "lucide-vue-next";
 import TestExecution from "../common/TestExecution.ts";
-import testResultStatusColor from "../common/TestResultStatus.ts";
+import { testResultStatusBackgroundColorClasses } from "../common/TestResultStatus.ts";
 import DurationLabel from "./DurationLabel.vue";
 import DetailsSections from "./DetailsSections.vue";
 import DetailsHeader from "./DetailsHeader.vue";
@@ -14,7 +14,6 @@ import { defaultIconProps } from "../common/icon.ts";
 
 const selection = defineModel<Selection | undefined>("selection");
 const props = defineProps<{ node: TestNodeData; execution: TestExecution }>();
-const color = computed(() => testResultStatusColor(props.node.status));
 
 function selectNode(node: TestNodeData | TestExecution) {
   selection.value = new Selection(props.execution, node);
@@ -51,12 +50,7 @@ const parents = computed(() => props.execution.parents(props.node));
       <div class="mt-3">
         <div
           class="inline-flex mb-2 border-2 rounded-full px-2 py-1 mr-2"
-          :class="[
-            `border-${color}-600`,
-            `bg-${color}-500`,
-            `dark:border-${color}-500`,
-            `dark:bg-${color}-600`,
-          ]"
+          :class="testResultStatusBackgroundColorClasses(node.status)"
         >
           <TestResultStatusIcon :status="node.status" color="text-white" />
           <span
