@@ -57,7 +57,7 @@ const showImage = inject(imageHandler, () => {
     <li
       v-for="label in block.content as string[]"
       :key="label"
-      class="inline-block rounded bg-neutral-200 dark:bg-neutral-700 mr-2 mb-1 px-2 py-0.5"
+      class="inline-block rounded-sm bg-neutral-200 dark:bg-neutral-700 mr-2 mb-1 px-2 py-0.5"
     >
       {{ label }}
     </li>

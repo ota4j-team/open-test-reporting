@@ -31,6 +31,9 @@ function selectAndExpandNode() {
     record.collapsed = false;
   }
 }
+if (defaultIconProps.size != 16) {
+  throw new Error("Adjust ml-[16px] CSS class below!");
+}
 </script>
 
 <template>
@@ -50,11 +53,11 @@ function selectAndExpandNode() {
       <ChevronDown v-else v-bind="defaultIconProps" />
     </div>
     <div
-      class="cursor-pointer rounded p-px px-1 inline-flex"
+      class="cursor-pointer rounded-sm p-px px-1 inline-flex"
       :class="{
         'bg-neutral-300 dark:bg-neutral-600 font-bold': isSelected,
         'hover:bg-neutral-200 dark:hover:bg-neutral-700': !isSelected,
-        [`ml-[${defaultIconProps.size}px]`]: children.length == 0,
+        ['ml-[16px]']: children.length == 0,
       }"
       role="link"
       :aria-label="node.name"
