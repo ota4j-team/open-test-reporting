@@ -83,8 +83,8 @@ tasks {
         classpath = configurations.compileClasspath.get()
         inputs.property("moduleName", moduleName)
         inputs.property("moduleVersion", project.version)
+        options.release = compileJava.flatMap { it.options.release }.map { if (it > 9) it else 9 }
         options.compilerArgs = listOf(
-            "--release", "9",
             "--module-version", project.version as String,
             "--module-path", classpath.asPath,
             "--module-source-path", moduleSrcDir.toString(),
