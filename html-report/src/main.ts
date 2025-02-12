@@ -16,6 +16,7 @@ app.use(
       en: {
         executionSummary: {
           testCount: "No tests | 1 test/container | {count} tests/containers",
+          errored: "1 errored | {count} errored",
           failed: "1 failed | {count} failed",
           aborted: "1 aborted | {count} aborted",
           skipped: "1 skipped | {count} skipped",
@@ -34,7 +35,7 @@ app.use(
           collapseAll: "Collapse all",
           expandAll: "Expand all",
           showAborted: "Show aborted",
-          showFailed: "Show failed",
+          showFailedAndErrored: "Show failed/errored",
           showSkipped: "Show skipped",
           showSuccessful: "Show successful",
         },

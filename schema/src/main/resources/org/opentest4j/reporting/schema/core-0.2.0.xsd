@@ -122,6 +122,7 @@
       <xs:enumeration value="SKIPPED"/>
       <xs:enumeration value="ABORTED"/>
       <xs:enumeration value="FAILED"/>
+      <xs:enumeration value="ERRORED"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="FilePosition">

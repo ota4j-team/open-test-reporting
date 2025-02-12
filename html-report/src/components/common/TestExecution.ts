@@ -6,15 +6,16 @@ export default class TestExecution {
     "ABORTED",
     "SUCCESSFUL",
     "FAILED",
+    "ERRORED",
   ];
 
   static initialSelection(executions: TestExecution[]): Selection | undefined {
-    const failedExecution = executions.find(
-      (e) => e.overallStatus() === "FAILED",
+    const failedExecution = executions.find((e) =>
+      this.isFailedOrErrored(e.overallStatus()),
     );
     if (failedExecution) {
       const failedNode = Array.from(failedExecution.testNodes.values()).find(
-        (n) => n.status === "FAILED",
+        (n) => this.isFailedOrErrored(n.status),
       );
       if (failedNode) {
         return new Selection(failedExecution, failedNode);
@@ -24,6 +25,10 @@ export default class TestExecution {
       return new Selection(executions[0], executions[0]);
     }
     return undefined;
+  }
+
+  private static isFailedOrErrored(status: string) {
+    return status === "FAILED" || status == "ERRORED";
   }
 
   static overallStatus(executions: TestExecution[]): string {

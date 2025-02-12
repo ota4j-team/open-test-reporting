@@ -7,7 +7,7 @@ export default class TreeState {
   public readonly nodes: Record<string, NodeState>;
 
   public showAborted = true;
-  public showFailed = true;
+  public showFailedAndErrored = true;
   public showSkipped = true;
   public showSuccessful = true;
 
@@ -23,7 +23,8 @@ export default class TreeState {
             const statuses = execution.nodeStatuses(node);
             const initiallyCollapsed =
               execution.parents(node).length > 1 &&
-              statuses.indexOf("FAILED") == -1;
+              statuses.indexOf("FAILED") == -1 &&
+              statuses.indexOf("ERRORED") == -1;
             return {
               ...prev,
               [node.id]: {
@@ -41,8 +42,8 @@ export default class TreeState {
     this.showAborted = !this.showAborted;
   }
 
-  toggleShowFailed() {
-    this.showFailed = !this.showFailed;
+  toggleShowFailedAndErrored() {
+    this.showFailedAndErrored = !this.showFailedAndErrored;
   }
 
   toggleShowSuccessful() {
@@ -77,7 +78,8 @@ export default class TreeState {
           case "SUCCESSFUL":
             return this.showSuccessful;
           case "FAILED":
-            return this.showFailed;
+          case "ERRORED":
+            return this.showFailedAndErrored;
           case "SKIPPED":
             return this.showSkipped;
           case "ABORTED":

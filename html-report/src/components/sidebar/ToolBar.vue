@@ -26,9 +26,9 @@ const treeState = inject(treeStateKey)!;
         />
       </ToolBarIcon>
       <ToolBarIcon
-        :selected="treeState.showFailed"
-        :title="$t('toolbar.showFailed')"
-        @click="treeState.toggleShowFailed()"
+        :selected="treeState.showFailedAndErrored"
+        :title="$t('toolbar.showFailedAndErrored')"
+        @click="treeState.toggleShowFailedAndErrored()"
       >
         <TestResultStatusIcon
           status="FAILED"
