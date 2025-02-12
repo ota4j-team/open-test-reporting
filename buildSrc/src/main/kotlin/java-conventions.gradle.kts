@@ -53,10 +53,17 @@ dependencies {
     cli(dependencyFromLibs("junit-platform-reporting"))
 }
 
-configurations.all {
-    resolutionStrategy.dependencySubstitution {
-        substitute(module("${group}:open-test-reporting-tooling-spi"))
-            .using(project(":tooling-spi"))
+configurations {
+    all {
+        resolutionStrategy.dependencySubstitution {
+            substitute(module("${group}:open-test-reporting-tooling-spi"))
+                .using(project(":tooling-spi"))
+        }
+    }
+    compileClasspath {
+        attributes {
+            attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE, objects.named(LibraryElements.JAR))
+        }
     }
 }
 
@@ -68,11 +75,29 @@ tasks {
     compileTestJava {
         options.release.convention(21)
     }
+    val moduleName = "org.opentest4j.reporting.${project.name.replace('-', '.')}"
+    val compileModule by registering(JavaCompile::class) {
+        val moduleSrcDir = file("src/module/java")
+        source(moduleSrcDir)
+        destinationDirectory.set(layout.buildDirectory.dir("classes/java/modules"))
+        classpath = configurations.compileClasspath.get()
+        inputs.property("moduleName", moduleName)
+        inputs.property("moduleVersion", project.version)
+        options.compilerArgs = listOf(
+            "--release", "9",
+            "--module-version", project.version as String,
+            "--module-path", classpath.asPath,
+            "--module-source-path", moduleSrcDir.toString(),
+            "--patch-module", "$moduleName=${files(sourceSets.main.get().allJava.srcDirs).asPath}",
+            "--module", moduleName,
+        )
+    }
     jar {
+        from(files(compileModule.map { it.destinationDirectory.dir(moduleName) })) {
+            include("module-info.class")
+        }
         manifest {
-            val moduleName = "org.opentest4j.reporting.${project.name.replace('-', '.')}"
             attributes(
-                "Automatic-Module-Name" to moduleName,
                 "Bundle-Name" to project.name,
                 "Bundle-Description" to project.name,
                 "Bundle-DocURL" to "https://github.com/ota4j-team/open-test-reporting",
