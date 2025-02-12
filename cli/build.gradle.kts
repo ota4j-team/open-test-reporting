@@ -15,6 +15,7 @@ dependencies {
 tasks {
     compileJava {
         options.release = 21
+        options.javaModuleMainClass = "org.opentest4j.reporting.cli.ReportingCli"
     }
     jar {
         manifest {

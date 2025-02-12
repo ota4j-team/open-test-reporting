@@ -63,6 +63,7 @@ configurations.all {
 tasks {
     compileJava {
         options.release.convention(8)
+        options.javaModuleVersion.convention(provider { project.version.toString() })
     }
     compileTestJava {
         options.release.convention(21)
