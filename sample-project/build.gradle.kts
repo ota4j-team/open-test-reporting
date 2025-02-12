@@ -12,7 +12,11 @@ val cliClasspath by configurations.resolvable("cliClasspath") {
 
 dependencies {
     testImplementation(libs.junit.jupiter)
+    testImplementation(projects.toolingSpi)
+
     testRuntimeOnly(libs.junit.platform.reporting)
+    testRuntimeOnly(projects.toolingSpi)
+
     cli(projects.cli)
     cli(libs.junit.platform.reporting)
 }
@@ -28,7 +32,8 @@ val htmlReportFile = tasks.test.flatMap { it.reports.junitXml.outputLocation.fil
 
 tasks {
     compileTestJava {
-        options.release = 8
+        options.release = 21
+        modularity.inferModulePath = true
     }
 
     val eventXmlFile =
