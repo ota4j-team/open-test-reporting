@@ -31,6 +31,15 @@ spotless {
         trimTrailingWhitespace()
         endWithNewline()
     }
+
+    format("moduleDescriptor") {
+        target(fileTree(layout.projectDirectory.dir("src/module")) {
+            include("**/module-info.java")
+        })
+        licenseHeaderFile(licenseHeaderFile, "^$")
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
 }
 
 fun Project.requiredVersionFromLibs(name: String) =
