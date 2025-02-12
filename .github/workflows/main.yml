@@ -54,7 +54,7 @@ jobs:
 
   publish_artifacts:
     name: Publish Snapshot Artifacts
-    needs: Linux
+    needs: macOS
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.repository == 'ota4j-team/open-test-reporting' && (startsWith(github.ref, 'refs/heads/releases/') || github.ref == 'refs/heads/main')
     steps:
@@ -72,7 +72,7 @@ jobs:
 
   update_documentation:
     name: Deploy Schemas
-    needs: Linux
+    needs: macOS
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.repository == 'ota4j-team/open-test-reporting' && github.ref == 'refs/heads/main'
     steps:
