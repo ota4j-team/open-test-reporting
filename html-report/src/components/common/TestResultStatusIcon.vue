@@ -31,19 +31,19 @@ function commonClasses(status: string) {
     v-if="status === 'SUCCESSFUL'"
     :size="size"
     :stroke-width="strokeWidth"
-    :class="commonClasses('SUCCESSFUL')"
+    :class="commonClasses(status)"
   />
   <CircleX
-    v-else-if="status === 'FAILED'"
+    v-else-if="status === 'FAILED' || status === 'ERRORED'"
     :size="size"
     :stroke-width="strokeWidth"
-    :class="commonClasses('FAILED')"
+    :class="commonClasses(status)"
   />
   <SquareSlash
     v-else-if="status == 'SKIPPED'"
     :size="size"
     :stroke-width="strokeWidth"
-    :class="commonClasses('SKIPPED')"
+    :class="commonClasses(status)"
   />
   <SquareArrowOutUpRight
     v-else

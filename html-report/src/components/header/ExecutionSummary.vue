@@ -19,6 +19,7 @@ const summaryMessage = computed(() => {
     .reduce((sum, current) => sum + current);
   return [
     t("executionSummary.testCount", { count: testCount }, testCount),
+    ...formattedCount("executionSummary.errored", statusCount.get("ERRORED")),
     ...formattedCount("executionSummary.failed", statusCount.get("FAILED")),
     ...formattedCount("executionSummary.aborted", statusCount.get("ABORTED")),
     ...formattedCount("executionSummary.skipped", statusCount.get("SKIPPED")),
