@@ -19,7 +19,7 @@ dependencies {
     testCompileOnly(libs.jetbrains.annotations)
 
     htmlReportTemplate(projects.htmlReport)
-    sampleXmlReport(project(mapOf("path" to projects.sampleProject.identityPath, "configuration" to "xmlReport")))
+    sampleXmlReport(project(mapOf("path" to projects.sampleProject.path, "configuration" to "xmlReport")))
 }
 
 tasks.compileJava {
