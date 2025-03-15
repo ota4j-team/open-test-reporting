@@ -52,7 +52,8 @@ tasks {
     }
 
     val generateHtmlReport by registering(JavaExec::class) {
-        mainClass.set("org.opentest4j.reporting.cli.ReportingCli")
+        mainModule = "org.opentest4j.reporting.cli"
+        modularity.inferModulePath = true
         args("html-report")
         classpath(cliClasspath)
         outputs.file(htmlReportFile)

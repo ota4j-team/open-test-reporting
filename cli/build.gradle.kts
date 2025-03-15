@@ -15,12 +15,18 @@ dependencies {
 tasks {
     compileJava {
         options.release = 21
-        options.javaModuleMainClass = "org.opentest4j.reporting.cli.ReportingCli"
     }
     jar {
         manifest {
             attributes("Main-Class" to "org.opentest4j.reporting.cli.ReportingCli")
         }
+        doLast(objects.newInstance(UpdateJarAction::class).apply {
+            javaLauncher = project.javaToolchains.launcherFor(java.toolchain)
+            args.addAll(
+                "--file", archiveFile.get().asFile.absolutePath,
+                "--main-class", "org.opentest4j.reporting.cli.ReportingCli",
+            )
+        })
     }
     shadowJar {
         archiveClassifier = "standalone"
