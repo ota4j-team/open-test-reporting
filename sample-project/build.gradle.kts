@@ -1,4 +1,5 @@
 import org.gradle.api.tasks.PathSensitivity.NONE
+import org.gradle.api.tasks.PathSensitivity.RELATIVE
 import java.nio.file.Files
 
 plugins {
@@ -58,7 +59,7 @@ tasks {
         args("html-report")
         classpath(cliClasspath)
         outputs.file(htmlReportFile)
-        inputs.files(eventXmlFile).withPathSensitivity(NONE).skipWhenEmpty()
+        inputs.files(eventXmlFile).withPathSensitivity(RELATIVE).skipWhenEmpty()
         argumentProviders += CommandLineArgumentProvider {
             listOf(
                 "--output",
