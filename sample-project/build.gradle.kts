@@ -53,6 +53,17 @@ tasks {
         outputs.cacheIf { true }
     }
 
+    val validateTestResultXml by registering(JavaExec::class) {
+        mainModule = "org.opentest4j.reporting.cli"
+        modularity.inferModulePath = true
+        args("validate")
+        classpath(cliClasspath)
+        inputs.file(eventXmlFile).withPathSensitivity(NONE).skipWhenEmpty()
+        argumentProviders += CommandLineArgumentProvider {
+            listOf(eventXmlFile.get().asFile.absolutePath)
+        }
+    }
+
     val generateHtmlReport by registering(JavaExec::class) {
         mainModule = "org.opentest4j.reporting.cli"
         modularity.inferModulePath = true
@@ -100,6 +111,6 @@ tasks {
             }
         }
 
-        finalizedBy(convertTestResultXmlToHierarchicalFormat, generateHtmlReport)
+        finalizedBy(validateTestResultXml, convertTestResultXmlToHierarchicalFormat, generateHtmlReport)
     }
 }
