@@ -40,7 +40,8 @@ tasks {
         test.map { it.reports.junitXml.outputLocation.get().file("open-test-report.xml") }
 
     val convertTestResultXmlToHierarchicalFormat by registering(JavaExec::class) {
-        mainClass.set("org.opentest4j.reporting.cli.ReportingCli")
+        mainModule = "org.opentest4j.reporting.cli"
+        modularity.inferModulePath = true
         args("convert")
         classpath(cliClasspath)
         inputs.file(eventXmlFile).withPathSensitivity(NONE).skipWhenEmpty()
