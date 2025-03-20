@@ -4,7 +4,6 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.events)
     implementation(projects.toolingCore)
     implementation(libs.picocli)
     implementation(libs.slf4j.api)
