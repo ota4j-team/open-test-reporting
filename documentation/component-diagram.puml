@@ -5,11 +5,15 @@ skinparam {
 }
 
 package org.opentest4j.reporting {
-    [open-test-reporting-tooling-cli] as cli
-    [open-test-reporting-tooling-events] as events
-    [open-test-reporting-tooling-schema] as schema
-    [open-test-reporting-tooling-core] as tooling_core
-    [open-test-reporting-tooling-spi] as tooling_spi
+    frame "Java 21+" {
+        [open-test-reporting-tooling-cli] as cli
+        [open-test-reporting-tooling-core] as tooling_core
+    }
+    frame "Java 8+" {
+        [open-test-reporting-tooling-events] as events
+        [open-test-reporting-tooling-schema] as schema
+        [open-test-reporting-tooling-spi] as tooling_spi
+    }
 }
 
 cli ..> tooling_core
