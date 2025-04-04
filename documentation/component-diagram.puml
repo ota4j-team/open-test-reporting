@@ -6,12 +6,12 @@ skinparam {
 
 package org.opentest4j.reporting {
     frame "Java 21+" {
-        [open-test-reporting-tooling-cli] as cli
+        [open-test-reporting-cli] as cli
         [open-test-reporting-tooling-core] as tooling_core
     }
     frame "Java 8+" {
-        [open-test-reporting-tooling-events] as events
-        [open-test-reporting-tooling-schema] as schema
+        [open-test-reporting-events] as events
+        [open-test-reporting-schema] as schema
         [open-test-reporting-tooling-spi] as tooling_spi
     }
 }
