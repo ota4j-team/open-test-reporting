@@ -33,7 +33,7 @@ val htmlReportFile = tasks.test.flatMap { it.reports.junitXml.outputLocation.fil
 
 tasks {
     compileTestJava {
-        options.release = 21
+        options.release = 17
         modularity.inferModulePath = true
     }
 

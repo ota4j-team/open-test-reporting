@@ -13,7 +13,7 @@ base {
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
     withSourcesJar()
     withJavadocJar()
 }
@@ -82,7 +82,7 @@ tasks {
         options.javaModuleVersion.convention(provider { project.version.toString() })
     }
     compileTestJava {
-        options.release.convention(21)
+        options.release.convention(17)
     }
     val moduleName = "org.opentest4j.reporting.${project.name.replace('-', '.')}"
     val compileModule by registering(JavaCompile::class) {
