@@ -115,6 +115,7 @@ tasks {
             )
         }
         bundle {
+            properties.empty() // see https://github.com/bndtools/bnd/tree/master/gradle-plugins#gradle-configuration-cache-support
             bnd(
                 "-exportcontents: org.opentest4j.reporting.*",
                 "Import-Package: org.apiguardian.*;resolution:=\"optional\",*",
