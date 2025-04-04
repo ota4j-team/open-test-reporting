@@ -23,7 +23,7 @@ dependencies {
 }
 
 tasks.compileJava {
-    options.release = 21
+    options.release = 17
 }
 
 val playwrightInstallationAction = objects.newInstance(InstallPlaywrightDeps::class).apply {

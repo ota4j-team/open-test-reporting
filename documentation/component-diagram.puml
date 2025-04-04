@@ -5,7 +5,7 @@ skinparam {
 }
 
 package org.opentest4j.reporting {
-    frame "Java 21+" {
+    frame "Java 17+" {
         [open-test-reporting-cli] as cli
         [open-test-reporting-tooling-core] as tooling_core
     }

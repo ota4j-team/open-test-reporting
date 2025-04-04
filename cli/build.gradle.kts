@@ -15,7 +15,7 @@ val mainClass = "org.opentest4j.reporting.cli.ReportingCli"
 
 tasks {
     compileJava {
-        options.release = 21
+        options.release = 17
     }
     jar {
         doLast(objects.newInstance(UpdateJarAction::class).apply {

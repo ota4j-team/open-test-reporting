@@ -12,7 +12,7 @@ runs:
       id: setup-gradle-jdk
       with:
         distribution: temurin
-        java-version: 21
+        java-version: 17
     - uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
       with:
         node-version-file: html-report/.tool-versions
