@@ -3,6 +3,7 @@ import org.gradle.api.publish.maven.MavenPublication
 plugins {
     `maven-publish`
     signing
+    id("com.gradleup.nmcp")
 }
 
 val isSnapshot = project.version.toString().contains("SNAPSHOT")
@@ -48,5 +49,24 @@ publishing {
                 }
             }
         }
+    }
+    repositories {
+        maven {
+            name = "mavenCentralSnapshots"
+            url = uri("https://central.sonatype.com/repository/maven-snapshots/")
+            credentials {
+                username = providers.gradleProperty("mavenCentralUsername").orNull
+                password = providers.gradleProperty("mavenCentralPassword").orNull
+            }
+        }
+    }
+}
+
+nmcp {
+    publish("maven") {
+        username = providers.gradleProperty("mavenCentralUsername")
+        password = providers.gradleProperty("mavenCentralPassword")
+        publicationType = providers.gradleProperty("mavenCentralPublicationType").orElse("USER_MANAGED")
+        publicationName = provider { "open-test-reporting-${project.name}-${project.version}.zip" }
     }
 }
