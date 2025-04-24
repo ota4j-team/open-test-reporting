@@ -30,6 +30,6 @@
     "typescript-eslint": "8.31.0",
     "vite": "6.3.3",
     "vite-plugin-singlefile": "2.2.0",
-    "vue-tsc": "2.2.8"
+    "vue-tsc": "2.2.10"
   }
 }
