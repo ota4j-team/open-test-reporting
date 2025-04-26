@@ -61,12 +61,3 @@ publishing {
         }
     }
 }
-
-nmcp {
-    publish("maven") {
-        username = providers.gradleProperty("mavenCentralUsername")
-        password = providers.gradleProperty("mavenCentralPassword")
-        publicationType = providers.gradleProperty("mavenCentralPublicationType").orElse("USER_MANAGED")
-        publicationName = provider { "open-test-reporting-${project.name}-${project.version}.zip" }
-    }
-}
