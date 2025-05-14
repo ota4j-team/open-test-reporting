@@ -68,7 +68,7 @@ jobs:
         ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
         ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
       with:
-        arguments: publishAllPublicationsToMavenCentralSnapshotsRepository -x check
+        arguments: publishAggregationToCentralSnapshots -x check
 
   update_documentation:
     name: Deploy Schemas
