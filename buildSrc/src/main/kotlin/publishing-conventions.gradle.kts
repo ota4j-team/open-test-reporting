@@ -50,4 +50,14 @@ publishing {
             }
         }
     }
+    repositories {
+        maven {
+            name = "mavenCentralSnapshots"
+            url = uri("https://central.sonatype.com/repository/maven-snapshots/")
+            credentials {
+                username = providers.gradleProperty("mavenCentralUsername").orNull
+                password = providers.gradleProperty("mavenCentralPassword").orNull
+            }
+        }
+    }
 }
