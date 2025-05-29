@@ -19,7 +19,7 @@ playwright = { module = "com.microsoft.playwright:playwright", version.ref = "pl
 saxon = { module = "net.sf.saxon:Saxon-HE", version = "12.7" }
 slf4j-api = { module = "org.slf4j:slf4j-api", version = "2.0.17" }
 xmlunit-assertj = { module = "org.xmlunit:xmlunit-assertj3", version = "2.10.2" }
-woodstox-core = { module = "com.fasterxml.woodstox:woodstox-core", version = "7.1.0" }
+woodstox-core = { module = "com.fasterxml.woodstox:woodstox-core", version = "7.1.1" }
 
 # Only declared here so Dependabot knows when to update the referenced versions
 eclipse-platform = { module = "org.eclipse.platform:org.eclipse.platform", version.ref = "eclipse" }
