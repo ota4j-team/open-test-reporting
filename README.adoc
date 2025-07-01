@@ -103,14 +103,20 @@ All schema definitions mentioned so far are language-agnostic.
 
 In order to report Java-specific attributes, e.g. the class or method name of a test, an extension schema is defined in link:schema/src/main/resources/org/opentest4j/reporting/schema/java-{schemaVersion}.xsd[java-{schemaVersion}.xsd].
 
-==== Git
-
-In order to include Git-specific metadata, e.g. the commit hash or branch name, an extension schema is defined in link:schema/src/main/resources/org/opentest4j/reporting/schema/git-{schemaVersion}.xsd[git-{schemaVersion}.xsd].
-
 [TIP]
 ====
 Test frameworks are encouraged to define their own similar framework-specific extensions if they want to report additional information that is not suitable to be added to the core namespace.
 See the link:https://github.com/junit-team/junit5/blob/61578038ba1e7f4ea1059aea3e0589581991f531/junit-platform-reporting/src/main/resources/org/junit/platform/reporting/open/xml/junit.xsd[JUnit project] for an example of how to define an extension schema.
+====
+
+==== Git
+
+In order to include Git-specific metadata, e.g. the commit hash or branch name, an extension schema is defined in link:schema/src/main/resources/org/opentest4j/reporting/schema/git-{schemaVersion}.xsd[git-{schemaVersion}.xsd].
+
+[WARNING]
+====
+If you're implementing support for including Git information in an XML report, you must ensure to strip any credentials from the `originUrl` before writing it to the XML file.
+Moreover, since Git status output may include file names that contain personally identifiable or otherwise sensitive information, it is recommended to include Git-specific metadata in the XML report only if the requesting user has opted in explicitly.
 ====
 
 [#reference-implementation]
