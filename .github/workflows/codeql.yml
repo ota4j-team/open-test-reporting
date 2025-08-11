@@ -39,6 +39,7 @@ jobs:
       uses: ./.github/actions/run-gradle
       with:
         arguments: |
+          --no-build-cache \
           -Dscan.tag.CodeQL \
           classes
     - name: Perform CodeQL Analysis
