@@ -30,7 +30,7 @@ jobs:
       with:
         fetch-depth: 1
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@76621b61decf072c1cee8dd1ce2d2a82d33c17ed # v3
+      uses: github/codeql-action/init@76621b61decf072c1cee8dd1ce2d2a82d33c17ed # v3.29.8
       with:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
@@ -43,6 +43,6 @@ jobs:
           -Dscan.tag.CodeQL \
           classes
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@76621b61decf072c1cee8dd1ce2d2a82d33c17ed # v3
+      uses: github/codeql-action/analyze@76621b61decf072c1cee8dd1ce2d2a82d33c17ed # v3.29.8
       with:
         category: "/language:${{matrix.language}}"
