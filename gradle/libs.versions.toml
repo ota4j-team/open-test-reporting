@@ -1,6 +1,6 @@
 [versions]
 eclipse = "4.36.0"
-immutables = "2.11.2"
+immutables = "2.11.3"
 playwright = "1.54.0"
 
 [libraries]
