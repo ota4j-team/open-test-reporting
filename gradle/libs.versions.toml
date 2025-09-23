@@ -6,7 +6,7 @@ playwright = "1.55.0"
 [libraries]
 apiguardian = { module = "org.apiguardian:apiguardian-api", version = "1.1.2" }
 archunit = { module = "com.tngtech.archunit:archunit-junit5", version = "1.4.1" }
-assertj-core = { module = "org.assertj:assertj-core", version = "3.27.5" }
+assertj-core = { module = "org.assertj:assertj-core", version = "3.27.6" }
 gson = { module = "com.google.code.gson:gson", version = "2.13.2" }
 immutables-value = { module = "org.immutables:value", version.ref = "immutables" }
 immutables-valueAnnotations = { module = "org.immutables:value-annotations", version.ref = "immutables" }
