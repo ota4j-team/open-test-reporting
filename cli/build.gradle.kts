@@ -11,7 +11,7 @@ dependencies {
     runtimeOnly(libs.log4j.slf4j2.impl)
 }
 
-val mainClass = "org.opentest4j.reporting.cli.ReportingCli"
+val mainClassName = "org.opentest4j.reporting.cli.ReportingCli"
 
 tasks {
     compileJava {
@@ -22,13 +22,13 @@ tasks {
             javaLauncher = project.javaToolchains.launcherFor(java.toolchain)
             args.addAll(
                 "--file", archiveFile.get().asFile.absolutePath,
-                "--main-class", mainClass,
+                "--main-class", mainClassName,
             )
         })
     }
     shadowJar {
         manifest {
-            attributes("Main-Class" to mainClass)
+            attributes("Main-Class" to mainClassName)
         }
         archiveClassifier = "standalone"
         exclude("META-INF/maven/**")
