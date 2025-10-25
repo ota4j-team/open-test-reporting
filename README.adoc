@@ -192,6 +192,53 @@ public class DocumentWriterSample {
 <5> finished event of "test" with timestamp and result status
 <6> finished event of "container" with timestamp and result status
 
+==== Streaming to a Writer
+
+For use cases where you need to stream events over a socket or network connection instead of writing to a file, you can use a `Writer` instance:
+
+[source,java]
+----
+import org.opentest4j.reporting.events.api.DocumentWriter;
+import org.opentest4j.reporting.events.api.NamespaceRegistry;
+import org.opentest4j.reporting.events.core.CoreFactory;
+import org.opentest4j.reporting.events.root.Events;
+import org.opentest4j.reporting.schema.Namespace;
+
+import java.io.OutputStreamWriter;
+import java.time.Instant;
+
+import static org.opentest4j.reporting.events.core.CoreFactory.*;
+import static org.opentest4j.reporting.events.core.Result.Status.SUCCESSFUL;
+import static org.opentest4j.reporting.events.root.RootFactory.finished;
+import static org.opentest4j.reporting.events.root.RootFactory.started;
+
+public class DocumentWriterStreamingSample {
+
+	public static void main(String[] args) throws Exception {
+
+		NamespaceRegistry namespaceRegistry = NamespaceRegistry.builder(Namespace.REPORTING_CORE) // <1>
+				.add("e", Namespace.REPORTING_EVENTS) //
+				.add("git", Namespace.REPORTING_GIT) //
+				.add("java", Namespace.REPORTING_JAVA) //
+				.build();
+
+		// Example: streaming events to System.out (could be a socket, network stream, etc.)
+		try (DocumentWriter<Events> writer = Events.createDocumentWriter(namespaceRegistry,
+			new OutputStreamWriter(System.out))) {
+			writer.append(infrastructure(), infrastructure -> infrastructure // <2>
+					.append(hostName("wonderland")) //
+					.append(userName("alice")));
+			writer.append(started("1", Instant.now(), "container")); // <3>
+			writer.append(started("2", Instant.now(), "test"), started -> started.withParentId("1")); // <4>
+			writer.append(finished("2", Instant.now()), finished -> finished.append(CoreFactory.result(SUCCESSFUL))); // <5>
+			writer.append(finished("1", Instant.now()), finished -> finished.append(CoreFactory.result(SUCCESSFUL))); // <6>
+		}
+	}
+}
+----
+
+This allows you to write test events as they occur, without having to collect all data before writing.
+
 TIP: See the link:https://github.com/junit-team/junit5/blob/86539a286b23b9dd192f3e54bc10e3c95f87773f/junit-platform-reporting/src/main/java/org/junit/platform/reporting/open/xml/OpenTestReportGeneratingListener.java[JUnit project] for an example of how to write an event-based report.
 
 [#cli]
