@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
 
 plugins {
     `kotlin-dsl`
@@ -17,10 +17,10 @@ dependencies {
 
 tasks {
     compileKotlin {
-        compilerOptions.jvmTarget = JVM_17
+        compilerOptions.jvmTarget = JVM_21
     }
     compileJava {
-        options.release.convention(17)
+        options.release.convention(21)
     }
 }
 
