@@ -76,9 +76,6 @@ configurations {
 }
 
 tasks {
-    withType<JavaCompile>().configureEach {
-        options.encoding = "UTF-8"
-    }
     compileJava {
         options.release.convention(8)
         options.javaModuleVersion.convention(provider { project.version.toString() })
