@@ -10,7 +10,7 @@ dependencies {
 
 tasks {
     compileJava {
-        options.compilerArgs.add("-Aimmutables.gradle.incremental")
+        options.compilerArgs.addAll(listOf("-Aimmutables.gradle.incremental", "-Xlint:-processing"))
     }
     jar {
         // Avoid Immutables annotation from leaking into JAR
