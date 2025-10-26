@@ -54,7 +54,6 @@ private val Project.libsVersionCatalog: VersionCatalog
 val cli by configurations.creating {
     isCanBeResolved = true
     isCanBeConsumed = false
-    isVisible = false
 }
 
 dependencies {
