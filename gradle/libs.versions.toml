@@ -11,8 +11,8 @@ gson = { module = "com.google.code.gson:gson", version = "2.13.2" }
 immutables-value = { module = "org.immutables:value", version.ref = "immutables" }
 immutables-valueAnnotations = { module = "org.immutables:value-annotations", version.ref = "immutables" }
 jetbrains-annotations = { module = "org.jetbrains:annotations", version = "26.0.2-1" }
-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version = "6.0.0" }
-junit-platform-reporting = { module = "org.junit.platform:junit-platform-reporting", version = "6.0.0" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version = "6.0.1" }
+junit-platform-reporting = { module = "org.junit.platform:junit-platform-reporting", version = "6.0.1" }
 log4j-slf4j2-impl = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version = "2.25.2" }
 picocli = { module = "info.picocli:picocli", version = "4.7.7" }
 playwright = { module = "com.microsoft.playwright:playwright", version.ref = "playwright" }
