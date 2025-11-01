@@ -36,6 +36,10 @@ export declare global {
     altText: string;
   }
 
+  interface VideoBlockData extends BlockData {
+    mediaType: string;
+  }
+
   declare namespace globalThis {
     var testExecutions: ExecutionData[]; // eslint-disable-line no-var
   }
