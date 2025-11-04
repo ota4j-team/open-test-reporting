@@ -32,7 +32,7 @@ const showImage = inject(imageHandler, () => {
         <td>
           <a
             v-if="(pair[1] as string).startsWith('link:')"
-            :href="(pair[1] as string).substring(5)"
+            :href="(pair[1] as string).substring(5).replace(' ', '%20')"
             class="text-blue-600 dark:text-blue-500 hover:underline"
           >
             <pre class="text-sm whitespace-pre-wrap break-all">{{
