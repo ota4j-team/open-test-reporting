@@ -75,7 +75,10 @@ const showImage = inject(imageHandler, () => {
     </a>
   </div>
   <div v-else-if="block.type == 'video'" class="my-2">
-    <video controls>
+    <video
+      controls
+      class="border-2 border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600 rounded-lg max-h-96"
+    >
       <source
         :src="block.content as string"
         :type="(block as VideoBlockData).mediaType as string"
