@@ -70,7 +70,7 @@ const showImage = inject(imageHandler, () => {
       <img
         class="border-2 border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600 rounded-lg max-h-96"
         :src="block.content as string"
-        :alt="(block as ImageBlockData).altText as string"
+        :alt="(block as ImageBlockData).altText"
       />
     </a>
   </div>
@@ -81,7 +81,7 @@ const showImage = inject(imageHandler, () => {
     >
       <source
         :src="block.content as string"
-        :type="(block as VideoBlockData).mediaType as string"
+        :type="(block as VideoBlockData).mediaType"
       />
     </video>
   </div>
