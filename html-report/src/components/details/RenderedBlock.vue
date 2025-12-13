@@ -47,9 +47,9 @@ const showImage = inject(imageHandler, () => {
     </tbody>
   </table>
   <template
-    v-for="section in block.content as SectionData[]"
+    v-for="(section, sectionIndex) in block.content as SectionData[]"
     v-else-if="block.type === 'sub'"
-    :key="section"
+    :key="sectionIndex"
   >
     <RenderedSection :section="section" :depth="depth + 1" />
   </template>

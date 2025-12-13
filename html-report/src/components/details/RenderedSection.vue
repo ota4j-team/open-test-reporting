@@ -32,7 +32,7 @@ const { depth = 3 } = defineProps<{ section: SectionData; depth?: number }>();
       {{ section.metaInfo }}
     </span>
   </div>
-  <template v-for="block in section.blocks" :key="block">
+  <template v-for="(block, index) in section.blocks" :key="index">
     <RenderedBlock :block="block" :depth="depth" />
   </template>
 </template>
