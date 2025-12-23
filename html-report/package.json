@@ -17,10 +17,10 @@
     "vue-resizables": "^0.7.1"
   },
   "devDependencies": {
-    "@eslint/js": "9.39.1",
+    "@eslint/js": "9.39.2",
     "@tailwindcss/vite": "4.1.17",
     "@vitejs/plugin-vue": "6.0.3",
-    "eslint": "9.39.1",
+    "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-vue": "10.6.2",
     "globals": "16.5.0",
