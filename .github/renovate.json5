@@ -16,5 +16,12 @@
         "schedule:weekly"
       ],
     },
+    {
+      "matchPackageNames": [
+        "com.gradleup.nmcp:**",
+        "com.gradleup.nmcp.**:**"
+      ],
+      "groupName": "nmcp"
+    }
   ],
 }
