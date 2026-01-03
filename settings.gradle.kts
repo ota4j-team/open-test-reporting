@@ -1,7 +1,7 @@
 plugins {
     id("com.gradle.develocity") version "4.3"
     id("com.gradle.common-custom-user-data-gradle-plugin") version "2.4.0"
-    id("com.gradleup.nmcp.settings") version "1.4.2"
+    id("com.gradleup.nmcp.settings") version "1.4.3"
 }
 
 rootProject.name = "open-test-reporting"
