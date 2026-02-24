@@ -18,7 +18,7 @@ runs:
         node-version-file: html-report/.tool-versions
         cache: npm
         cache-dependency-path: html-report/package-lock.json
-    - uses: gradle/actions/setup-gradle@f29f5a9d7b09a7c6b29859002d29d24e1674c884 # v5.0.1
+    - uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
     - name: Read Playwright version
       uses: SebRollen/toml-action@b1b3628f55fc3a28208d4203ada8b737e9687876 # v1.2.0
       id: playwright-version
