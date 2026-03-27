@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MoonStar, Sun } from "lucide-vue-next";
+import { MoonStar, Sun } from "@lucide/vue";
 import { BasicColorSchema, useDark, useToggle } from "@vueuse/core";
 import { defaultIconProps } from "../common/icon.ts";
 

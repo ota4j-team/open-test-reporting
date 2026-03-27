@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject } from "vue";
-import { ChevronDown, ChevronRight } from "lucide-vue-next";
+import { ChevronDown, ChevronRight } from "@lucide/vue";
 import TestNodeTree from "./TestNodeTree.vue";
 import TestExecution from "../common/TestExecution.ts";
 import Selection from "../common/Selection.ts";

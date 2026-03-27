@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { Timer } from "lucide-vue-next";
+import { Timer } from "@lucide/vue";
 import { defaultIconProps } from "../common/icon.ts";
 
 const props = defineProps<{ millis: number }>();

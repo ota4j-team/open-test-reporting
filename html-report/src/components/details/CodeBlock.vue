@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Check, Copy } from "lucide-vue-next";
+import { Check, Copy } from "@lucide/vue";
 import { useClipboard, useScroll } from "@vueuse/core";
 import { computed, ref } from "vue";
 import { defaultIconProps } from "../common/icon.ts";

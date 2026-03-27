@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lucide/vue": "^1.0.0",
     "@vueuse/core": "^14.0.0",
-    "lucide-vue-next": "^1.0.0",
     "vue": "^3.4.37",
     "vue-easy-lightbox": "^1.19.0",
     "vue-i18n": "^11.0.0",

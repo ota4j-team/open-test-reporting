@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FileChartColumn } from "lucide-vue-next";
+import { FileChartColumn } from "@lucide/vue";
 import { defaultIconProps } from "./icon.ts";
 
 const props = withDefaults(

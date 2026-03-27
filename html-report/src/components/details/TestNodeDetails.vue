@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import TestResultStatusIcon from "../common/TestResultStatusIcon.vue";
-import { ChevronRight } from "lucide-vue-next";
+import { ChevronRight } from "@lucide/vue";
 import TestExecution from "../common/TestExecution.ts";
 import { testResultStatusBackgroundColorClasses } from "../common/TestResultStatus.ts";
 import DurationLabel from "./DurationLabel.vue";

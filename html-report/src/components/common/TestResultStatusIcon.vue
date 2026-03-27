@@ -4,7 +4,7 @@ import {
   CircleX,
   SquareArrowOutUpRight,
   SquareSlash,
-} from "lucide-vue-next";
+} from "@lucide/vue";
 import { testResultStatusForegroundColorClass } from "./TestResultStatus.ts";
 import { defaultIconProps } from "./icon.ts";
 
