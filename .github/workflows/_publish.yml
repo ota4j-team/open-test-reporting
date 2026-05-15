@@ -10,7 +10,7 @@ env:
 
 jobs:
   publish_artifacts:
-    name: Publish Snapshot Artifacts
+    name: Snapshot Artifacts
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.repository == 'ota4j-team/open-test-reporting' && (startsWith(github.ref, 'refs/heads/releases/') || github.ref == 'refs/heads/main')
     steps:
@@ -27,7 +27,7 @@ jobs:
         arguments: publishAllPublicationsToMavenCentralSnapshotsRepository -x check
 
   deploy_schemas:
-    name: Deploy Schemas
+    name: Schemas
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.repository == 'ota4j-team/open-test-reporting' && github.ref == 'refs/heads/main'
     permissions:
