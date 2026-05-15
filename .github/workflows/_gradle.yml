@@ -1,13 +1,7 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
-      - 'releases/*'
-  pull_request:
-    branches:
-      - '*'
+  workflow_call:
 
 permissions: {}
 

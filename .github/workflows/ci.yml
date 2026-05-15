@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  merge_group:
+  schedule:
+    - cron: '33 17 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  gradle:
+    name: Gradle
+    uses: ./.github/workflows/_gradle.yml
+    secrets: inherit
+    permissions:
+      contents: read
+  codeql:
+    name: CodeQL
+    uses: ./.github/workflows/_codeql.yml
+    permissions:
+      contents: read
+      security-events: write
+  status:
+    name: Status
+    needs: [ gradle, codeql ]
+    if: always()
+    runs-on: ubuntu-slim
+    steps:
+      - name: Determine overall status
+        env:
+          STATUS: ${{ join(needs.*.result, ',') }}
+          FAILURE: ${{ contains(join(needs.*.result, ','), 'failure') || contains(join(needs.*.result, ','), 'cancelled') }}
+        run: |
+          if [ "$FAILURE" = "true" ]; then
+            exit 1
+          fi
