@@ -30,14 +30,14 @@ jobs:
   publish:
     name: Publish
     if: github.event_name == 'push' && github.repository == 'ota4j-team/open-test-reporting'
-    needs: [build, codeql]
+    needs: [ build, codeql ]
     uses: ./.github/workflows/_publish.yml
     secrets: inherit
     permissions:
       contents: write
   status:
     name: Status
-    needs: [ build, codeql, publish ]
+    needs: [ publish ]
     if: always()
     runs-on: ubuntu-slim
     steps:
