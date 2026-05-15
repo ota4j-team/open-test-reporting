@@ -11,13 +11,13 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   security-events: write
 
 jobs:
-  gradle:
-    name: Gradle
-    uses: ./.github/workflows/_gradle.yml
+  build:
+    name: Build
+    uses: ./.github/workflows/_build.yml
     secrets: inherit
     permissions:
       contents: read
@@ -27,9 +27,17 @@ jobs:
     permissions:
       contents: read
       security-events: write
+  publish:
+    name: Publish
+    if: github.event_name == 'push' && github.repository == 'ota4j-team/open-test-reporting'
+    needs: [build, codeql]
+    uses: ./.github/workflows/_publish.yml
+    secrets: inherit
+    permissions:
+      contents: write
   status:
     name: Status
-    needs: [ gradle, codeql ]
+    needs: [ build, codeql, publish ]
     if: always()
     runs-on: ubuntu-slim
     steps:

@@ -1,4 +1,4 @@
-name: CI
+name: Publish
 
 on:
   workflow_call:
@@ -9,48 +9,8 @@ env:
   DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
 
 jobs:
-  Linux:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Check out repository
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      with:
-        fetch-depth: 1
-    - name: Build
-      uses: ./.github/actions/run-gradle
-    - name: Archive Open Test Reports
-      uses: ./.github/actions/archive-reports
-      if: ${{ always() }}
-
-  Windows:
-    runs-on: windows-latest
-    steps:
-    - name: Check out repository
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      with:
-        fetch-depth: 1
-    - name: Build
-      uses: ./.github/actions/run-gradle
-    - name: Archive Open Test Reports
-      uses: ./.github/actions/archive-reports
-      if: ${{ always() }}
-
-  macOS:
-    runs-on: macos-latest
-    steps:
-    - name: Check out repository
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      with:
-        fetch-depth: 1
-    - name: Build
-      uses: ./.github/actions/run-gradle
-    - name: Archive Open Test Reports
-      uses: ./.github/actions/archive-reports
-      if: ${{ always() }}
-
   publish_artifacts:
     name: Publish Snapshot Artifacts
-    needs: macOS
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.repository == 'ota4j-team/open-test-reporting' && (startsWith(github.ref, 'refs/heads/releases/') || github.ref == 'refs/heads/main')
     steps:
@@ -66,9 +26,8 @@ jobs:
       with:
         arguments: publishAllPublicationsToMavenCentralSnapshotsRepository -x check
 
-  update_documentation:
+  deploy_schemas:
     name: Deploy Schemas
-    needs: macOS
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.repository == 'ota4j-team/open-test-reporting' && github.ref == 'refs/heads/main'
     permissions:
