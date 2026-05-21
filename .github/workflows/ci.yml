@@ -15,29 +15,26 @@ permissions:
   security-events: write
 
 jobs:
-  build:
-    name: Build
+  Build:
     uses: ./.github/workflows/_build.yml
     secrets: inherit
     permissions:
       contents: read
-  codeql:
-    name: CodeQL
+  CodeQL:
     uses: ./.github/workflows/_codeql.yml
     permissions:
       contents: read
       security-events: write
-  publish:
-    name: Publish
+  Publish:
     if: github.event_name == 'push' && github.repository == 'ota4j-team/open-test-reporting'
-    needs: [ build, codeql ]
+    needs: [ Build, CodeQL ]
     uses: ./.github/workflows/_publish.yml
     secrets: inherit
     permissions:
       contents: write
   status:
     name: Status
-    needs: [ publish ]
+    needs: [ Build, CodeQL, Publish ]
     if: always()
     runs-on: ubuntu-slim
     steps:
