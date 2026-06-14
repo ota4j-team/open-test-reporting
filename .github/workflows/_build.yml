@@ -47,3 +47,35 @@ jobs:
     - name: Archive Open Test Reports
       uses: ./.github/actions/archive-reports
       if: ${{ always() }}
+
+  FreeBSD:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      with:
+        fetch-depth: 1
+    - name: Run tests in FreeBSD VM
+      uses: vmactions/freebsd-vm@a6de9343ef5747433d9c25784c90e84998b9d69a # v1.4.6
+      with:
+        release: "15.0"
+        arch: x86_64
+        sync: rsync
+        copyback: true
+        usesh: true
+        prepare: |
+          pkg install -y bash curl git openjdk17 openjdk25 node24 npm-node24
+          mount -t procfs proc /proc
+        run: |
+          pwd
+          freebsd-version
+          ./gradlew \
+          -Porg.gradle.java.installations.auto-download=false \
+          -Porg.gradle.java.installations.paths=/usr/local/openjdk17,/usr/local/openjdk25 \
+          -PopenTestReporting.nodeDownload=false \
+          --refresh-dependencies \
+          javaToolchains \
+          build
+    - name: Archive Open Test Reports
+      uses: ./.github/actions/archive-reports
+      if: ${{ always() }}
