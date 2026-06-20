@@ -3,7 +3,7 @@ import { computed } from "vue";
 import { Timer } from "@lucide/vue";
 import { defaultIconProps } from "../common/icon.ts";
 
-const props = defineProps<{ millis: number }>();
+const props = defineProps<{ millis: number; compact?: boolean }>();
 const parts = computed(() => {
   const result = Object.fromEntries(
     Object.entries({
@@ -22,10 +22,17 @@ const parts = computed(() => {
 
 <template>
   <div
-    class="inline-flex mb-2 border-2 rounded-full px-2 py-1 border-neutral-400 bg-neutral-300 dark:bg-neutral-500"
+    :class="
+      compact
+        ? 'inline-flex'
+        : 'inline-flex mb-2 border-2 rounded-full px-2 py-1 border-neutral-400 bg-neutral-300 dark:bg-neutral-500'
+    "
   >
-    <Timer v-bind="defaultIconProps" class="self-center" />
-    <span class="ml-1 text-sm font-bold self-center">
+    <Timer v-if="!compact" v-bind="defaultIconProps" class="self-center" />
+    <span
+      class="whitespace-nowrap self-center"
+      :class="compact ? 'text-xs font-thin' : 'ml-1 text-sm font-bold'"
+    >
       <span
         v-for="(value, label, index) in parts"
         :key="label"
