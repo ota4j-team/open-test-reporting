@@ -6,6 +6,7 @@ import TestExecution from "../common/TestExecution.ts";
 import Selection from "../common/Selection.ts";
 import { defaultIconProps } from "../common/icon.ts";
 import { treeStateKey } from "./TreeState.ts";
+import DurationLabel from "../details/DurationLabel.vue";
 /* global TestNodeData */
 
 const treeState = inject(treeStateKey)!;
@@ -39,7 +40,7 @@ if (defaultIconProps.size != 16) {
 <template>
   <div
     v-if="treeState.isVisible(execution.nodeStatuses(node as TestNodeData))"
-    class="inline-flex -mt-0.5"
+    class="inline-flex -mt-0.5 w-full"
   >
     <div
       v-if="children.length > 0"
@@ -53,7 +54,7 @@ if (defaultIconProps.size != 16) {
       <ChevronDown v-else v-bind="defaultIconProps" />
     </div>
     <div
-      class="cursor-pointer rounded-sm p-px px-1 inline-flex"
+      class="cursor-pointer rounded-sm p-px px-1 inline-flex w-full"
       :class="{
         'bg-neutral-300 dark:bg-neutral-600 font-bold': isSelected,
         'hover:bg-neutral-200 dark:hover:bg-neutral-700': !isSelected,
@@ -65,6 +66,9 @@ if (defaultIconProps.size != 16) {
     >
       <slot name="icon" v-bind="defaultIconProps" />
       <span class="ml-1 whitespace-nowrap">{{ node.name }}</span>
+      <div class="inline-flex w-full justify-end">
+        <DurationLabel :millis="node.durationMillis" :compact="true" />
+      </div>
     </div>
   </div>
   <TestNodeTree
