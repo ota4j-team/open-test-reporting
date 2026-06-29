@@ -125,6 +125,21 @@ export default class TestExecution {
       : TestExecution.STATUSES[0];
   }
 
+  nodeOverallStatus(node: TestNodeData): string {
+    const children = this.children(node);
+    if (children.length === 0) {
+      return node.status;
+    }
+    const statuses = children.map((child) => this.nodeOverallStatus(child));
+    // a container's own SUCCESSFUL is ignored so all-skipped children show as SKIPPED
+    if (node.status && node.status !== "SUCCESSFUL") {
+      statuses.push(node.status);
+    }
+    return TestExecution.STATUSES[
+      Math.max(...statuses.map((s) => TestExecution.STATUSES.indexOf(s)))
+    ];
+  }
+
   statusCount(): Map<string, number> {
     const result = new Map<string, number>();
     TestExecution.STATUSES.forEach((s) => result.set(s, 0));

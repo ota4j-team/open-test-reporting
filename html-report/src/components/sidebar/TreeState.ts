@@ -10,6 +10,7 @@ export default class TreeState {
   public showFailedAndErrored = true;
   public showSkipped = true;
   public showSuccessful = true;
+  public aggregateNodeStatuses = true;
 
   constructor(executions: TestExecution[]) {
     this.nodes = executions.reduce(
@@ -52,6 +53,10 @@ export default class TreeState {
 
   toggleShowSkipped() {
     this.showSkipped = !this.showSkipped;
+  }
+
+  toggleAggregateNodeStatuses() {
+    this.aggregateNodeStatuses = !this.aggregateNodeStatuses;
   }
 
   collapseAll() {
