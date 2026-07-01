@@ -3,7 +3,7 @@ import nmcp.NmcpAggregationExtension
 plugins {
     id("com.gradle.develocity") version "4.5.0"
     id("com.gradle.common-custom-user-data-gradle-plugin") version "2.7.0"
-    id("com.gradleup.nmcp.settings") version "1.6.0"
+    id("com.gradleup.nmcp.settings") version "1.6.1"
 }
 
 rootProject.name = "open-test-reporting"
