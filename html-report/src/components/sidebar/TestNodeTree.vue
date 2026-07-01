@@ -20,7 +20,7 @@ defineProps<{ execution: TestExecution; roots: TestNodeData[] }>();
       >
         <template #icon="iconProps">
           <TestResultStatusIcon
-            :status="(node as TestNodeData).status"
+            :status="execution.nodeOverallStatus(node as TestNodeData)"
             v-bind="iconProps"
           />
         </template>
