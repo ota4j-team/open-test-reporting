@@ -11,6 +11,7 @@ dependencies {
     implementation(projects.events)
     implementation(projects.toolingSpi)
     implementation(libs.gson)
+    compileOnly(libs.jspecify)
     compileOnlyApi(libs.apiguardian)
 
     testImplementation(libs.assertj.core)
