@@ -18,7 +18,7 @@ val isCiServer = System.getenv("CI") != null
 
 develocity {
     buildScan {
-        server = "https://ge.junit.org"
+        server = "https://develocity.junit.org"
         uploadInBackground = !isCiServer
 
         obfuscation {
