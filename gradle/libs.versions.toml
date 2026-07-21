@@ -11,8 +11,9 @@ gson = { module = "com.google.code.gson:gson", version = "2.14.0" }
 immutables-value = { module = "org.immutables:value", version.ref = "immutables" }
 immutables-valueAnnotations = { module = "org.immutables:value-annotations", version.ref = "immutables" }
 jetbrains-annotations = { module = "org.jetbrains:annotations", version = "26.1.0" }
-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version = "6.1.1" }
-junit-platform-reporting = { module = "org.junit.platform:junit-platform-reporting", version = "6.1.1" }
+jspecify = { module = "org.jspecify:jspecify", version = "1.0.0" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version = "6.1.2" }
+junit-platform-reporting = { module = "org.junit.platform:junit-platform-reporting", version = "6.1.2" }
 log4j-slf4j2-impl = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version = "2.26.1" }
 picocli = { module = "info.picocli:picocli", version = "4.7.7" }
 playwright = { module = "com.microsoft.playwright:playwright", version.ref = "playwright" }
@@ -31,5 +32,5 @@ junit = ["junit-jupiter", "junit-platform-reporting"]
 bnd = { id = "biz.aQute.bnd.builder", version = "7.3.0" }
 nmcp = { id = "com.gradleup.nmcp", version = "1.6.1" }
 node = { id = "com.github.node-gradle.node", version = "7.1.0" }
-shadow = { id = "com.gradleup.shadow", version = "9.5.1" }
+shadow = { id = "com.gradleup.shadow", version = "9.6.0" }
 spotless = { id = "com.diffplug.spotless", version = "8.8.0" }
