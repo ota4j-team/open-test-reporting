@@ -1,3 +1,10 @@
 @import "tailwindcss";
 
 @config '../tailwind.config.js';
+
+@layer base {
+  /* Icons in sidebar should not be shrunk */
+  svg {
+    flex-shrink: 0;
+  }
+}
