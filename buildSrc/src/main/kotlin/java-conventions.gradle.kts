@@ -13,7 +13,7 @@ base {
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(25))
     withSourcesJar()
     withJavadocJar()
 }
@@ -117,7 +117,7 @@ tasks {
             properties.empty() // see https://github.com/bndtools/bnd/tree/master/gradle-plugins#gradle-configuration-cache-support
             bnd(
                 "-exportcontents: org.opentest4j.reporting.*",
-                "Import-Package: org.apiguardian.*;resolution:=\"optional\",*",
+                "Import-Package: org.apiguardian.*;resolution:=\"optional\",org.jspecify.*;resolution:=\"optional\",*",
             )
         }
     }

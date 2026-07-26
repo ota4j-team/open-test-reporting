@@ -8,6 +8,7 @@ dependencies {
     implementation(libs.picocli)
     implementation(libs.slf4j.api)
     compileOnlyApi(libs.apiguardian)
+    compileOnly(libs.jspecify)
     runtimeOnly(libs.log4j.slf4j2.impl)
 }
 

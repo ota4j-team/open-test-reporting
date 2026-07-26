@@ -64,14 +64,14 @@ jobs:
         copyback: true
         usesh: true
         prepare: |
-          pkg install -y bash curl git openjdk17 openjdk25 node24 npm-node24
+          pkg install -y bash curl git openjdk25 node24 npm-node24
           mount -t procfs proc /proc
         run: |
           pwd
           freebsd-version
           ./gradlew \
           -Porg.gradle.java.installations.auto-download=false \
-          -Porg.gradle.java.installations.paths=/usr/local/openjdk17,/usr/local/openjdk25 \
+          -Porg.gradle.java.installations.paths=/usr/local/openjdk25 \
           -PopenTestReporting.nodeDownload=false \
           --refresh-dependencies \
           javaToolchains \

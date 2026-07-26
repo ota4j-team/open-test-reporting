@@ -11,7 +11,9 @@ repositories {
 
 dependencies {
     implementation(libs.plugins.bnd.markerCoordinates)
+    implementation(libs.plugins.errorProne.markerCoordinates)
     implementation(libs.plugins.nmcp.markerCoordinates)
+    implementation(libs.plugins.nullaway.markerCoordinates)
     implementation(libs.plugins.spotless.markerCoordinates)
 }
 

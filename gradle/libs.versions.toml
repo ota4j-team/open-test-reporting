@@ -7,6 +7,7 @@ playwright = "1.61.0"
 apiguardian = { module = "org.apiguardian:apiguardian-api", version = "1.1.2" }
 archunit = { module = "com.tngtech.archunit:archunit-junit5", version = "1.4.2" }
 assertj-core = { module = "org.assertj:assertj-core", version = "3.27.7" }
+error-prone-core = { module = "com.google.errorprone:error_prone_core", version = "2.50.0" }
 gson = { module = "com.google.code.gson:gson", version = "2.14.0" }
 immutables-value = { module = "org.immutables:value", version.ref = "immutables" }
 immutables-valueAnnotations = { module = "org.immutables:value-annotations", version.ref = "immutables" }
@@ -15,6 +16,7 @@ jspecify = { module = "org.jspecify:jspecify", version = "1.0.0" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version = "6.1.2" }
 junit-platform-reporting = { module = "org.junit.platform:junit-platform-reporting", version = "6.1.2" }
 log4j-slf4j2-impl = { module = "org.apache.logging.log4j:log4j-slf4j2-impl", version = "2.26.1" }
+nullaway = { module = "com.uber.nullaway:nullaway", version = "0.13.8" }
 picocli = { module = "info.picocli:picocli", version = "4.7.7" }
 playwright = { module = "com.microsoft.playwright:playwright", version.ref = "playwright" }
 saxon = { module = "net.sf.saxon:Saxon-HE", version = "13.0" }
@@ -30,7 +32,9 @@ junit = ["junit-jupiter", "junit-platform-reporting"]
 
 [plugins]
 bnd = { id = "biz.aQute.bnd.builder", version = "7.3.0" }
+errorProne = { id = "net.ltgt.errorprone", version = "5.1.0" }
 nmcp = { id = "com.gradleup.nmcp", version = "1.6.1" }
 node = { id = "com.github.node-gradle.node", version = "7.1.0" }
+nullaway = { id = "net.ltgt.nullaway", version = "3.1.0" }
 shadow = { id = "com.gradleup.shadow", version = "9.6.1" }
 spotless = { id = "com.diffplug.spotless", version = "8.8.0" }

@@ -5,6 +5,7 @@ plugins {
 dependencies {
     annotationProcessor(libs.immutables.value)
     compileOnlyApi(libs.apiguardian)
+    compileOnlyApi(libs.jspecify)
     compileOnly(libs.immutables.valueAnnotations)
 }
 
@@ -14,6 +15,6 @@ tasks {
     }
     jar {
         // Avoid Immutables annotation from leaking into JAR
-        exclude("org/opentest4j/reporting/tooling/spi/htmlreport/package-info.class")
+        exclude("org/opentest4j/reporting/tooling/spi/htmlreport/ImmutableStyle.class")
     }
 }
