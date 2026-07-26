@@ -17,6 +17,7 @@ val saxonRuntimeClasspath = configurations.resolvable("saxonRuntimeClasspath") {
 dependencies {
     api(projects.schema)
     compileOnlyApi(libs.apiguardian)
+    compileOnlyApi(libs.jspecify)
     testImplementation(libs.archunit)
     testImplementation(libs.assertj.core)
     testImplementation(libs.bundles.junit)

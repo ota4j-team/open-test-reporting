@@ -12,5 +12,6 @@ val schemas by configurations.creating {
 
 dependencies {
     compileOnlyApi(libs.apiguardian)
+    compileOnlyApi(libs.jspecify)
     testImplementation(libs.bundles.junit)
 }
