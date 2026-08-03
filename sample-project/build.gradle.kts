@@ -91,6 +91,7 @@ tasks {
         useJUnitPlatform()
 
         ignoreFailures = true
+        environment = environment.filterKeys { it != "TESTLENS_PROJECT_ID" }
 
         jvmArgumentProviders += CommandLineArgumentProvider {
             listOf(
