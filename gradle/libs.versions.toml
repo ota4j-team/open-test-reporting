@@ -5,7 +5,7 @@ playwright = "1.61.0"
 
 [libraries]
 apiguardian = { module = "org.apiguardian:apiguardian-api", version = "1.1.2" }
-archunit = { module = "com.tngtech.archunit:archunit-junit5", version = "1.4.2" }
+archunit = { module = "com.tngtech.archunit:archunit-junit5", version = "1.5.0" }
 assertj-core = { module = "org.assertj:assertj-core", version = "3.27.7" }
 error-prone-core = { module = "com.google.errorprone:error_prone_core", version = "2.50.0" }
 gson = { module = "com.google.code.gson:gson", version = "2.14.0" }
