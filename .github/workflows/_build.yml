@@ -55,6 +55,10 @@ jobs:
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         fetch-depth: 1
+    - name: Get short-lived Develocity access key
+      uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+      with:
+        cache-disabled: true
     - name: Run tests in FreeBSD VM
       uses: vmactions/freebsd-vm@83b151f58c6047089f4c80eb5ba2039d158ce093 # v1.5.3
       with:
@@ -63,6 +67,7 @@ jobs:
         sync: rsync
         copyback: true
         usesh: true
+        envs: 'DEVELOCITY_ACCESS_KEY'
         prepare: |
           pkg install -y bash curl git openjdk25 node24 npm-node24
           mount -t procfs proc /proc
