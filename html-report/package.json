@@ -31,5 +31,8 @@
     "vite": "8.2.0",
     "vite-plugin-singlefile": "2.3.3",
     "vue-tsc": "3.3.9"
+  },
+  "engines": {
+    "npm": ">=12"
   }
 }
