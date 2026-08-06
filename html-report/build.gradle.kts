@@ -5,7 +5,6 @@ import java.util.*
 plugins {
     base
     alias(libs.plugins.node)
-    id("com.diffplug.spotless")
 }
 
 node {
@@ -17,25 +16,25 @@ node {
 
 val distIncludes = arrayOf("public/**", "src/**", "*.html", "*.js", "*.json", "*.ts")
 
-spotless {
-    format("prettier") {
-        target(*distIncludes)
-        prettier(readVersionFromPackageJson("prettier")).apply {
-            if (node.download.get()) {
-                val npmExec = if (System.getProperty("os.name").lowercase(Locale.ROOT).contains("windows")) "/npm.cmd" else "/bin/npm"
-                npmExecutable("${tasks.npmSetup.get().npmDir.get()}${npmExec}")
-            }
-        }
-    }
-}
-
 val eslintCheck by tasks.registering(NpxTask::class) {
     dependsOn(tasks.npmInstall)
     command = "eslint"
 }
 
+val prettierCheck by tasks.registering(NpxTask::class) {
+    dependsOn(tasks.npmInstall)
+    command = "prettier"
+    args.addAll(".", "--check")
+}
+
+val prettierWrite by tasks.registering(NpxTask::class) {
+    dependsOn(tasks.npmInstall)
+    command = "prettier"
+    args.addAll(".", "--check")
+}
+
 tasks.check {
-    dependsOn(eslintCheck)
+    dependsOn(eslintCheck, prettierCheck)
 }
 
 val eslintFix by tasks.registering(NpxTask::class) {
@@ -46,7 +45,7 @@ val eslintFix by tasks.registering(NpxTask::class) {
 
 val buildVueDist by tasks.registering(NpmTask::class) {
     dependsOn(tasks.npmInstall)
-    shouldRunAfter("spotlessPrettierCheck")
+    shouldRunAfter(prettierCheck)
     inputs.files(fileTree(node.nodeProjectDir) {
         include(*distIncludes)
         exclude("public/init.js")
@@ -54,10 +53,6 @@ val buildVueDist by tasks.registering(NpmTask::class) {
     outputs.file(node.nodeProjectDir.file("dist/index.html"))
     outputs.cacheIf { true }
     npmCommand.addAll("run", "build")
-}
-
-tasks.named("spotlessPrettier") {
-    dependsOn(tasks.npmInstall)
 }
 
 configurations.consumable("htmlReportTemplate") {
@@ -68,7 +63,3 @@ configurations.consumable("htmlReportTemplate") {
         attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE, objects.named(LibraryElements.RESOURCES))
     }
 }
-
-fun readVersionFromPackageJson(packageName: String) = resources.text.fromFile("package.json").asReader().useLines { lines ->
-        lines.first { it.contains("\"${packageName}\":") }
-    }.substringAfter("\"${packageName}\": \"").substringBefore("\"")
