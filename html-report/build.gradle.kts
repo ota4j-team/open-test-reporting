@@ -10,9 +10,8 @@ plugins {
 
 node {
     download = providers.gradleProperty("openTestReporting.nodeDownload").map { it.toBoolean() }.orElse(true)
-    version = providers.fileContents(layout.projectDirectory.file(".tool-versions")).asText.map {
-        it.substringAfter("nodejs").trim()
-    }
+    version = "24.19.0"
+    npmVersion = "12.0.2"
     npmInstallCommand = providers.environmentVariable("CI").map { "ci" }.orElse("install")
 }
 
