@@ -50,11 +50,15 @@ jobs:
 
   FreeBSD:
     runs-on: ubuntu-latest
+    env:
+      GRADLE_USER_HOME: ./.gradle-user-home
     steps:
     - name: Check out repository
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         fetch-depth: 1
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
     - name: Run tests in FreeBSD VM
       uses: vmactions/freebsd-vm@83b151f58c6047089f4c80eb5ba2039d158ce093 # v1.5.3
       with:
@@ -63,6 +67,7 @@ jobs:
         sync: rsync
         copyback: true
         usesh: true
+        envs: 'DEVELOCITY_ACCESS_KEY GRADLE_USER_HOME'
         prepare: |
           pkg install -y bash curl git openjdk25 node24 npm-node24
           mount -t procfs proc /proc
@@ -72,12 +77,19 @@ jobs:
           npm i -g corepack --force
           corepack enable npm
           ./gradlew \
+          -DRUNNER_TEMP="$(pwd)/.gradle-actions-runner-temp" \
           -Porg.gradle.java.installations.auto-download=false \
           -Porg.gradle.java.installations.paths=/usr/local/openjdk25 \
           -PopenTestReporting.nodeDownload=false \
           --refresh-dependencies \
           javaToolchains \
           build
+    - name: Copy captured build results for setup-gradle
+      if: ${{ always() }}
+      run: |
+        if [ -d ./.gradle-actions-runner-temp/.gradle-actions ]; then
+          cp -r ./.gradle-actions-runner-temp/.gradle-actions "$RUNNER_TEMP/"
+        fi
     - name: Archive Open Test Reports
       uses: ./.github/actions/archive-reports
       if: ${{ always() }}
