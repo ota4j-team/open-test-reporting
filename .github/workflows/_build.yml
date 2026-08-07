@@ -75,12 +75,19 @@ jobs:
           pwd
           freebsd-version
           ./gradlew \
+          -DRUNNER_TEMP="$(pwd)/.gradle-actions-runner-temp" \
           -Porg.gradle.java.installations.auto-download=false \
           -Porg.gradle.java.installations.paths=/usr/local/openjdk25 \
           -PopenTestReporting.nodeDownload=false \
           --refresh-dependencies \
           javaToolchains \
           build
+    - name: Copy captured build results for setup-gradle
+      if: ${{ always() }}
+      run: |
+        if [ -d ./.gradle-actions-runner-temp/.gradle-actions ]; then
+          cp -r ./.gradle-actions-runner-temp/.gradle-actions "$RUNNER_TEMP/"
+        fi
     - name: Archive Open Test Reports
       uses: ./.github/actions/archive-reports
       if: ${{ always() }}
