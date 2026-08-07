@@ -134,19 +134,21 @@ tasks {
         }
     }
 
-    val eventXmlFiles =
-        files(test.map { it.reports.junitXml.outputLocation.get().asFileTree.matching { include("open-test-report.xml") } })
+    val eventXmlFile =
+        test.map { it.reports.junitXml.outputLocation.get().file("open-test-report.xml") }
+    val htmlReportFile =
+        test.map { it.reports.junitXml.outputLocation.get().file("open-test-report.html") }
 
     val convertTestResultXmlToHierarchicalFormat = register<JavaExec>("convertTestResultXmlToHierarchicalFormat") {
         mustRunAfter(test)
         mainClass.set("org.opentest4j.reporting.cli.ReportingCli")
         args("convert")
         classpath(cli)
-        inputs.files(eventXmlFiles).withPathSensitivity(NONE).skipWhenEmpty()
+        inputs.files(eventXmlFile).withPathSensitivity(NONE).skipWhenEmpty()
         argumentProviders += CommandLineArgumentProvider {
-            listOf(eventXmlFiles.singleFile.absolutePath)
+            listOf(eventXmlFile.get().asFile.absolutePath)
         }
-        outputs.files(provider { eventXmlFiles.firstOrNull()?.resolveSibling("hierarchy.xml") })
+        outputs.files(eventXmlFile.map { it.asFile.resolveSibling("hierarchy.xml") })
         outputs.cacheIf { true }
     }
 
@@ -155,11 +157,11 @@ tasks {
         mainClass.set("org.opentest4j.reporting.cli.ReportingCli")
         args("html-report")
         classpath(cli)
-        inputs.files(eventXmlFiles).withPathSensitivity(NONE).skipWhenEmpty()
+        inputs.files(eventXmlFile).withPathSensitivity(NONE).skipWhenEmpty()
         argumentProviders += CommandLineArgumentProvider {
-            listOf(eventXmlFiles.singleFile.absolutePath)
+            listOf(eventXmlFile.get().asFile.absolutePath)
         }
-        outputs.files(provider { eventXmlFiles.firstOrNull()?.let { xmlFile -> xmlFile.resolveSibling(xmlFile.nameWithoutExtension + ".html") } })
+        outputs.files(htmlReportFile)
         outputs.cacheIf { true }
     }
 
@@ -179,11 +181,11 @@ tasks {
         }
 
         doFirst {
-            files(reports.junitXml.outputLocation.get().asFileTree.matching {
+            reports.junitXml.outputLocation.get().asFileTree.matching {
                 include("open-test-report.xml")
                 include("open-test-report.html")
                 include("hierarchy.xml")
-            }).files.forEach {
+            }.files.forEach {
                 Files.delete(it.toPath())
             }
         }

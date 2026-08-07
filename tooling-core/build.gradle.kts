@@ -41,9 +41,10 @@ val sampleXmlReportFiles = configurations.resolvable("sampleXmlReportFiles") {
 }
 
 tasks.test {
+    val sampleXmlReportFiles = files(sampleXmlReportFiles)
     inputs.files(sampleXmlReportFiles).withPathSensitivity(PathSensitivity.NONE)
     jvmArgumentProviders.add(CommandLineArgumentProvider {
-        listOf("-DsampleXmlReport=${sampleXmlReportFiles.get().singleFile.absolutePath}")
+        listOf("-DsampleXmlReport=${sampleXmlReportFiles.singleFile.absolutePath}")
     })
     if (System.getenv("CI") != null && !isFreeBSD) {
         doFirst(playwrightInstallationAction)

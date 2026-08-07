@@ -76,4 +76,7 @@ include("schema")
 include("tooling-core")
 include("tooling-spi")
 
+enableFeaturePreview("ENHANCED_GRAPH_ORDERING")
+enableFeaturePreview("NO_IMPLICIT_LOOKUP_IN_PARENT_PROJECTS")
+enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
