@@ -76,4 +76,5 @@ include("schema")
 include("tooling-core")
 include("tooling-spi")
 
+enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
