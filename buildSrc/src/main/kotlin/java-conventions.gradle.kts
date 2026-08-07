@@ -19,7 +19,7 @@ java {
 }
 
 spotless {
-    val spotlessDir = rootProject.file("gradle/spotless")
+    val spotlessDir = rootDir.resolve("gradle/spotless")
     val licenseHeaderFile = File(spotlessDir, "apache-license-2.0.java")
     val javaFormatterConfigFile = File(spotlessDir, "eclipse-formatter-settings.xml")
 
