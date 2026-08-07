@@ -6,10 +6,10 @@ plugins {
     `java-basics`
 }
 
-val cli by configurations.dependencyScope("cli")
-val cliClasspath by configurations.resolvable("cliClasspath") {
+val cli = configurations.dependencyScope("cli").get()
+val cliClasspath = configurations.resolvable("cliClasspath") {
     extendsFrom(cli)
-}
+}.get()
 
 dependencies {
     testImplementation(libs.junit.jupiter)
@@ -40,7 +40,7 @@ tasks {
     val eventXmlFile =
         test.map { it.reports.junitXml.outputLocation.get().file("open-test-report.xml") }
 
-    val convertTestResultXmlToHierarchicalFormat by registering(JavaExec::class) {
+    val convertTestResultXmlToHierarchicalFormat = register<JavaExec>("convertTestResultXmlToHierarchicalFormat") {
         mainModule = "org.opentest4j.reporting.cli"
         modularity.inferModulePath = true
         args("convert")
@@ -53,7 +53,7 @@ tasks {
         outputs.cacheIf { true }
     }
 
-    val validateTestResultXml by registering(JavaExec::class) {
+    val validateTestResultXml = register<JavaExec>("validateTestResultXml") {
         mainModule = "org.opentest4j.reporting.cli"
         modularity.inferModulePath = true
         args("validate")
@@ -64,7 +64,7 @@ tasks {
         }
     }
 
-    val generateHtmlReport by registering(JavaExec::class) {
+    val generateHtmlReport = register<JavaExec>("generateHtmlReport") {
         mainModule = "org.opentest4j.reporting.cli"
         modularity.inferModulePath = true
         args("html-report")

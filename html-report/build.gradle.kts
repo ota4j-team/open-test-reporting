@@ -16,18 +16,18 @@ node {
 
 val distIncludes = arrayOf("public/**", "src/**", "*.html", "*.js", "*.json", "*.ts")
 
-val eslintCheck by tasks.registering(NpxTask::class) {
+val eslintCheck = tasks.register<NpxTask>("eslintCheck") {
     dependsOn(tasks.npmInstall)
     command = "eslint"
 }
 
-val prettierCheck by tasks.registering(NpxTask::class) {
+val prettierCheck = tasks.register<NpxTask>("prettierCheck") {
     dependsOn(tasks.npmInstall)
     command = "prettier"
     args.addAll(".", "--check")
 }
 
-val prettierWrite by tasks.registering(NpxTask::class) {
+val prettierWrite = tasks.register<NpxTask>("prettierWrite") {
     dependsOn(tasks.npmInstall)
     command = "prettier"
     args.addAll(".", "--check")
@@ -37,13 +37,13 @@ tasks.check {
     dependsOn(eslintCheck, prettierCheck)
 }
 
-val eslintFix by tasks.registering(NpxTask::class) {
+val eslintFix = tasks.register<NpxTask>("eslintFix") {
     dependsOn(tasks.npmInstall)
     command = "eslint"
     args.addAll("--fix")
 }
 
-val buildVueDist by tasks.registering(NpmTask::class) {
+val buildVueDist = tasks.register<NpmTask>("buildVueDist") {
     dependsOn(tasks.npmInstall)
     shouldRunAfter(prettierCheck)
     inputs.files(fileTree(node.nodeProjectDir) {
