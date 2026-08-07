@@ -69,6 +69,8 @@ jobs:
         run: |
           pwd
           freebsd-version
+          npm i -g corepack --force
+          corepack enable npm
           ./gradlew \
           -Porg.gradle.java.installations.auto-download=false \
           -Porg.gradle.java.installations.paths=/usr/local/openjdk25 \

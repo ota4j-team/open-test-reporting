@@ -18,6 +18,11 @@ runs:
         node-version-file: html-report/.tool-versions
         cache: npm
         cache-dependency-path: html-report/package-lock.json
+    - name: Enable Corepack
+      shell: bash
+      run: |
+        npm i -g corepack --force
+        corepack enable npm
     - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
     - uses: testlens-app/setup-testlens@d29a2be31512b3aeda3adcef09fbe0d55af90c51 # v1.9.4
     - name: Read Playwright version
