@@ -2,7 +2,7 @@ plugins {
     `java-conventions`
 }
 
-val schemas by configurations.creating {
+val schemas = configurations.create("schemas") {
     isCanBeConsumed = true
     isCanBeResolved = false
     outgoing {

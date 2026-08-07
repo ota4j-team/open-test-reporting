@@ -32,7 +32,7 @@ val playwrightInstallationAction = objects.newInstance(InstallPlaywrightDeps::cl
     classpath.from(configurations.testRuntimeClasspath)
 }
 
-val installPlaywrightDeps by tasks.registering {
+val installPlaywrightDeps = tasks.register("installPlaywrightDeps") {
     doFirst(playwrightInstallationAction)
 }
 
@@ -67,7 +67,7 @@ val htmlReportTemplateFiles = configurations.resolvable("htmlReportTemplateFiles
 
 val generatedResourcesDir = layout.buildDirectory.dir("generated/sources/htmlReportTemplate")
 
-val prepareResourceDir by tasks.registering(Sync::class) {
+val prepareResourceDir = tasks.register<Sync>("prepareResourceDir") {
     from(htmlReportTemplateFiles)
     rename {
         "template.html"

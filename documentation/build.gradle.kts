@@ -2,7 +2,7 @@ plugins {
     id("org.ajoberstar.git-publish") version "6.0.0"
 }
 
-val schemas by configurations.creating {
+val schemas = configurations.create("schemas") {
     isCanBeConsumed = false
     isCanBeResolved = true
 }
