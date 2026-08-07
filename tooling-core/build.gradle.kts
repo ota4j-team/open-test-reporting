@@ -28,11 +28,11 @@ tasks.compileJava {
     options.release = 17
 }
 
-val playwrightInstallationAction = objects.newInstance(InstallPlaywrightDeps::class).apply {
+val playwrightInstallationAction = objects.newInstance(InstallPlaywright::class).apply {
     classpath.from(configurations.testRuntimeClasspath)
 }
 
-val installPlaywrightDeps = tasks.register("installPlaywrightDeps") {
+val installPlaywright = tasks.register("installPlaywright") {
     doFirst(playwrightInstallationAction)
 }
 
@@ -47,17 +47,17 @@ tasks.test {
         listOf("-DsampleXmlReport=${sampleXmlReportFiles.singleFile.absolutePath}")
     })
     if (System.getenv("CI") != null && !isFreeBSD) {
-        doFirst(playwrightInstallationAction)
+        dependsOn(installPlaywright)
     }
 }
 
-abstract class InstallPlaywrightDeps @Inject constructor (private val execOperations: ExecOperations) : Action<Task> {
+abstract class InstallPlaywright @Inject constructor (private val execOperations: ExecOperations) : Action<Task> {
     abstract val classpath: ConfigurableFileCollection
     override fun execute(t: Task) {
         execOperations.javaexec {
-            classpath(this@InstallPlaywrightDeps.classpath)
+            classpath(this@InstallPlaywright.classpath)
             mainClass = "com.microsoft.playwright.CLI"
-            args("install-deps")
+            args("install", "--with-deps")
         }
     }
 }

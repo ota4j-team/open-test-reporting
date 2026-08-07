@@ -36,9 +36,7 @@ runs:
       id: playwright-cache
       with:
         path: ${{ github.workspace }}/.gradle/playwright
-        key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.value }}
-        restore-keys: |
-          ${{ runner.os }}-playwright-
+        key: ${{ runner.os }}-playwright-v2-${{ steps.playwright-version.outputs.value }}
     - shell: bash
       env:
         JAVA_HOME: ${{ steps.setup-gradle-jdk.outputs.path }}
