@@ -8,19 +8,9 @@
     {
       customType: 'regex',
       managerFilePatterns: ['/^html-report/build\\.gradle\\.kts$/'],
-      matchStrings: ['\\n\\s*version = "(?<currentValue>[^"]+)"'],
-      depNameTemplate: 'node',
-      packageNameTemplate: 'node',
-      datasourceTemplate: 'node-version',
-      versioningTemplate: 'node',
-    },
-    {
-      customType: 'regex',
-      managerFilePatterns: ['/^html-report/build\\.gradle\\.kts$/'],
-      matchStrings: ['npmVersion = "(?<currentValue>[^"]+)"'],
-      depNameTemplate: 'npm',
-      packageNameTemplate: 'npm',
-      datasourceTemplate: 'npm',
+      matchStrings: [
+        '// renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+?)(?: versioning=(?<versioning>\\S+))?(?: extractVersion=(?<extractVersion>\\S+))?\\n\\s*\\w+ = "(?<currentValue>[^"]+)"',
+      ],
     },
   ],
   packageRules: [
