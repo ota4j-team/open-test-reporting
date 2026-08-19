@@ -19,6 +19,10 @@ function selectNode(node: TestNodeData | TestExecution) {
   selection.value = new Selection(props.execution, node);
 }
 
+const overallStatus = computed(() =>
+  props.execution.nodeOverallStatus(props.node),
+); 
+
 const parents = computed(() => props.execution.parents(props.node));
 </script>
 
@@ -47,17 +51,18 @@ const parents = computed(() => props.execution.parents(props.node));
       </ul>
     </template>
     <template #below>
+
       <div class="mt-3">
         <div
           class="inline-flex mb-2 border-2 rounded-full px-2 py-1 mr-2"
-          :class="testResultStatusBackgroundColorClasses(node.status)"
+          :class="testResultStatusBackgroundColorClasses(overallStatus)"
         >
-          <TestResultStatusIcon :status="node.status" color="text-white" />
+          <TestResultStatusIcon :status="overallStatus" color="text-white" />
           <span
             class="ml-1 tracking-wide text-sm text-white font-bold self-center"
             role="status"
-            :aria-label="node.status"
-            >{{ node.status }}</span
+            :aria-label="overallStatus"
+           >{{ overallStatus }}</span
           >
         </div>
         <DurationLabel :millis="node.durationMillis" />
