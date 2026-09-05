@@ -32,7 +32,7 @@ junit = ["junit-jupiter", "junit-platform-reporting"]
 
 [plugins]
 bnd = { id = "biz.aQute.bnd.builder", version = "7.4.0" }
-errorProne = { id = "net.ltgt.errorprone", version = "5.1.0" }
+errorProne = { id = "net.ltgt.errorprone", version = "5.1.1" }
 nmcp = { id = "com.gradleup.nmcp", version = "1.6.1" }
 node = { id = "com.github.node-gradle.node", version = "7.1.0" }
 nullaway = { id = "net.ltgt.nullaway", version = "3.1.0" }
