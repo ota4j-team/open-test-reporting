@@ -10,7 +10,7 @@ plugins {
 node {
     download = providers.gradleProperty("openTestReporting.nodeDownload").map { it.toBoolean() }.orElse(true)
     // renovate: datasource=node-version depName=node versioning=node
-    version = "24.20.0"
+    version = "24.21.0"
     // renovate: datasource=npm depName=npm
     npmVersion = "12.0.2"
     npmInstallCommand = providers.environmentVariable("CI").map { "ci" }.orElse("install")
