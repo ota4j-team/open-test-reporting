@@ -125,6 +125,39 @@ export default class TestExecution {
       : TestExecution.STATUSES[0];
   }
 
+  nodeOverallStatus(node: TestNodeData): string {
+    const statuses = this.nodeAndDescendantStatuses(node);
+
+    if (statuses.includes('ERRORED')) {
+      return 'ERRORED';
+    }
+
+    if (statuses.includes('FAILED')) {
+      return 'FAILED';
+    }
+
+    if (statuses.includes('SUCCESSFUL')) {
+      return 'SUCCESSFUL';
+    }
+
+    if (statuses.includes('ABORTED')) {
+      return 'ABORTED';
+    }
+
+    if (statuses.includes('SKIPPED')) {
+      return 'SKIPPED';
+    }
+
+    return node.status;
+  }
+
+  private nodeAndDescendantStatuses(node: TestNodeData): string[] {
+    return [
+      node.status,
+      ...this.children(node).flatMap((child) => this.nodeAndDescendantStatuses(child)),
+    ].filter(Boolean);
+  }
+
   statusCount(): Map<string, number> {
     const result = new Map<string, number>();
     TestExecution.STATUSES.forEach((s) => result.set(s, 0));
