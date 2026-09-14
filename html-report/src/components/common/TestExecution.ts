@@ -128,6 +128,14 @@ export default class TestExecution {
   nodeOverallStatus(node: TestNodeData): string {
     const statuses = this.nodeAndDescendantStatuses(node);
 
+    const leafStatuses = this.leafStatuses(node);
+    if (
+      leafStatuses.length > 0 &&
+      leafStatuses.every((status) => status === "SKIPPED")
+    ) {
+      return "SKIPPED";
+    }
+
     if (statuses.includes('ERRORED')) {
       return 'ERRORED';
     }
@@ -156,6 +164,15 @@ export default class TestExecution {
       node.status,
       ...this.children(node).flatMap((child) => this.nodeAndDescendantStatuses(child)),
     ].filter(Boolean);
+  }
+
+  private leafStatuses(node: TestNodeData): string[] {
+    const children = this.children(node);
+    return children.length > 0
+      ? children.flatMap((child) => this.leafStatuses(child))
+      : node.status
+        ? [node.status]
+        : [];
   }
 
   statusCount(): Map<string, number> {

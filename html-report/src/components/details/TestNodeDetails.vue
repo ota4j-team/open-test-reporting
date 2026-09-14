@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, inject } from "vue";
 import TestResultStatusIcon from "../common/TestResultStatusIcon.vue";
 import { ChevronRight } from "@lucide/vue";
 import TestExecution from "../common/TestExecution.ts";
@@ -10,17 +10,21 @@ import DetailsHeader from "./DetailsHeader.vue";
 import Selection from "../common/Selection.ts";
 import ExecutionIcon from "../common/ExecutionIcon.vue";
 import { defaultIconProps } from "../common/icon.ts";
+import { treeStateKey } from "../sidebar/TreeState.ts";
 /* global TestNodeData */
 
 const selection = defineModel<Selection | undefined>("selection");
 const props = defineProps<{ node: TestNodeData; execution: TestExecution }>();
+const treeState = inject(treeStateKey)!;
 
 function selectNode(node: TestNodeData | TestExecution) {
   selection.value = new Selection(props.execution, node);
 }
 
 const overallStatus = computed(() =>
-  props.execution.nodeOverallStatus(props.node),
+  treeState.aggregateNodeStatuses
+    ? props.execution.nodeOverallStatus(props.node)
+    : props.node.status,
 ); 
 
 const parents = computed(() => props.execution.parents(props.node));
