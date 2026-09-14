@@ -1,3 +1,5 @@
+import nmcp.NmcpAggregationExtension
+
 plugins {
     id("com.gradle.develocity") version "4.4.3"
     id("com.gradle.common-custom-user-data-gradle-plugin") version "2.6.0"
@@ -47,6 +49,21 @@ nmcpSettings {
         username = providers.gradleProperty("mavenCentralUsername")
         password = providers.gradleProperty("mavenCentralPassword")
         publishingType = providers.gradleProperty("mavenCentralPublishingType").orElse("USER_MANAGED")
+    }
+}
+
+gradle.lifecycle.afterProject {
+    if (project == rootProject) {
+        the<NmcpAggregationExtension>().apply {
+            publishAllChecksums = true
+        }
+        tasks.named<Zip>("nmcpZipAggregation") {
+            eachFile {
+                if (name.contains(".asc.")) {
+                    exclude()
+                }
+            }
+        }
     }
 }
 

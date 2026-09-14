@@ -4,6 +4,7 @@ plugins {
 
 val htmlReportTemplate = configurations.dependencyScope("htmlReportTemplate")
 val sampleXmlReport = configurations.dependencyScope("sampleXmlReport")
+val isFreeBSD = System.getProperty("os.name").contains("FreeBSD", ignoreCase = true)
 
 dependencies {
     api(projects.schema)
@@ -43,7 +44,7 @@ tasks.test {
     jvmArgumentProviders.add(CommandLineArgumentProvider {
         listOf("-DsampleXmlReport=${sampleXmlReportFiles.get().singleFile.absolutePath}")
     })
-    if (System.getenv("CI") != null) {
+    if (System.getenv("CI") != null && !isFreeBSD) {
         doFirst(playwrightInstallationAction)
     }
 }
