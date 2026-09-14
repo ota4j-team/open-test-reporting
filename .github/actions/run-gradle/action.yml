@@ -8,17 +8,23 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
+    - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
       id: setup-gradle-jdk
       with:
         distribution: temurin
         java-version: 25
-    - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+    - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
       with:
         node-version-file: html-report/.tool-versions
         cache: npm
         cache-dependency-path: html-report/package-lock.json
-    - uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
+    - name: Enable Corepack
+      shell: bash
+      run: |
+        npm i -g corepack --force
+        corepack enable npm
+    - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+    - uses: testlens-app/setup-testlens@d29a2be31512b3aeda3adcef09fbe0d55af90c51 # v1.9.4
     - name: Read Playwright version
       uses: SebRollen/toml-action@b1b3628f55fc3a28208d4203ada8b737e9687876 # v1.2.0
       id: playwright-version
@@ -30,16 +36,14 @@ runs:
       id: playwright-cache
       with:
         path: ${{ github.workspace }}/.gradle/playwright
-        key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.value }}
-        restore-keys: |
-          ${{ runner.os }}-playwright-
+        key: ${{ runner.os }}-playwright-v2-${{ steps.playwright-version.outputs.value }}
     - shell: bash
       env:
         JAVA_HOME: ${{ steps.setup-gradle-jdk.outputs.path }}
         PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.gradle/playwright
       run: |
         ./gradlew \
-        -Porg.gradle.java.installations.auto-download=false \
+        -Dorg.gradle.java.installations.auto-download=false \
         -PopenTestReporting.nodeDownload=false \
         --refresh-dependencies \
         javaToolchains \

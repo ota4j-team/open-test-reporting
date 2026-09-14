@@ -2,7 +2,7 @@ plugins {
     `java-conventions`
 }
 
-val schemas by configurations.creating {
+val schemas = configurations.create("schemas") {
     isCanBeConsumed = true
     isCanBeResolved = false
     outgoing {
@@ -12,5 +12,6 @@ val schemas by configurations.creating {
 
 dependencies {
     compileOnlyApi(libs.apiguardian)
+    compileOnlyApi(libs.jspecify)
     testImplementation(libs.bundles.junit)
 }

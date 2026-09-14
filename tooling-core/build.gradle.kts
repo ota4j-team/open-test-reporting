@@ -12,6 +12,7 @@ dependencies {
     implementation(projects.toolingSpi)
     implementation(libs.gson)
     compileOnlyApi(libs.apiguardian)
+    compileOnlyApi(libs.jspecify)
 
     testImplementation(libs.assertj.core)
     testImplementation(libs.bundles.junit)
@@ -27,11 +28,11 @@ tasks.compileJava {
     options.release = 17
 }
 
-val playwrightInstallationAction = objects.newInstance(InstallPlaywrightDeps::class).apply {
+val playwrightInstallationAction = objects.newInstance(InstallPlaywright::class).apply {
     classpath.from(configurations.testRuntimeClasspath)
 }
 
-val installPlaywrightDeps by tasks.registering {
+val installPlaywright = tasks.register("installPlaywright") {
     doFirst(playwrightInstallationAction)
 }
 
@@ -40,22 +41,23 @@ val sampleXmlReportFiles = configurations.resolvable("sampleXmlReportFiles") {
 }
 
 tasks.test {
+    val sampleXmlReportFiles = files(sampleXmlReportFiles)
     inputs.files(sampleXmlReportFiles).withPathSensitivity(PathSensitivity.NONE)
     jvmArgumentProviders.add(CommandLineArgumentProvider {
-        listOf("-DsampleXmlReport=${sampleXmlReportFiles.get().singleFile.absolutePath}")
+        listOf("-DsampleXmlReport=${sampleXmlReportFiles.singleFile.absolutePath}")
     })
     if (System.getenv("CI") != null && !isFreeBSD) {
-        doFirst(playwrightInstallationAction)
+        dependsOn(installPlaywright)
     }
 }
 
-abstract class InstallPlaywrightDeps @Inject constructor (private val execOperations: ExecOperations) : Action<Task> {
+abstract class InstallPlaywright @Inject constructor (private val execOperations: ExecOperations) : Action<Task> {
     abstract val classpath: ConfigurableFileCollection
     override fun execute(t: Task) {
         execOperations.javaexec {
-            classpath(this@InstallPlaywrightDeps.classpath)
+            classpath(this@InstallPlaywright.classpath)
             mainClass = "com.microsoft.playwright.CLI"
-            args("install-deps")
+            args("install", "--with-deps")
         }
     }
 }
@@ -66,7 +68,7 @@ val htmlReportTemplateFiles = configurations.resolvable("htmlReportTemplateFiles
 
 val generatedResourcesDir = layout.buildDirectory.dir("generated/sources/htmlReportTemplate")
 
-val prepareResourceDir by tasks.registering(Sync::class) {
+val prepareResourceDir = tasks.register<Sync>("prepareResourceDir") {
     from(htmlReportTemplateFiles)
     rename {
         "template.html"

@@ -1,9 +1,9 @@
 import nmcp.NmcpAggregationExtension
 
 plugins {
-    id("com.gradle.develocity") version "4.4.3"
-    id("com.gradle.common-custom-user-data-gradle-plugin") version "2.6.0"
-    id("com.gradleup.nmcp.settings") version "1.6.0"
+    id("com.gradle.develocity") version "4.5.1"
+    id("com.gradle.common-custom-user-data-gradle-plugin") version "2.8.0"
+    id("com.gradleup.nmcp.settings") version "1.6.2"
 }
 
 rootProject.name = "open-test-reporting"
@@ -18,7 +18,7 @@ val isCiServer = System.getenv("CI") != null
 
 develocity {
     buildScan {
-        server = "https://ge.junit.org"
+        server = "https://develocity.junit.org"
         uploadInBackground = !isCiServer
 
         obfuscation {
@@ -76,4 +76,7 @@ include("schema")
 include("tooling-core")
 include("tooling-spi")
 
+enableFeaturePreview("ENHANCED_GRAPH_ORDERING")
+enableFeaturePreview("NO_IMPLICIT_LOOKUP_IN_PARENT_PROJECTS")
+enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

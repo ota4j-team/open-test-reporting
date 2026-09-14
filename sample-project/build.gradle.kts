@@ -6,10 +6,10 @@ plugins {
     `java-basics`
 }
 
-val cli by configurations.dependencyScope("cli")
-val cliClasspath by configurations.resolvable("cliClasspath") {
+val cli = configurations.dependencyScope("cli").get()
+val cliClasspath = configurations.resolvable("cliClasspath") {
     extendsFrom(cli)
-}
+}.get()
 
 dependencies {
     testImplementation(libs.junit.jupiter)
@@ -29,8 +29,6 @@ configurations.all {
     }
 }
 
-val htmlReportFile = tasks.test.flatMap { it.reports.junitXml.outputLocation.file("open-test-report.html") }
-
 tasks {
     compileTestJava {
         options.release = 17
@@ -39,8 +37,10 @@ tasks {
 
     val eventXmlFile =
         test.map { it.reports.junitXml.outputLocation.get().file("open-test-report.xml") }
+    val htmlReportFile =
+        test.map { it.reports.junitXml.outputLocation.get().file("open-test-report.html") }
 
-    val convertTestResultXmlToHierarchicalFormat by registering(JavaExec::class) {
+    val convertTestResultXmlToHierarchicalFormat = register<JavaExec>("convertTestResultXmlToHierarchicalFormat") {
         mainModule = "org.opentest4j.reporting.cli"
         modularity.inferModulePath = true
         args("convert")
@@ -53,7 +53,7 @@ tasks {
         outputs.cacheIf { true }
     }
 
-    val validateTestResultXml by registering(JavaExec::class) {
+    val validateTestResultXml = register<JavaExec>("validateTestResultXml") {
         mainModule = "org.opentest4j.reporting.cli"
         modularity.inferModulePath = true
         args("validate")
@@ -64,7 +64,7 @@ tasks {
         }
     }
 
-    val generateHtmlReport by registering(JavaExec::class) {
+    val generateHtmlReport = register<JavaExec>("generateHtmlReport") {
         mainModule = "org.opentest4j.reporting.cli"
         modularity.inferModulePath = true
         args("html-report")
@@ -91,6 +91,7 @@ tasks {
         useJUnitPlatform()
 
         ignoreFailures = true
+        environment = environment.filterKeys { it != "TESTLENS_PROJECT_ID" }
 
         jvmArgumentProviders += CommandLineArgumentProvider {
             listOf(
@@ -102,11 +103,11 @@ tasks {
         }
 
         doFirst {
-            files(reports.junitXml.outputLocation.get().asFileTree.matching {
+            reports.junitXml.outputLocation.get().asFileTree.matching {
                 include("open-test-report.xml")
                 include("open-test-report.html")
                 include("hierarchy.xml")
-            }).files.forEach {
+            }.files.forEach {
                 Files.delete(it.toPath())
             }
         }

@@ -13,13 +13,13 @@ base {
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(25))
     withSourcesJar()
     withJavadocJar()
 }
 
 spotless {
-    val spotlessDir = rootProject.file("gradle/spotless")
+    val spotlessDir = rootDir.resolve("gradle/spotless")
     val licenseHeaderFile = File(spotlessDir, "apache-license-2.0.java")
     val javaFormatterConfigFile = File(spotlessDir, "eclipse-formatter-settings.xml")
 
@@ -51,7 +51,7 @@ fun Project.dependencyFromLibs(name: String) =
 private val Project.libsVersionCatalog: VersionCatalog
     get() = the<VersionCatalogsExtension>().named("libs")
 
-val cli by configurations.creating {
+val cli = configurations.create("cli") {
     isCanBeResolved = true
     isCanBeConsumed = false
 }
@@ -84,7 +84,7 @@ tasks {
         options.release.convention(17)
     }
     val moduleName = "org.opentest4j.reporting.${project.name.replace('-', '.')}"
-    val compileModule by registering(JavaCompile::class) {
+    val compileModule = register<JavaCompile>("compileModule") {
         val moduleSrcDir = file("src/module/java")
         source(moduleSrcDir)
         destinationDirectory.set(layout.buildDirectory.dir("classes/java/modules"))
@@ -117,7 +117,7 @@ tasks {
             properties.empty() // see https://github.com/bndtools/bnd/tree/master/gradle-plugins#gradle-configuration-cache-support
             bnd(
                 "-exportcontents: org.opentest4j.reporting.*",
-                "Import-Package: org.apiguardian.*;resolution:=\"optional\",*",
+                "Import-Package: org.apiguardian.*;resolution:=\"optional\",org.jspecify.*;resolution:=\"optional\",*",
             )
         }
     }
@@ -134,32 +134,34 @@ tasks {
         }
     }
 
-    val eventXmlFiles =
-        files(test.map { it.reports.junitXml.outputLocation.get().asFileTree.matching { include("open-test-report.xml") } })
+    val eventXmlFile =
+        test.map { it.reports.junitXml.outputLocation.get().file("open-test-report.xml") }
+    val htmlReportFile =
+        test.map { it.reports.junitXml.outputLocation.get().file("open-test-report.html") }
 
-    val convertTestResultXmlToHierarchicalFormat by registering(JavaExec::class) {
+    val convertTestResultXmlToHierarchicalFormat = register<JavaExec>("convertTestResultXmlToHierarchicalFormat") {
         mustRunAfter(test)
         mainClass.set("org.opentest4j.reporting.cli.ReportingCli")
         args("convert")
         classpath(cli)
-        inputs.files(eventXmlFiles).withPathSensitivity(NONE).skipWhenEmpty()
+        inputs.files(eventXmlFile).withPathSensitivity(NONE).skipWhenEmpty()
         argumentProviders += CommandLineArgumentProvider {
-            listOf(eventXmlFiles.singleFile.absolutePath)
+            listOf(eventXmlFile.get().asFile.absolutePath)
         }
-        outputs.files(provider { eventXmlFiles.firstOrNull()?.resolveSibling("hierarchy.xml") })
+        outputs.files(eventXmlFile.map { it.asFile.resolveSibling("hierarchy.xml") })
         outputs.cacheIf { true }
     }
 
-    val generateHtmlReport by registering(JavaExec::class) {
+    val generateHtmlReport = register<JavaExec>("generateHtmlReport") {
         mustRunAfter(test)
         mainClass.set("org.opentest4j.reporting.cli.ReportingCli")
         args("html-report")
         classpath(cli)
-        inputs.files(eventXmlFiles).withPathSensitivity(NONE).skipWhenEmpty()
+        inputs.files(eventXmlFile).withPathSensitivity(NONE).skipWhenEmpty()
         argumentProviders += CommandLineArgumentProvider {
-            listOf(eventXmlFiles.singleFile.absolutePath)
+            listOf(eventXmlFile.get().asFile.absolutePath)
         }
-        outputs.files(provider { eventXmlFiles.firstOrNull()?.let { xmlFile -> xmlFile.resolveSibling(xmlFile.nameWithoutExtension + ".html") } })
+        outputs.files(htmlReportFile)
         outputs.cacheIf { true }
     }
 
@@ -179,11 +181,11 @@ tasks {
         }
 
         doFirst {
-            files(reports.junitXml.outputLocation.get().asFileTree.matching {
+            reports.junitXml.outputLocation.get().asFileTree.matching {
                 include("open-test-report.xml")
                 include("open-test-report.html")
                 include("hierarchy.xml")
-            }).files.forEach {
+            }.files.forEach {
                 Files.delete(it.toPath())
             }
         }

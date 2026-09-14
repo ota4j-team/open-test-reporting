@@ -5,49 +5,49 @@ import java.util.*
 plugins {
     base
     alias(libs.plugins.node)
-    id("com.diffplug.spotless")
 }
 
 node {
     download = providers.gradleProperty("openTestReporting.nodeDownload").map { it.toBoolean() }.orElse(true)
-    version = providers.fileContents(layout.projectDirectory.file(".tool-versions")).asText.map {
-        it.substringAfter("nodejs").trim()
-    }
+    // renovate: datasource=node-version depName=node versioning=node
+    version = "24.21.0"
+    // renovate: datasource=npm depName=npm
+    npmVersion = "12.0.2"
     npmInstallCommand = providers.environmentVariable("CI").map { "ci" }.orElse("install")
 }
 
 val distIncludes = arrayOf("public/**", "src/**", "*.html", "*.js", "*.json", "*.ts")
 
-spotless {
-    format("prettier") {
-        target(*distIncludes)
-        prettier(readVersionFromPackageJson("prettier")).apply {
-            if (node.download.get()) {
-                val npmExec = if (System.getProperty("os.name").lowercase(Locale.ROOT).contains("windows")) "/npm.cmd" else "/bin/npm"
-                npmExecutable("${tasks.npmSetup.get().npmDir.get()}${npmExec}")
-            }
-        }
-    }
-}
-
-val eslintCheck by tasks.registering(NpxTask::class) {
+val eslintCheck = tasks.register<NpxTask>("eslintCheck") {
     dependsOn(tasks.npmInstall)
     command = "eslint"
 }
 
-tasks.check {
-    dependsOn(eslintCheck)
+val prettierCheck = tasks.register<NpxTask>("prettierCheck") {
+    dependsOn(tasks.npmInstall)
+    command = "prettier"
+    args.addAll(".", "--check")
 }
 
-val eslintFix by tasks.registering(NpxTask::class) {
+val prettierWrite = tasks.register<NpxTask>("prettierWrite") {
+    dependsOn(tasks.npmInstall)
+    command = "prettier"
+    args.addAll(".", "--check")
+}
+
+tasks.check {
+    dependsOn(eslintCheck, prettierCheck)
+}
+
+val eslintFix = tasks.register<NpxTask>("eslintFix") {
     dependsOn(tasks.npmInstall)
     command = "eslint"
     args.addAll("--fix")
 }
 
-val buildVueDist by tasks.registering(NpmTask::class) {
+val buildVueDist = tasks.register<NpmTask>("buildVueDist") {
     dependsOn(tasks.npmInstall)
-    shouldRunAfter("spotlessPrettierCheck")
+    shouldRunAfter(prettierCheck)
     inputs.files(fileTree(node.nodeProjectDir) {
         include(*distIncludes)
         exclude("public/init.js")
@@ -55,10 +55,6 @@ val buildVueDist by tasks.registering(NpmTask::class) {
     outputs.file(node.nodeProjectDir.file("dist/index.html"))
     outputs.cacheIf { true }
     npmCommand.addAll("run", "build")
-}
-
-tasks.named("spotlessPrettier") {
-    dependsOn(tasks.npmInstall)
 }
 
 configurations.consumable("htmlReportTemplate") {
@@ -69,7 +65,3 @@ configurations.consumable("htmlReportTemplate") {
         attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE, objects.named(LibraryElements.RESOURCES))
     }
 }
-
-fun readVersionFromPackageJson(packageName: String) = resources.text.fromFile("package.json").asReader().useLines { lines ->
-        lines.first { it.contains("\"${packageName}\":") }
-    }.substringAfter("\"${packageName}\": \"").substringBefore("\"")

@@ -17,6 +17,7 @@ val saxonRuntimeClasspath = configurations.resolvable("saxonRuntimeClasspath") {
 dependencies {
     api(projects.schema)
     compileOnlyApi(libs.apiguardian)
+    compileOnlyApi(libs.jspecify)
     testImplementation(libs.archunit)
     testImplementation(libs.assertj.core)
     testImplementation(libs.bundles.junit)
@@ -27,14 +28,14 @@ dependencies {
 }
 
 tasks {
-    val testWoodstox by registering(Test::class) {
-        val test by testing.suites.existing(JvmTestSuite::class)
+    val testWoodstox = register<Test>("testWoodstox") {
+        val test = testing.suites.named<JvmTestSuite>("test")
         testClassesDirs = files(test.map { it.sources.output.classesDirs })
         classpath = files(sourceSets.main.map { it.output }) + files(test.map { it.sources.output }) + woodstoxRuntimeClasspath.get()
         group = JavaBasePlugin.VERIFICATION_GROUP
     }
-    val testSaxon by registering(Test::class) {
-        val test by testing.suites.existing(JvmTestSuite::class)
+    val testSaxon = register<Test>("testSaxon") {
+        val test = testing.suites.named<JvmTestSuite>("test")
         testClassesDirs = files(test.map { it.sources.output.classesDirs })
         classpath = files(sourceSets.main.map { it.output }) + files(test.map { it.sources.output }) + saxonRuntimeClasspath.get()
         group = JavaBasePlugin.VERIFICATION_GROUP

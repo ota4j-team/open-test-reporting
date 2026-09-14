@@ -82,8 +82,8 @@ export default class TestExecution {
   }
 
   nodesWithChildren(): TestNodeData[] {
-    return Array.from(this.childrenMetadata.keys()).map(
-      (id) => this.testNodes.get(id)!,
+    return Array.from(this.childrenMetadata.keys()).map((id) =>
+      this.testNodes.get(id)!,
     );
   }
 
