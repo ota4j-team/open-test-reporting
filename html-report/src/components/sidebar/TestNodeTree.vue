@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import { inject } from "vue";
 import TestExecution from "../common/TestExecution.ts";
 import TestResultStatusIcon from "../common/TestResultStatusIcon.vue";
 import TreeNode from "./TreeNode.vue";
 import Selection from "../common/Selection.ts";
+import { treeStateKey } from "./TreeState.ts";
 /* global TestNodeData */
 
 const selection = defineModel<Selection | undefined>("selection");
+const treeState = inject(treeStateKey)!;
 defineProps<{ execution: TestExecution; roots: TestNodeData[] }>();
 </script>
 
@@ -20,7 +23,11 @@ defineProps<{ execution: TestExecution; roots: TestNodeData[] }>();
       >
         <template #icon="iconProps">
           <TestResultStatusIcon
-            :status="(node as TestNodeData).status"
+            :status="
+              treeState.aggregateNodeStatuses
+                ? execution.nodeOverallStatus(node as TestNodeData)
+                : (node as TestNodeData).status
+            "
             v-bind="iconProps"
           />
         </template>
