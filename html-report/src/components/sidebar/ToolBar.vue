@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ChevronsDownUp, ChevronsUpDown } from "@lucide/vue";
+import { ChevronsDownUp, ChevronsUpDown, GitBranch } from "@lucide/vue";
 import ToolBarIcon from "./ToolBarIcon.vue";
 import TestResultStatusIcon from "../common/TestResultStatusIcon.vue";
 import { defaultIconProps } from "../common/icon.ts";
@@ -14,6 +14,17 @@ const treeState = inject(treeStateKey)!;
     class="bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border-b border-neutral-200 dark:border-neutral-700 flex flex-row px-1.5 py-2"
   >
     <div class="flex flex-row flex-1">
+      <div
+        class="flex flex-row border-r border-neutral-200 dark:border-neutral-700 pr-1 mr-1"
+      >
+        <ToolBarIcon
+          :selected="treeState.aggregateNodeStatuses"
+          :title="$t('toolbar.aggregateNodeStatuses')"
+          @click="treeState.toggleAggregateNodeStatuses()"
+        >
+          <GitBranch v-bind="defaultIconProps" />
+        </ToolBarIcon>
+      </div>
       <ToolBarIcon
         :selected="treeState.showSuccessful"
         :title="$t('toolbar.showSuccessful')"
