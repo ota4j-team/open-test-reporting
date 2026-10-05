@@ -30,7 +30,7 @@
     "typescript-eslint": "8.71.0",
     "vite": "8.3.2",
     "vite-plugin-singlefile": "2.3.3",
-    "vue-tsc": "3.3.11"
+    "vue-tsc": "3.3.12"
   },
   "packageManager": "npm@12.2.0",
   "engines": {
