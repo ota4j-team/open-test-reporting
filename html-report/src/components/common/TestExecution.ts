@@ -125,6 +125,56 @@ export default class TestExecution {
       : TestExecution.STATUSES[0];
   }
 
+  nodeOverallStatus(node: TestNodeData): string {
+    const statuses = this.nodeAndDescendantStatuses(node);
+
+    const leafStatuses = this.leafStatuses(node);
+    if (
+      leafStatuses.length > 0 &&
+      leafStatuses.every((status) => status === "SKIPPED")
+    ) {
+      return "SKIPPED";
+    }
+
+    if (statuses.includes('ERRORED')) {
+      return 'ERRORED';
+    }
+
+    if (statuses.includes('FAILED')) {
+      return 'FAILED';
+    }
+
+    if (statuses.includes('SUCCESSFUL')) {
+      return 'SUCCESSFUL';
+    }
+
+    if (statuses.includes('ABORTED')) {
+      return 'ABORTED';
+    }
+
+    if (statuses.includes('SKIPPED')) {
+      return 'SKIPPED';
+    }
+
+    return node.status;
+  }
+
+  private nodeAndDescendantStatuses(node: TestNodeData): string[] {
+    return [
+      node.status,
+      ...this.children(node).flatMap((child) => this.nodeAndDescendantStatuses(child)),
+    ].filter(Boolean);
+  }
+
+  private leafStatuses(node: TestNodeData): string[] {
+    const children = this.children(node);
+    return children.length > 0
+      ? children.flatMap((child) => this.leafStatuses(child))
+      : node.status
+        ? [node.status]
+        : [];
+  }
+
   statusCount(): Map<string, number> {
     const result = new Map<string, number>();
     TestExecution.STATUSES.forEach((s) => result.set(s, 0));
