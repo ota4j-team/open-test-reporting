@@ -34,6 +34,7 @@ app.use(
         toolbar: {
           collapseAll: "Collapse all",
           expandAll: "Expand all",
+          aggregateNodeStatuses: "Aggregate child statuses",
           showAborted: "Show aborted",
           showFailedAndErrored: "Show failed/errored",
           showSkipped: "Show skipped",
