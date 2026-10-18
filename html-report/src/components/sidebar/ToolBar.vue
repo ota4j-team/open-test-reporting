@@ -22,7 +22,7 @@ const treeState = inject(treeStateKey)!;
           :title="$t('toolbar.aggregateNodeStatuses')"
           @click="treeState.toggleAggregateNodeStatuses()"
         >
-          <GitBranch v-bind="defaultIconProps" />
+          <SquaresUnite v-bind="defaultIconProps" />
         </ToolBarIcon>
       </div>
       <ToolBarIcon
