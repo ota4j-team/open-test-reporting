@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ChevronsDownUp, ChevronsUpDown, GitBranch } from "@lucide/vue";
+import { ChevronsDownUp, ChevronsUpDown, SquaresUnite } from "@lucide/vue";
 import ToolBarIcon from "./ToolBarIcon.vue";
 import TestResultStatusIcon from "../common/TestResultStatusIcon.vue";
 import { defaultIconProps } from "../common/icon.ts";
