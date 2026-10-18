@@ -126,53 +126,18 @@ export default class TestExecution {
   }
 
   nodeOverallStatus(node: TestNodeData): string {
-    const statuses = this.nodeAndDescendantStatuses(node);
-
-    const leafStatuses = this.leafStatuses(node);
-    if (
-      leafStatuses.length > 0 &&
-      leafStatuses.every((status) => status === "SKIPPED")
-    ) {
-      return "SKIPPED";
-    }
-
-    if (statuses.includes('ERRORED')) {
-      return 'ERRORED';
-    }
-
-    if (statuses.includes('FAILED')) {
-      return 'FAILED';
-    }
-
-    if (statuses.includes('SUCCESSFUL')) {
-      return 'SUCCESSFUL';
-    }
-
-    if (statuses.includes('ABORTED')) {
-      return 'ABORTED';
-    }
-
-    if (statuses.includes('SKIPPED')) {
-      return 'SKIPPED';
-    }
-
-    return node.status;
-  }
-
-  private nodeAndDescendantStatuses(node: TestNodeData): string[] {
-    return [
-      node.status,
-      ...this.children(node).flatMap((child) => this.nodeAndDescendantStatuses(child)),
-    ].filter(Boolean);
-  }
-
-  private leafStatuses(node: TestNodeData): string[] {
-    const children = this.children(node);
-    return children.length > 0
-      ? children.flatMap((child) => this.leafStatuses(child))
-      : node.status
-        ? [node.status]
-        : [];
+	const children = this.children(node);
+	if (children.length === 0) {
+	  return node.status;
+	}
+	const statuses = children.map((child) => this.nodeOverallStatus(child));
+	// a container's own SUCCESSFUL is ignored so all-skipped children show as SKIPPED
+	if (node.status && node.status !== "SUCCESSFUL") {
+	  statuses.push(node.status);
+	}
+	return TestExecution.STATUSES[
+	  Math.max(...statuses.map((s) => TestExecution.STATUSES.indexOf(s)))
+	];
   }
 
   statusCount(): Map<string, number> {
