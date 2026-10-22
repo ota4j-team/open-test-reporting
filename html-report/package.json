@@ -32,7 +32,7 @@
     "vite-plugin-singlefile": "2.3.4",
     "vue-tsc": "3.3.13"
   },
-  "packageManager": "npm@12.2.0",
+  "packageManager": "npm@12.2.1",
   "engines": {
     "npm": ">=12"
   }

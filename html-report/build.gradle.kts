@@ -12,7 +12,7 @@ node {
     // renovate: datasource=node-version depName=node versioning=node
     version = "24.22.1"
     // renovate: datasource=npm depName=npm
-    npmVersion = "12.2.0"
+    npmVersion = "12.2.1"
     npmInstallCommand = providers.environmentVariable("CI").map { "ci" }.orElse("install")
 }
 
