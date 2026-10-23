@@ -32,7 +32,7 @@ val prettierCheck = tasks.register<NpxTask>("prettierCheck") {
 val prettierWrite = tasks.register<NpxTask>("prettierWrite") {
     dependsOn(tasks.npmInstall)
     command = "prettier"
-    args.addAll(".", "--check")
+    args.addAll(".", "--write")
 }
 
 tasks.check {
